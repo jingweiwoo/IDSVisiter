@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/27/trunk/trunk/thirdparties/PSTaskDialog
+END
+PSTaskDialog.snk
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/PSTaskDialog.snk
+END
+green_arrow2.png
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/green_arrow2.png
+END
+VistaTaskDialogNotificationArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/VistaTaskDialogNotificationArgs.cs
+END
+PSTaskDialog.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/PSTaskDialog.csproj
+END
+VistaTaskDialogCommonDialog.cs
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/VistaTaskDialogCommonDialog.cs
+END
+VistaUnsafeNativeMethods.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/VistaUnsafeNativeMethods.cs
+END
+VistaActiveTaskDialog.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/VistaActiveTaskDialog.cs
+END
+cTaskDialog.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/27/trunk/trunk/thirdparties/PSTaskDialog/cTaskDialog.cs
+END
+frmTaskDialog.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/frmTaskDialog.designer.cs
+END
+frmTaskDialog.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/frmTaskDialog.cs
+END
+VistaTaskDialog.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/VistaTaskDialog.cs
+END
+frmTaskDialog.resx
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/frmTaskDialog.resx
+END
+CommandButton.Designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/CommandButton.Designer.cs
+END
+CommandButton.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/CommandButton.cs
+END
+green_arrow1.png
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/21/trunk/trunk/thirdparties/PSTaskDialog/green_arrow1.png
+END

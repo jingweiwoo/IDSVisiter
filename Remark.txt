@@ -1,0 +1,4 @@
+// 2009-06-19
+
+主程序AppStart和EQA.Data, AppConfig, AppService交互
+EQA.Drawing 与EQA.Data无关, 由AppStart控制间接与EQA.Data交互

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/27/trunk/trunk/thirdparties/Office2007Renderer
+END
+Office2007Renderer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/21/trunk/trunk/thirdparties/Office2007Renderer/Office2007Renderer.cs
+END
+Office2007ColorTable.cs
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/21/trunk/trunk/thirdparties/Office2007Renderer/Office2007ColorTable.cs
+END
+office2007renderer.snk
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/21/trunk/trunk/thirdparties/Office2007Renderer/office2007renderer.snk
+END
+Office2007Renderer.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/21/trunk/trunk/thirdparties/Office2007Renderer/Office2007Renderer.csproj
+END
+Office2007Helpers.cs
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/21/trunk/trunk/thirdparties/Office2007Renderer/Office2007Helpers.cs
+END

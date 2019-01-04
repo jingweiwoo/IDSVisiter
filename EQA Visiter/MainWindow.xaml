@@ -1,0 +1,9 @@
+﻿<Window x:Class="Visiter.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Window1" Height="446" Width="670" WindowStartupLocation="CenterScreen">
+    <DockPanel Height="408" Name="dockPanel1" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Menu Height="22" Name="menu1" Width="Auto" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" />
+        <>
+    </DockPanel>
+</Window>
