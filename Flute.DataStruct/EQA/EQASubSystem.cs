@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Flute.DataStruct.EQA
 {
-    public class SubSystem
+    public class EQASubSystem
     {
         #region .成员属性.
 
@@ -18,11 +18,11 @@ namespace Flute.DataStruct.EQA
         /// </summary>
         public string Name { get; set; }
 
-        private LoopCollection _loops = null;
-        public LoopCollection Loops { get { return _loops; } set { _loops = value; } }
+        private EQALoopCollection _loops = null;
+        public EQALoopCollection Loops { get { return _loops; } set { _loops = value; } }
 
-        private CableCollection _cables = null;
-        public CableCollection Cables { get { return _cables; } set { _cables = value; } }
+        private EQACableCollection _cables = null;
+        public EQACableCollection Cables { get { return _cables; } set { _cables = value; } }
 
         #endregion // 成员属性
 
@@ -36,9 +36,9 @@ namespace Flute.DataStruct.EQA
                 Int32 equipmentsCount = 0;
                 lock (this) {
                     if (Loops != null && Loops.Count > 0) {
-                        foreach (Loop loop in Loops) {
+                        foreach (EQALoop loop in Loops) {
                             if (loop.Equipments != null) {
-                                foreach (Equipment eqp in loop.Equipments) {
+                                foreach (EQAEquipment eqp in loop.Equipments) {
                                     equipmentsCount += eqp.IsEquipment ? 1 : 0;
                                 }
                             }
@@ -63,12 +63,12 @@ namespace Flute.DataStruct.EQA
             }
         }
 
-        public SubSystem()
+        public EQASubSystem()
         {
             SubSystemID = "";
             Name = "";
-            _loops = new LoopCollection();
-            _cables = new CableCollection();
+            _loops = new EQALoopCollection();
+            _cables = new EQACableCollection();
         }
 
         #region .Copy.
@@ -77,9 +77,9 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public SubSystem Copy()
+        public EQASubSystem Copy()
         {
-            SubSystem subSystem = MemberwiseClone() as SubSystem;
+            EQASubSystem subSystem = MemberwiseClone() as EQASubSystem;
             subSystem.Loops = this.Loops.Copy();
 
             return subSystem;
@@ -88,22 +88,22 @@ namespace Flute.DataStruct.EQA
         #endregion // Copy
     }
 
-    public class SubSystemCollectin : List<SubSystem>
+    public class EQASubSystemCollectin : List<EQASubSystem>
     {
-        public SubSystemCollectin()
+        public EQASubSystemCollectin()
         {
         }
 
         #region .Key Index.
 
-        public SubSystem this[string subSystemID]
+        public EQASubSystem this[string subSystemID]
         {
             get
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
                         if (this[i].SubSystemID == subSystemID)
-                            return (SubSystem)this[i];
+                            return (EQASubSystem)this[i];
                     }
                     return null;
                 } else
@@ -131,14 +131,14 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public SubSystemCollectin Copy()
+        public EQASubSystemCollectin Copy()
         {
-            SubSystemCollectin subSystems = new SubSystemCollectin();
+            EQASubSystemCollectin subSystems = new EQASubSystemCollectin();
 
             if (this.Count <= 0)
                 return subSystems;
             else {
-                foreach (SubSystem subSystem in this)
+                foreach (EQASubSystem subSystem in this)
                     subSystems.Add(subSystem.Copy());
                 return subSystems;
             }
@@ -148,7 +148,7 @@ namespace Flute.DataStruct.EQA
 
         #region .Comparer.
 
-        public static int Comparer(SubSystem x, SubSystem y)
+        public static int Comparer(EQASubSystem x, EQASubSystem y)
         {
             if (x.SubSystemID == null) {
                 if (y.SubSystemID == null) {
@@ -179,9 +179,9 @@ namespace Flute.DataStruct.EQA
 
         public void Sort()
         {
-            base.Sort(SubSystemCollectin.Comparer);
+            base.Sort(EQASubSystemCollectin.Comparer);
 
-            foreach (SubSystem subSystem in this) {
+            foreach (EQASubSystem subSystem in this) {
                 if (subSystem.Loops != null && subSystem.Loops.Count > 0) {
                     subSystem.Loops.Sort();
                 }
@@ -193,11 +193,11 @@ namespace Flute.DataStruct.EQA
 
         #endregion
 
-        public Equipment EquipmentInSubSystems(string EquipmentTagNo)
+        public EQAEquipment EquipmentInSubSystems(string EquipmentTagNo)
         {
             if (this.Count > 0) {
-                Equipment eqp = new Equipment();
-                foreach (SubSystem subSystem in this) {
+                EQAEquipment eqp = new EQAEquipment();
+                foreach (EQASubSystem subSystem in this) {
                     if ((eqp = subSystem.Loops.EquipmentInLoops(EquipmentTagNo)) != null) {
                         return eqp;
                     }

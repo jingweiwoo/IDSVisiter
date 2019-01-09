@@ -132,6 +132,10 @@
       <Project>{93AFC058-C756-455C-A2D3-D7916BB12C02}</Project>
       <Name>Flute.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IDS.Data.Table\IDS.Data.Table.csproj">
+      <Project>{A6D06413-9F22-40F1-93D8-CDD29BABD4F7}</Project>
+      <Name>IDS.Data.Table</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Office2007Renderer\Office2007Renderer.csproj">
       <Project>{A3E7CEE0-EA2C-443F-9E8F-2A40FDB4AF86}</Project>
       <Name>Office2007Renderer</Name>

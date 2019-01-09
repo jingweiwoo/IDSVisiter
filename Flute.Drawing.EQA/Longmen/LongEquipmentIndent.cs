@@ -14,7 +14,7 @@ using Flute.Drawing;
 
 namespace Flute.Drawing.EQA
 {
-    public class LongEquipmentIndent : EquipmentIndent
+    public class LongEquipmentIndent : EQAEquipmentIndent
     {
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
@@ -56,7 +56,7 @@ namespace Flute.Drawing.EQA
 
         public bool Export(string templatePath)
         {
-            SubSystemCollectin subSystems = DrawingData as SubSystemCollectin;
+            EQASubSystemCollectin subSystems = DrawingData as EQASubSystemCollectin;
 
             if(subSystems.Count == 0)
                 return true;
@@ -80,13 +80,13 @@ namespace Flute.Drawing.EQA
 
             lock(subSystems) {
                 // SubSystems
-                foreach(SubSystem subSystem in subSystems) {
+                foreach(EQASubSystem subSystem in subSystems) {
                     if(subSystem.Loops.Count > 0) {
                         // Loops
-                        foreach(Loop loop in subSystem.Loops) {
+                        foreach(EQALoop loop in subSystem.Loops) {
                             if(loop.Equipments.Count > 0) {
                                 // Equipments
-                                foreach(Equipment equip in loop.Equipments) {
+                                foreach(EQAEquipment equip in loop.Equipments) {
                                     if(!equipmentTypes.Contains(equip.PowerSupplySource.Trim()))
                                         equipmentTypes.Add(equip.PowerSupplySource.Trim());
                                 }
@@ -130,7 +130,7 @@ namespace Flute.Drawing.EQA
 
                         lock(subSystems) {
                             // SubSystems
-                            foreach(SubSystem subSystem in subSystems) {
+                            foreach(EQASubSystem subSystem in subSystems) {
                                 if(subSystem.Loops.Count > 0) {
                                     if(subSystem.SubSystemID.Length != 4) {
                                         xlsWorkSheet.get_Range("A" + currentLineNumber.ToString(), "I" + currentLineNumber.ToString()).Merge(false);
@@ -165,10 +165,10 @@ namespace Flute.Drawing.EQA
                                     }
 
                                     // Loops
-                                    foreach(Loop loop in subSystem.Loops) {
+                                    foreach(EQALoop loop in subSystem.Loops) {
                                         if(loop.Equipments.Count > 0) {
                                             // Equipments
-                                            foreach(Equipment equip in loop.Equipments) {
+                                            foreach(EQAEquipment equip in loop.Equipments) {
                                                 xlsWorkSheet.get_Range("A" + currentLineNumber.ToString(), "J" + currentLineNumber.ToString()).Value2
                                                     = new object[] {
                                                                     equip.TagNo,

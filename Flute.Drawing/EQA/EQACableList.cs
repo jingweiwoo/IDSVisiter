@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Flute.Drawing
 {
-    public abstract class CableList : IDrawing
+    public abstract class EQACableList : IDrawing
     {
         private object _drawingData = null;
 

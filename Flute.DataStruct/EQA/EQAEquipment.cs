@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Flute.DataStruct.EQA
 {
-    public class Equipment
+    public class EQAEquipment
     {
         #region .成员属性.
 
@@ -119,7 +119,7 @@ namespace Flute.DataStruct.EQA
         /// <summary>
         /// 构造函数, 初始化成员属性为默认值
         /// </summary>
-        public Equipment()
+        public EQAEquipment()
         {
             TagNo = "";
             LoopNo = "";
@@ -154,30 +154,30 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public Equipment Copy()
+        public EQAEquipment Copy()
         {
-            return MemberwiseClone() as Equipment;
+            return MemberwiseClone() as EQAEquipment;
         }
 
         #endregion // Copy
     }
 
-    public class EquipmentCollection : List<Equipment>
+    public class EQAEquipmentCollection : List<EQAEquipment>
     {
-        public EquipmentCollection()
+        public EQAEquipmentCollection()
         {
         }
 
         #region .Key Index.
 
-        public Equipment this[string tagNo]
+        public EQAEquipment this[string tagNo]
         {
             get
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
                         if (this[i].TagNo == tagNo)
-                            return (Equipment)this[i];
+                            return (EQAEquipment)this[i];
                     }
                     return null;
                 } else
@@ -193,7 +193,7 @@ namespace Flute.DataStruct.EQA
                         }
                     }
                 } else
-                    throw new System.ArgumentOutOfRangeException("Equipment Index", "No Equipment with this Tag Number can be found");
+                    throw new System.ArgumentOutOfRangeException("EQAEquipment Index", "No Equipment with this Tag Number can be found");
             }
         }
 
@@ -205,14 +205,14 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public EquipmentCollection Copy()
+        public EQAEquipmentCollection Copy()
         {
-            EquipmentCollection equipments = new EquipmentCollection();
+            EQAEquipmentCollection equipments = new EQAEquipmentCollection();
 
             if (this.Count <= 0)
                 return equipments;
             else {
-                foreach (Equipment equipment in this)
+                foreach (EQAEquipment equipment in this)
                     equipments.Add(equipment.Copy());
                 return equipments;
             }
@@ -222,7 +222,7 @@ namespace Flute.DataStruct.EQA
 
         #region .Comparer.
 
-        public static int Comparer(Equipment x, Equipment y)
+        public static int Comparer(EQAEquipment x, EQAEquipment y)
         {
             if (x.TagNo == null) {
                 if (y.TagNo == null) {
@@ -254,7 +254,7 @@ namespace Flute.DataStruct.EQA
         public void Sort()
         {
             if (this.Count > 0)
-                base.Sort(EquipmentCollection.Comparer);
+                base.Sort(EQAEquipmentCollection.Comparer);
         }
 
         #endregion

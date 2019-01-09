@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Flute.DataStruct.EQA
 {
-    public class Loop
+    public class EQALoop
     {
         #region .成员属性.
 
@@ -84,8 +84,8 @@ namespace Flute.DataStruct.EQA
         public string Description { get; set; }
 
 
-        private EquipmentCollection _equipments;
-        public EquipmentCollection Equipments
+        private EQAEquipmentCollection _equipments;
+        public EQAEquipmentCollection Equipments
         {
             get { return _equipments; }
             set { _equipments = value; }
@@ -93,7 +93,7 @@ namespace Flute.DataStruct.EQA
 
         #endregion // 成员属性
 
-        public Loop()
+        public EQALoop()
         {
             SubSystemID = "";
             LoopNo = "";
@@ -113,7 +113,7 @@ namespace Flute.DataStruct.EQA
             HasAlarm = false;
             HasInterlock = false;
             Description = "";
-            _equipments = new EquipmentCollection();
+            _equipments = new EQAEquipmentCollection();
         }
 
         #region .Copy.
@@ -122,9 +122,9 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public Loop Copy()
+        public EQALoop Copy()
         {
-            Loop loop = MemberwiseClone() as Loop;
+            EQALoop loop = MemberwiseClone() as EQALoop;
             loop.Equipments = this.Equipments.Copy();
 
             return loop;
@@ -133,22 +133,22 @@ namespace Flute.DataStruct.EQA
         #endregion // Clone Members
     }
 
-    public class LoopCollection : List<Loop>
+    public class EQALoopCollection : List<EQALoop>
     {
-        public LoopCollection()
+        public EQALoopCollection()
         {
         }
 
         #region .Key Index.
 
-        public Loop this[string loopNo]
+        public EQALoop this[string loopNo]
         {
             get
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
                         if (this[i].LoopNo == loopNo)
-                            return (Loop)this[i];
+                            return (EQALoop)this[i];
                     }
                     return null;
                 } else
@@ -176,14 +176,14 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public LoopCollection Copy()
+        public EQALoopCollection Copy()
         {
-            LoopCollection loops = new LoopCollection();
+            EQALoopCollection loops = new EQALoopCollection();
 
             if (this.Count <= 0)
                 return loops;
             else {
-                foreach (Loop loop in this)
+                foreach (EQALoop loop in this)
                     loops.Add(loop.Copy());
                 return loops;
             }
@@ -193,7 +193,7 @@ namespace Flute.DataStruct.EQA
 
         #region .Comparer.
 
-        public static int Comparer(Loop x, Loop y)
+        public static int Comparer(EQALoop x, EQALoop y)
         {
             if (x.LoopNo == null) {
                 if (y.LoopNo == null) {
@@ -225,9 +225,9 @@ namespace Flute.DataStruct.EQA
         public void Sort()
         {
             if (this.Count > 0)
-                base.Sort(LoopCollection.Comparer);
+                base.Sort(EQALoopCollection.Comparer);
 
-            foreach (Loop loop in this)
+            foreach (EQALoop loop in this)
                 if (loop.Equipments != null && loop.Equipments.Count > 0)
                     loop.Equipments.Sort();
         }
@@ -235,11 +235,11 @@ namespace Flute.DataStruct.EQA
         #endregion
         
 
-        public Equipment EquipmentInLoops(string EquipmentTagNo)
+        public EQAEquipment EquipmentInLoops(string EquipmentTagNo)
         {
             if (this.Count > 0) {
-                Equipment eqp = new Equipment();
-                foreach (Loop loop in this) {
+                EQAEquipment eqp = new EQAEquipment();
+                foreach (EQALoop loop in this) {
                     if ((eqp = loop.Equipments[EquipmentTagNo]) != null) {
                         return eqp;
                     }

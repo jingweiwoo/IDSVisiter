@@ -15,6 +15,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSTaskDialog", "PSTaskDialog\PSTaskDialog.csproj", "{0253E98B-6374-48AA-8740-89BC2939FF77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppStart", "AppStart\AppStart.csproj", "{91359780-BCA3-4AD8-B2CF-7CF8B3439492}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A6D06413-9F22-40F1-93D8-CDD29BABD4F7} = {A6D06413-9F22-40F1-93D8-CDD29BABD4F7}
+		{1EF47419-0B11-4028-A4C1-C035575097A8} = {1EF47419-0B11-4028-A4C1-C035575097A8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office2007Renderer", "Office2007Renderer\Office2007Renderer.csproj", "{A3E7CEE0-EA2C-443F-9E8F-2A40FDB4AF86}"
 EndProject
@@ -31,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flute.UI.WinForms", "Flute.UI.WinForms\Flute.UI.WinForms.csproj", "{9C82F742-810E-43D0-8052-4774AF7B0726}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDS.Data.Table", "IDS.Data.Table\IDS.Data.Table.csproj", "{A6D06413-9F22-40F1-93D8-CDD29BABD4F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flute.Drawing.IDS", "Flute.Drawing.IDS\Flute.Drawing.IDS.csproj", "{1EF47419-0B11-4028-A4C1-C035575097A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -136,6 +142,12 @@ Global
 		{A6D06413-9F22-40F1-93D8-CDD29BABD4F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6D06413-9F22-40F1-93D8-CDD29BABD4F7}.Release|x86.ActiveCfg = Release|x86
 		{A6D06413-9F22-40F1-93D8-CDD29BABD4F7}.Release|x86.Build.0 = Release|x86
+		{1EF47419-0B11-4028-A4C1-C035575097A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF47419-0B11-4028-A4C1-C035575097A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF47419-0B11-4028-A4C1-C035575097A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1EF47419-0B11-4028-A4C1-C035575097A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF47419-0B11-4028-A4C1-C035575097A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF47419-0B11-4028-A4C1-C035575097A8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

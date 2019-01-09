@@ -14,7 +14,7 @@ using Flute.Drawing;
 
 namespace Flute.Drawing.EQA
 {
-    public class MMKCableList : CableList
+    public class MMKCableList : EQACableList
     {
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
@@ -42,7 +42,7 @@ namespace Flute.Drawing.EQA
 
         public bool Export(string templatePath)
         {
-            SubSystemCollectin subSystems = DrawingData as SubSystemCollectin;
+            EQASubSystemCollectin subSystems = DrawingData as EQASubSystemCollectin;
 
             if (subSystems.Count == 0)
                 return true;
@@ -93,7 +93,7 @@ namespace Flute.Drawing.EQA
                     case DrawingLanguage.English:
                         pageCount = 0;
 
-                        foreach (SubSystem subSystem in subSystems) {
+                        foreach (EQASubSystem subSystem in subSystems) {
                             pageCount +=subSystem.CablesCount;
                         }
 
@@ -126,7 +126,7 @@ namespace Flute.Drawing.EQA
                         lock (subSystems) {
                             if (subSystems.Count > 0) {
                                 for (int i = 0; i < subSystems.Count; i++) {
-                                    SubSystem subSystem = subSystems[i];
+                                    EQASubSystem subSystem = subSystems[i];
                                     
                                     xlsWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlsApp.Worksheets[currentPageNumber];
                                     xlsWorkSheet.Name = (currentPageNumber).ToString();
@@ -171,7 +171,7 @@ namespace Flute.Drawing.EQA
 
                                     if (subSystem.Cables.Count > 0) {
                                         for (int j = 0; j < subSystem.Cables.Count; j++) {
-                                            Cable cable = subSystem.Cables[j];
+                                            EQACable cable = subSystem.Cables[j];
 
                                             // 电缆内容
                                             string[] cableSpec = cable.CableSpec.Split(' ');

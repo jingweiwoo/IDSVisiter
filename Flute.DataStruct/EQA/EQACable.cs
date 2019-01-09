@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Flute.DataStruct.EQA
 {
-    public class Cable
+    public class EQACable
     {
         #region .成员属性.
 
@@ -66,7 +66,7 @@ namespace Flute.DataStruct.EQA
 
         #endregion //成员属性
 
-        public Cable()
+        public EQACable()
         {
             SubSystemID = "";
             CableNo = "";
@@ -87,24 +87,24 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public Cable Copy()
+        public EQACable Copy()
         {
-            Cable cable = MemberwiseClone() as Cable;
+            EQACable cable = MemberwiseClone() as EQACable;
             return cable;
         }
 
         #endregion // Clone Members
     }
 
-    public class CableCollection : List<Cable>
+    public class EQACableCollection : List<EQACable>
     {
-        public CableCollection()
+        public EQACableCollection()
         {
         }
 
         #region .Key Index.
 
-        public Cable this[string cableNo]
+        public EQACable this[string cableNo]
         {
             get
             {
@@ -113,7 +113,7 @@ namespace Flute.DataStruct.EQA
                     for (int i = 0; i < this.Count; i++)
                     {
                         if (this[i].CableNo == cableNo)
-                            return (Cable)this[i];
+                            return (EQACable)this[i];
                     }
                     return null;
                 }
@@ -146,15 +146,15 @@ namespace Flute.DataStruct.EQA
         /// Deep Clone
         /// </summary>
         /// <returns></returns>
-        public CableCollection Copy()
+        public EQACableCollection Copy()
         {
-            CableCollection cables = new CableCollection();
+            EQACableCollection cables = new EQACableCollection();
 
             if (this.Count <= 0)
                 return cables;
             else
             {
-                foreach (Cable cable in this)
+                foreach (EQACable cable in this)
                     cables.Add(cable.Copy());
                 return cables;
             }
@@ -164,7 +164,7 @@ namespace Flute.DataStruct.EQA
 
         #region .Comparer.
 
-        public static int Comparer(Cable x, Cable y)
+        public static int Comparer(EQACable x, EQACable y)
         {
             if (x.CableNo == null)
             {
@@ -204,7 +204,7 @@ namespace Flute.DataStruct.EQA
         public void Sort()
         {
             if (this.Count > 0)
-                base.Sort(CableCollection.Comparer);
+                base.Sort(EQACableCollection.Comparer);
         }
 
         #endregion // Sort

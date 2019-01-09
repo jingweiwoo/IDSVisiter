@@ -14,7 +14,7 @@ using Flute.Drawing;
 
 namespace Flute.Drawing.EQA
 {
-    public class MMKEquipmentList : EquipmentList
+    public class MMKEquipmentList : EQAEquipmentList
     {
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
@@ -42,7 +42,7 @@ namespace Flute.Drawing.EQA
 
         public bool Export(string templatePath)
         {
-            SubSystemCollectin subSystems = DrawingData as SubSystemCollectin;
+            EQASubSystemCollectin subSystems = DrawingData as EQASubSystemCollectin;
 
             if (subSystems.Count == 0)
                 return true;
@@ -102,7 +102,7 @@ namespace Flute.Drawing.EQA
 
                         pageCount = 0;
 
-                        foreach (SubSystem subSystem in subSystems)
+                        foreach (EQASubSystem subSystem in subSystems)
                             if ((subSystem.EquipmentsCount % 7) == 0)
                                 pageCount += subSystem.EquipmentsCount / 7;
                             else
@@ -118,7 +118,7 @@ namespace Flute.Drawing.EQA
                         lock (subSystems) {
                             if (subSystems.Count > 0) {
                                 for (int i = 0; i < subSystems.Count; i++) {
-                                    SubSystem subSystem = subSystems[i];
+                                    EQASubSystem subSystem = subSystems[i];
                                     currentPageNumber++;
                                     if (i > 0 && (subSystems[i - 1].EquipmentsCount % 7 == 0))
                                         currentPageNumber--;
@@ -182,7 +182,7 @@ namespace Flute.Drawing.EQA
 
                                     if (subSystem.Loops.Count > 0) {
                                         for (int j = 0; j < subSystem.Loops.Count; j++) {
-                                            Loop loop = subSystem.Loops[j];
+                                            EQALoop loop = subSystem.Loops[j];
                                             if (loop.Equipments.Count > 0) {
                                                 // 回路号                  
                                                 xlsWorkSheet.get_Range("B" + eqpNumberInPages.ToString(), Missing.Value).Value2
@@ -204,7 +204,7 @@ namespace Flute.Drawing.EQA
                                             }
 
                                             for (int m = 0; m < loop.Equipments.Count; m++) {
-                                                Equipment eqp = loop.Equipments[m];
+                                                EQAEquipment eqp = loop.Equipments[m];
                                                 if (!eqp.IsEquipment)
                                                     continue;
 
@@ -308,7 +308,7 @@ namespace Flute.Drawing.EQA
 
                         pageCount = 0;
 
-                        foreach (SubSystem subSystem in subSystems) {
+                        foreach (EQASubSystem subSystem in subSystems) {
                             if ((subSystem.EquipmentsCount % 3 == 0))
                                 pageCount += subSystem.EquipmentsCount / 3;
                             else
@@ -338,7 +338,7 @@ namespace Flute.Drawing.EQA
                         lock (subSystems) {
                             if (subSystems.Count > 0) {
                                 for (int i = 0; i < subSystems.Count; i++) {
-                                    SubSystem subSystem = subSystems[i];
+                                    EQASubSystem subSystem = subSystems[i];
                                     currentPageNumber++;
                                     if (i > 0 && (subSystems[i - 1].EquipmentsCount % 3 == 0))
                                         currentPageNumber--;
@@ -390,7 +390,7 @@ namespace Flute.Drawing.EQA
 
                                     if (subSystem.Loops.Count > 0) {
                                         for (int j = 0; j < subSystem.Loops.Count; j++) {
-                                            Loop loop = subSystem.Loops[j];
+                                            EQALoop loop = subSystem.Loops[j];
                                             if (loop.Equipments.Count > 0) {
                                                 // 回路号                  
                                                 xlsWorkSheet.get_Range("B" + eqpNumberInPages.ToString(), Missing.Value).Value2
@@ -412,7 +412,7 @@ namespace Flute.Drawing.EQA
                                             }
 
                                             for (int m = 0; m < loop.Equipments.Count; m++) {
-                                                Equipment eqp = loop.Equipments[m];
+                                                EQAEquipment eqp = loop.Equipments[m];
                                                 if (!eqp.IsEquipment)
                                                     continue;
 

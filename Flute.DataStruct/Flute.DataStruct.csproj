@@ -66,11 +66,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EQA\Cable.cs" />
+    <Compile Include="EQA\EQACable.cs" />
     <Compile Include="EQA\EQAHelper.cs" />
-    <Compile Include="EQA\Equipment.cs" />
-    <Compile Include="EQA\Loop.cs" />
-    <Compile Include="EQA\SubSystem.cs" />
+    <Compile Include="EQA\EQAEquipment.cs" />
+    <Compile Include="EQA\EQALoop.cs" />
+    <Compile Include="EQA\EQASubSystem.cs" />
+    <Compile Include="IDS\IDSCable.cs" />
+    <Compile Include="IDS\IDSEnum.cs" />
+    <Compile Include="IDS\IDSEquipment.cs" />
+    <Compile Include="IDS\IDSHelper.cs" />
+    <Compile Include="IDS\IDSLoop.cs" />
+    <Compile Include="IDS\IDSMountingScheme.cs" />
+    <Compile Include="IDS\IDSMountingSchemeMaterial.cs" />
+    <Compile Include="IDS\IDSRepository.cs" />
+    <Compile Include="IDS\IDSSubEquipment.cs" />
+    <Compile Include="IDS\IDSSubLoop.cs" />
+    <Compile Include="IDS\IDSSubSystem.cs" />
+    <Compile Include="IDS\IDSSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +96,13 @@
       <Project>{93AFC058-C756-455C-A2D3-D7916BB12C02}</Project>
       <Name>Flute.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IDS.Data.Table\IDS.Data.Table.csproj">
+      <Project>{A6D06413-9F22-40F1-93D8-CDD29BABD4F7}</Project>
+      <Name>IDS.Data.Table</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EQA\app.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

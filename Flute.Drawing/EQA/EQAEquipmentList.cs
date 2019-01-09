@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Flute.Drawing
 {
-    public abstract class EquipmentIndent : IDrawing
+    public abstract class EQAEquipmentList : IDrawing
     {
         private object _drawingData = null;
 
-        public object DrawingData { get { return _drawingData; } set { _drawingData = value; } }
+        public object DrawingData { get { return _drawingData; } set { _drawingData = value; } } 
 
         #region IDrawing Members
 
