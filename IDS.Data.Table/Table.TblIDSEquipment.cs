@@ -18,7 +18,7 @@ namespace IDS.Data.Table
         private static string _function = "功能";
         private static string _suffix = "后缀";
         private static string _tag = "实际位号_Ori";
-        private static string _equipmentCatagory = "设备类型";
+        private static string _equipmentCatagory = "设备类别";
         private static string _equipmentRepositoryID = "库序号";
         private static string _specificeInfo1 = "规格1_Ori";
         private static string _specificeInfo2 = "规格2_Ori";

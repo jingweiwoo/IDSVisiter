@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 安装方案ID
         /// </summary>
         public string MountingSchemeID { get; set; }
@@ -61,6 +69,8 @@ namespace Flute.DataStruct.IDS
 
         public IDSMountingScheme()
         {
+            ID = "";
+            ParentID = "";
             MountingSchemeID = "";
             MountingType = "";
             Usage = "";

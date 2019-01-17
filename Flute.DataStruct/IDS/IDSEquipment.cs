@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 位号
         /// </summary>
         public string Tag { get; set; }
@@ -60,21 +68,13 @@ namespace Flute.DataStruct.IDS
             get { return _subEquipments; }
             set { _subEquipments = value; }
         }
-
-        private IDSCableCollection _cables = null;
-        /// <summary>
-        /// Gets or Sets 电缆
-        /// </summary>
-        public IDSCableCollection Cables
-        {
-            get { return _cables; }
-            set { _cables = value; }
-        }
-
+        
         #endregion // 成员属性
 
         public IDSEquipment()
         {
+            ID = "";
+            ParentID = "";
             Tag = "";
             FunctionCode = "";
             Suffix = "";
@@ -85,7 +85,6 @@ namespace Flute.DataStruct.IDS
             Remark = "";
             EquipmentRepository = new IDSRepository();
             SubEquipments = new IDSSubEquipmentCollection();
-            Cables = new IDSCableCollection();
         }
 
         #region .Copy.
@@ -99,7 +98,6 @@ namespace Flute.DataStruct.IDS
             IDSEquipment equipment = MemberwiseClone() as IDSEquipment;
             equipment.EquipmentRepository = this.EquipmentRepository.Copy();
             equipment.SubEquipments = this.SubEquipments.Copy();
-            equipment.Cables = this.Cables.Copy();
 
             return equipment;
         }
@@ -203,9 +201,6 @@ namespace Flute.DataStruct.IDS
             foreach (IDSEquipment equipment in this) {
                 if (equipment.SubEquipments != null && equipment.SubEquipments.Count > 0) {
                     equipment.SubEquipments.Sort();
-                }
-                if (equipment.SubEquipments != null && equipment.SubEquipments.Count > 0) {
-                    equipment.Cables.Sort();
                 }
             }
         }

@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 位号
         /// </summary>
         public string Tag { get; set; }
@@ -77,6 +85,8 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public IDSCable()
         {
+            ID = "";
+            ParentID = "";
             Tag = "";
             Type = "";
             SerialNumber = "";

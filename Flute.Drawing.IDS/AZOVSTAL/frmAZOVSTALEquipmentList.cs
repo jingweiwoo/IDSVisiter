@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 using Flute.UI.WinForms;
 
-namespace Flute.Drawing.EQA
+namespace Flute.Drawing.IDS
 {
-    public partial class frmMMKEquipmentList : Flute.UI.WinForms.frmDialog
+    public partial class frmAZOVSTALEquipmentList : Flute.UI.WinForms.frmDialog
     {
         #region .UI Elements.
 
@@ -102,7 +102,7 @@ namespace Flute.Drawing.EQA
         
         #endregion
 
-        public frmMMKEquipmentList()
+        public frmAZOVSTALEquipmentList()
         {
             InitializeComponent();
 
@@ -118,16 +118,17 @@ namespace Flute.Drawing.EQA
             // 版本
             //
             radioBtnLangSimpChinese = new RadioButton();
-            radioBtnLangSimpChinese.Checked = true;
+            radioBtnLangSimpChinese.Checked = false;
             radioBtnLangSimpChinese.Text = "中文版";
             radioBtnLangEnglish = new RadioButton();
-            radioBtnLangEnglish.Checked = false;
+            radioBtnLangEnglish.Checked = true;
             radioBtnLangEnglish.Text = "英俄文版";
             radioBtnLangSimpChinese.Click += radioBtnLang_Click;
             radioBtnLangEnglish.Click += radioBtnLang_Click;
 
             flowLayoutPanelLanguage.Controls.Add(radioBtnLangSimpChinese);
-            flowLayoutPanelLanguage.Controls.Add(radioBtnLangEnglish);            
+            flowLayoutPanelLanguage.Controls.Add(radioBtnLangEnglish);
+                                    
             //
             // 导出内容
             //
@@ -209,12 +210,12 @@ namespace Flute.Drawing.EQA
             //
             // 图框
             //
-            tbApprovedBy.Text = "";
+            tbApprovedBy.Text = "吉青";
             tbCheckedBy.Text = "蔡晓峰";
             tbDesignedBy.Text = "吴经纬";
             tbMadeBy.Text = "";
             tbDrawingNo.Text = "";
-            tbSpeciality.Text = "Instrument";
+            tbSpeciality.Text = "EE";
             tbStage.Text = "DE";
             tbDate.Text = DateTime.Now.Year.ToString() + "." + DateTime.Now.Month.ToString();
             tbContractNo.Text = "E152821";
@@ -238,7 +239,6 @@ namespace Flute.Drawing.EQA
             this.btnOK.Text = "确定(&O)";
             this.btnOK.Click += btnOK_Click;
             this.btnApply.Visible = false;
-            
         }
 
 
@@ -252,7 +252,7 @@ namespace Flute.Drawing.EQA
             } else if ((sender as RadioButton).Text == radioBtnLangEnglish.Text) {
                 if ((sender as RadioButton).Checked) {
                     _language = DrawingLanguage.English;
-                    tbTemplatePath.Text = Application.StartupPath + @"\Template\MMK_en.xlt";
+                    tbTemplatePath.Text = Application.StartupPath + @"\Template\AZOVSTAL_enu.xlt";
                 }
             }
         }
@@ -288,6 +288,5 @@ namespace Flute.Drawing.EQA
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
     }
 }

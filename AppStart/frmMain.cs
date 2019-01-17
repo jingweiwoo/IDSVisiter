@@ -11,12 +11,17 @@ using System.Windows.Forms;
 using AppConfig;
 
 using Flute.DataStruct.EQA;
+using Flute.DataStruct.IDS;
+
 using EQA.Data.Table;
 using IDS.Data.Table;
+
 using Flute.Data;
 
 using Flute.Drawing;
 using Flute.Drawing.EQA;
+using Flute.Drawing.IDS;
+
 using Flute.Service;
 
 namespace AppStart
@@ -46,33 +51,41 @@ namespace AppStart
             ToolStripMenuItem menuOpenIDS = new ToolStripMenuItem("打开IDS文件... (&I)");
             ToolStripMenuItem menuCatalogSystem = new ToolStripMenuItem("文件(&F)");
 
-            menuCatalogSystem.DropDownItems.Add(menuOpenEQA);
+            // menuCatalogSystem.DropDownItems.Add(menuOpenEQA);
             menuCatalogSystem.DropDownItems.Add(menuOpenIDS);
             menuCatalogSystem.DropDownItems.Add(new ToolStripSeparator());
             menuCatalogSystem.DropDownItems.Add(menuExit);
 
             // ------
 
-            ToolStripMenuItem menuMMKEquipmentListExport = new ToolStripMenuItem("MMK冷轧公辅设备表(&Q)");
-            ToolStripMenuItem menuMMKCableListExport = new ToolStripMenuItem("MMK冷轧公辅电缆表(&C)");
+            ToolStripMenuItem menuMMKEQAEquipmentListExport = new ToolStripMenuItem("MMK冷轧公辅设备表(&Q)");
+            ToolStripMenuItem menuMMKEQACableListExport = new ToolStripMenuItem("MMK冷轧公辅电缆表(&C)");
+            ToolStripMenuItem menuMMKEQAExport = new ToolStripMenuItem("MMK冷轧公辅项目");
 
-            ToolStripMenuItem menuMMKExport = new ToolStripMenuItem("MMK冷轧公辅项目");
+            ToolStripMenuItem menuLongEQAEquipementIndentExport = new ToolStripMenuItem("龙门钢铁高炉仪表设备清单");
+            ToolStripMenuItem menuLongEQAExport = new ToolStripMenuItem("龙门钢铁高炉总承包项目");
 
-            ToolStripMenuItem menuLongEquipementIndentExport = new ToolStripMenuItem("龙门钢铁高炉仪表设备清单");
+            ToolStripMenuItem menuEQADrawingExport = new ToolStripMenuItem("导出EQA数据库内容");
 
-            ToolStripMenuItem menuLongExport = new ToolStripMenuItem("龙门钢铁高炉总承包项目");
+            ToolStripMenuItem menuAZOVSTALIDSEquipmentListExport = new ToolStripMenuItem("设备表(&Q)");
+            ToolStripMenuItem menuAZOVSTALIDSExport = new ToolStripMenuItem("亚速6#高炉项目");
 
-            ToolStripMenuItem menuDrawingExport = new ToolStripMenuItem("导出EQA数据库内容");
+            ToolStripMenuItem menuIDSDrawingExport = new ToolStripMenuItem("导出IDS数据库内容");
+
+
             ToolStripMenuItem menuCatalogDrawing = new ToolStripMenuItem("图纸(&D)");
-            
-            menuLongExport.DropDownItems.Add(menuLongEquipementIndentExport);
-            menuDrawingExport.DropDownItems.Add(menuLongExport);
 
-            menuMMKExport.DropDownItems.Add(menuMMKEquipmentListExport);
-            menuMMKExport.DropDownItems.Add(menuMMKCableListExport);
-            menuDrawingExport.DropDownItems.Add(menuMMKExport);
+            menuLongEQAExport.DropDownItems.Add(menuLongEQAEquipementIndentExport);
+            // menuEQADrawingExport.DropDownItems.Add(menuLongEQAExport);
 
-            menuCatalogDrawing.DropDownItems.Add(menuDrawingExport);
+            menuMMKEQAExport.DropDownItems.Add(menuMMKEQAEquipmentListExport);
+            menuMMKEQAExport.DropDownItems.Add(menuMMKEQACableListExport);
+            // menuEQADrawingExport.DropDownItems.Add(menuMMKEQAExport);
+
+            menuAZOVSTALIDSExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListExport);
+            menuIDSDrawingExport.DropDownItems.Add(menuAZOVSTALIDSExport);
+
+            menuCatalogDrawing.DropDownItems.Add(menuIDSDrawingExport);
 
             // ------
 
@@ -84,10 +97,12 @@ namespace AppStart
             menuOpenIDS.Click += menuOpenIDS_Click;
             menuExit.Click += menuExit_Click;
 
-            menuMMKEquipmentListExport.Click += menuMMKEquipmentListExport_Click;
-            menuMMKCableListExport.Click += menuMMKCableListExport_Click;
+            menuMMKEQAEquipmentListExport.Click += menuMMKEQAEquipmentListExport_Click;
+            menuMMKEQACableListExport.Click += menuMMKEQACableListExport_Click;
 
-            menuLongEquipementIndentExport.Click += menuLongEquipmentIndentExport_Click;
+            menuLongEQAEquipementIndentExport.Click += menuLongEQAEquipmentIndentExport_Click;
+
+            menuAZOVSTALIDSEquipmentListExport.Click += menuAZOVSTALIDSEquipmentListExport_Click;
         }
 
         #region .载入EQA数据库.
@@ -102,7 +117,7 @@ namespace AppStart
                 }
             }
 
-            OpenFileDialog openFileDlg;            
+            OpenFileDialog openFileDlg;
 
             openFileDlg = new OpenFileDialog();
 
@@ -114,14 +129,16 @@ namespace AppStart
 
             try {
                 dlgResult = openFileDlg.ShowDialog();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Flute.Service.MessageBoxWinForm.Error("选择EQA数据库文件", ex.Message, "");
                 return;
             }
 
             if (dlgResult == DialogResult.OK) {
                 fileName = openFileDlg.FileName;
-            } else {
+            }
+            else {
                 return;
             }
 
@@ -146,16 +163,17 @@ namespace AppStart
                                                   TblEqp.TblName,
                                                   TblLoop.TblName,
                                                   TblCbl.TblName);
-            } catch (System.Data.Common.DbException ex) {
+            }
+            catch (System.Data.Common.DbException ex) {
                 Flute.Service.MessageBoxWinForm.Error("数据库EQA连接", "程序在加载数据库EQA时出错!", ex.Message + "\n\n" + ex.Source);
                 return;
             }
 
-            DatabaseManager.AddDatabase(new Database(ds, dbConfigInfo, dbProvider),fileName);
+            DatabaseManager.AddDatabase(new Database(ds, dbConfigInfo, dbProvider), "EQA" + "-" + fileName);
             DatabaseManager.SetCurrentKey(fileName);
 
             this.Text = System.IO.Path.GetFileName(fileName) + " -- " + caption;
-            Flute.Service.MessageBoxWinForm.Info("成功", "成功载入EQA数据库文件", "路径:\n" + fileName);         
+            Flute.Service.MessageBoxWinForm.Info("成功", "成功载入EQA数据库文件", "路径:\n" + fileName);
         }
         #endregion
 
@@ -165,10 +183,8 @@ namespace AppStart
         {
             string fileName = null;
 
-            if (DatabaseManager.Databases.Count > 0)
-            {
-                if (DialogResult.Cancel == Flute.Service.MessageBoxWinForm.Confirm("打开IDS数据库", "您已打开一个IDS数据库, 确认打开新的IDS数据库吗?", ""))
-                {
+            if (DatabaseManager.Databases.Count > 0) {
+                if (DialogResult.Cancel == Flute.Service.MessageBoxWinForm.Confirm("打开IDS数据库", "您已打开一个IDS数据库, 确认打开新的IDS数据库吗?", "")) {
                     return;
                 }
             }
@@ -183,22 +199,18 @@ namespace AppStart
 
             DialogResult dlgResult;
 
-            try
-            {
+            try {
                 dlgResult = openFileDlg.ShowDialog();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Flute.Service.MessageBoxWinForm.Error("选择IDS数据库文件", ex.Message, "");
                 return;
             }
 
-            if (dlgResult == DialogResult.OK)
-            {
+            if (dlgResult == DialogResult.OK) {
                 fileName = openFileDlg.FileName;
             }
-            else
-            {
+            else {
                 return;
             }
 
@@ -216,38 +228,41 @@ namespace AppStart
 
             IDbProvider dbProvider = DatabaseManager.GetProvider("Flute.Data.AccessProvider");
 
-            try
-            {
+            try {
                 ds = DatabaseHelper.CreateDataSet(dbConfigInfo.ConnectionString,
                                                   dbProvider,
                                                   TblIDSEquipment.TblName,
                                                   TblIDSSubEquipment.TblName,
                                                   TblIDSRepository.TblName,
                                                   TblIDSHierarchy.TblName,
-                                                  TblIDSProcessLoop.TblName,
-                                                  TblIDSCabinetEquipment.TblName);
+                                                  TblIDSLoop.TblName,
+                                                  TblIDSCabinet.TblName,
+                                                  TblIDSCabinetEquipment.TblName,
+                                                  TblIDSMountingScheme.TblName,
+                                                  TblIDSMountingSchemeMaterial.TblName);
             }
-            catch (System.Data.Common.DbException ex)
-            {
+            catch (System.Data.Common.DbException ex) {
                 Flute.Service.MessageBoxWinForm.Error("数据库IDS连接", "程序在加载数据库IDS时出错!", ex.Message + "\n\n" + ex.Source);
                 return;
             }
 
-            DatabaseManager.AddDatabase(new Database(ds, dbConfigInfo, dbProvider), fileName);
-            DatabaseManager.SetCurrentKey(fileName);
+            DatabaseManager.AddDatabase(new Database(ds, dbConfigInfo, dbProvider), "IDS" + "-" + fileName);
+            DatabaseManager.SetCurrentKey("IDS" + "-" + fileName);
 
             this.Text = System.IO.Path.GetFileName(fileName) + " -- " + caption;
             Flute.Service.MessageBoxWinForm.Info("成功", "成功载入IDS数据库文件", "路径:\n" + fileName);
         }
         #endregion
 
+        #region .menuExit_Click.
         private void menuExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+        #endregion
 
         #region .EQA数据库内容导出.
-        void menuMMKEquipmentListExport_Click(object sender, EventArgs e)
+        void menuMMKEQAEquipmentListExport_Click(object sender, EventArgs e)
         {
             if (DatabaseManager.Databases.Count <= 0) {
                 Flute.Service.MessageBoxWinForm.Error("设备表导出", "程序还没有载入任何EQA数据库.", "");
@@ -261,16 +276,15 @@ namespace AppStart
                                                                        dataSet.Tables[TblEqp.TblName]);
 
             Flute.Drawing.EQA.MMKEquipmentList inMMKEquipmentList = new MMKEquipmentList(subSystems);
-        
+
             inMMKEquipmentList.Export("");
 
             return;
         }
 
-        void menuMMKCableListExport_Click(object sender, EventArgs e)
+        void menuMMKEQACableListExport_Click(object sender, EventArgs e)
         {
-            if (DatabaseManager.Databases.Count <= 0)
-            {
+            if (DatabaseManager.Databases.Count <= 0) {
                 Flute.Service.MessageBoxWinForm.Error("电缆表导出", "程序还没有载入任何EQA数据库.", "");
                 return;
             }
@@ -288,7 +302,7 @@ namespace AppStart
             return;
         }
 
-        void menuLongEquipmentIndentExport_Click(object sender, EventArgs e)
+        void menuLongEQAEquipmentIndentExport_Click(object sender, EventArgs e)
         {
             if (DatabaseManager.Databases.Count <= 0) {
                 Flute.Service.MessageBoxWinForm.Error("设备清单导出", "程序还没有载入任何EQA数据库.", "");
@@ -310,6 +324,32 @@ namespace AppStart
 
             return;
         }
+        #endregion
+
+        #region .IDS数据库内容导出.
+
+        void menuAZOVSTALIDSEquipmentListExport_Click(object sender, EventArgs e)
+        {
+            if (DatabaseManager.Databases.Count <= 0) {
+                Flute.Service.MessageBoxWinForm.Error("设备清单导出", "程序还没有载入任何IDS数据库.", "");
+                return;
+            }
+
+            DataSet dataSet = DatabaseManager.Databases[DatabaseManager.CurrentKey].DatabaseSource;
+            IDSSystemCollection systems = IDSHelper.CreateIDSSystems(dataSet.Tables[TblIDSLoop.TblName],
+                                                                        dataSet.Tables[TblIDSHierarchy.TblName],
+                                                                        dataSet.Tables[TblIDSEquipment.TblName],
+                                                                        dataSet.Tables[TblIDSSubEquipment.TblName],
+                                                                        dataSet.Tables[TblIDSRepository.TblName],
+                                                                        dataSet.Tables[TblIDSCable.TblName],
+                                                                        dataSet.Tables[TblIDSMountingScheme.TblName]);
+
+            IDrawing azovstalEquipmentList = new AZOVSTALEquipmentList(systems);
+            azovstalEquipmentList.Export("","");
+
+            return;
+        }
+
         #endregion
     }
 }

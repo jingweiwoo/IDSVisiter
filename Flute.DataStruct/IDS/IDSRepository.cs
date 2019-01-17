@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 库序号
         /// </summary>
         public string RepositoryID { get; set; }
@@ -182,115 +190,115 @@ namespace Flute.DataStruct.IDS
         /// <summary>
         /// Gets or Sets 数值1
         /// </summary>
-        public string Value01 { get; set; }
+        public Int32 Value01 { get; set; }
         /// <summary>
         /// Gets or Sets 数值2
         /// </summary>
-        public string Value02 { get; set; }
+        public Int32 Value02 { get; set; }
         /// <summary>
         /// Gets or Sets 数值3
         /// </summary>
-        public string Value03 { get; set; }
+        public Int32 Value03 { get; set; }
         /// <summary>
         /// Gets or Sets 数值4
         /// </summary>
-        public string Value04 { get; set; }
+        public Int32 Value04 { get; set; }
         /// <summary>
         /// Gets or Sets 数值5
         /// </summary>
-        public string Value05 { get; set; }
+        public Int32 Value05 { get; set; }
         /// <summary>
         /// Gets or Sets 数值6
         /// </summary>
-        public string Value06 { get; set; }
+        public Int32 Value06 { get; set; }
         /// <summary>
         /// Gets or Sets 数值7
         /// </summary>
-        public string Value07 { get; set; }
+        public Int32 Value07 { get; set; }
         /// <summary>
         /// Gets or Sets 数值8
         /// </summary>
-        public string Value08 { get; set; }
+        public Int32 Value08 { get; set; }
         /// <summary>
         /// Gets or Sets 数值9
         /// </summary>
-        public string Value09 { get; set; }
+        public Int32 Value09 { get; set; }
         /// <summary>
         /// Gets or Sets 数值10
         /// </summary>
-        public string Value10 { get; set; }
+        public Int32 Value10 { get; set; }
         /// <summary>
         /// Gets or Sets 数值11
         /// </summary>
-        public string Value11 { get; set; }
+        public Int32 Value11 { get; set; }
         /// <summary>
         /// Gets or Sets 数值12
         /// </summary>
-        public string Value12 { get; set; }
+        public Int32 Value12 { get; set; }
         /// <summary>
         /// Gets or Sets 数值13
         /// </summary>
-        public string Value13 { get; set; }
+        public Int32 Value13 { get; set; }
         /// <summary>
         /// Gets or Sets 数值14
         /// </summary>
-        public string Value14 { get; set; }
+        public Int32 Value14 { get; set; }
         /// <summary>
         /// Gets or Sets 数值15
         /// </summary>
-        public string Value15 { get; set; }
+        public Int32 Value15 { get; set; }
         /// <summary>
         /// Gets or Sets 数值16
         /// </summary>
-        public string Value16 { get; set; }
+        public Int32 Value16 { get; set; }
         /// <summary>
         /// Gets or Sets 数值17
         /// </summary>
-        public string Value17 { get; set; }
+        public Int32 Value17 { get; set; }
         /// <summary>
         /// Gets or Sets 数值18
         /// </summary>
-        public string Value18 { get; set; }
+        public Int32 Value18 { get; set; }
         /// <summary>
         /// Gets or Sets 数值19
         /// </summary>
-        public string Value19 { get; set; }
+        public Int32 Value19 { get; set; }
         /// <summary>
         /// Gets or Sets 数值20
         /// </summary>
-        public string Value20 { get; set; }
+        public Int32 Value20 { get; set; }
         /// <summary>
         /// Gets or Sets 数值21
         /// </summary>
-        public string Value21 { get; set; }
+        public Int32 Value21 { get; set; }
         /// <summary>
         /// Gets or Sets 数值22
         /// </summary>
-        public string Value22 { get; set; }
+        public Int32 Value22 { get; set; }
         /// <summary>
         /// Gets or Sets 数值23
         /// </summary>
-        public string Value23 { get; set; }
+        public Int32 Value23 { get; set; }
         /// <summary>
         /// Gets or Sets 数值24
         /// </summary>
-        public string Value24 { get; set; }
+        public Int32 Value24 { get; set; }
         /// <summary>
         /// Gets or Sets 数值25
         /// </summary>
-        public string Value25 { get; set; }
+        public Int32 Value25 { get; set; }
         /// <summary>
         /// Gets or Sets 数值26
         /// </summary>
-        public string Value26 { get; set; }
+        public Int32 Value26 { get; set; }
         /// <summary>
         /// Gets or Sets 数值27
         /// </summary>
-        public string Value27 { get; set; }
+        public Int32 Value27 { get; set; }
         /// <summary>
         /// Gets or Sets 数值28
         /// </summary>
-        public string Value28 { get; set; }
+        public Int32 Value28 { get; set; }
 
         /// <summary>
         /// Gets or Sets 是否1
@@ -326,6 +334,8 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public IDSRepository()
         {
+            ID = "";
+            ParentID = "";
             RepositoryID = "";
             Type = "";
             Version = "";
@@ -371,34 +381,34 @@ namespace Flute.DataStruct.IDS
             Remark02 = "";
             Remark03 = "";
 
-            Value01 = "";
-            Value02 = "";
-            Value03 = "";
-            Value04 = "";
-            Value05 = "";
-            Value06 = "";
-            Value07 = "";
-            Value08 = "";
-            Value09 = "";
-            Value10 = "";
-            Value11 = "";
-            Value12 = "";
-            Value13 = "";
-            Value14 = "";
-            Value15 = "";
-            Value16 = "";
-            Value17 = "";
-            Value18 = "";
-            Value19 = "";
-            Value20 = "";
-            Value21 = "";
-            Value22 = "";
-            Value23 = "";
-            Value24 = "";
-            Value25 = "";
-            Value26 = "";
-            Value27 = "";
-            Value28 = "";
+            Value01 = 0;
+            Value02 = 0;
+            Value03 = 0;
+            Value04 = 0;
+            Value05 = 0;
+            Value06 = 0;
+            Value07 = 0;
+            Value08 = 0;
+            Value09 = 0;
+            Value10 = 0;
+            Value11 = 0;
+            Value12 = 0;
+            Value13 = 0;
+            Value14 = 0;
+            Value15 = 0;
+            Value16 = 0;
+            Value17 = 0;
+            Value18 = 0;
+            Value19 = 0;
+            Value20 = 0;
+            Value21 = 0;
+            Value22 = 0;
+            Value23 = 0;
+            Value24 = 0;
+            Value25 = 0;
+            Value26 = 0;
+            Value27 = 0;
+            Value28 = 0;
 
             YesOrNo01 = false;
             YesOrNo02 = false;
@@ -409,7 +419,7 @@ namespace Flute.DataStruct.IDS
             ProtectionEnabled = false;
         }
 
-         #region .Copy.
+        #region .Copy.
 
         /// <summary>
         /// Deep Clone
@@ -436,10 +446,8 @@ namespace Flute.DataStruct.IDS
         {
             get
             {
-                if (this.Count > 0)
-                {
-                    for (int i = 0; i < this.Count; i++)
-                    {
+                if (this.Count > 0) {
+                    for (int i = 0; i < this.Count; i++) {
                         if (this[i].RepositoryID == repositoryID)
                             return (IDSRepository)this[i];
                     }
@@ -450,12 +458,9 @@ namespace Flute.DataStruct.IDS
             }
             set
             {
-                if (this.Count > 0)
-                {
-                    for (int i = 0; i < this.Count; i++)
-                    {
-                        if (this[i].RepositoryID == repositoryID)
-                        {
+                if (this.Count > 0) {
+                    for (int i = 0; i < this.Count; i++) {
+                        if (this[i].RepositoryID == repositoryID) {
                             this[i] = value;
                             break;
                         }
@@ -480,8 +485,7 @@ namespace Flute.DataStruct.IDS
 
             if (this.Count <= 0)
                 return repositories;
-            else
-            {
+            else {
                 foreach (IDSRepository repository in this)
                     repositories.Add(repository.Copy());
                 return repositories;
@@ -494,23 +498,19 @@ namespace Flute.DataStruct.IDS
 
         public static int Comparer(IDSRepository x, IDSRepository y)
         {
-            if (x.RepositoryID == null)
-            {
-                if (y.RepositoryID == null)
-                {
+            if (x.RepositoryID == null) {
+                if (y.RepositoryID == null) {
                     // If x.RepositoryID is null and y.RepositoryID is null, they're
                     // equal. 
                     return 0;
                 }
-                else
-                {
+                else {
                     // If x.RepositoryID is null and y.RepositoryID is not null, y
                     // is greater. 
                     return -1;
                 }
             }
-            else
-            {
+            else {
                 // If x.RepositoryID is not null...
                 //
                 if (y.RepositoryID == null)
@@ -518,8 +518,7 @@ namespace Flute.DataStruct.IDS
                 {
                     return 1;
                 }
-                else
-                {
+                else {
                     return string.Compare(x.RepositoryID, y.RepositoryID /*, true, System.Globalization.CultureInfo.InstalledUICulture*/);
                 }
             }

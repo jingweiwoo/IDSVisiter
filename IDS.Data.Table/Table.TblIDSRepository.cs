@@ -82,11 +82,11 @@ namespace IDS.Data.Table
         private static string _value26 = "数值26";
         private static string _value27 = "数值27";
         private static string _value28 = "数值28";
-        private static string _yesOrNo01 = "是否01";
-        private static string _yesOrNo02 = "是否02";
-        private static string _yesOrNo03 = "是否03";
-        private static string _yesOrNo04 = "是否04";
-        private static string _yesOrNo05 = "是否05";
+        private static string _yesOrNo01 = "是否1";
+        private static string _yesOrNo02 = "是否2";
+        private static string _yesOrNo03 = "是否3";
+        private static string _yesOrNo04 = "是否4";
+        private static string _yesOrNo05 = "是否5";
         private static string _protectionEnabled = "修改保护";
 
         #endregion
@@ -110,7 +110,7 @@ namespace IDS.Data.Table
         public static string ParentID { get { return _parentID; } }
 
         /// <summary>
-        /// Gets 子类型. e.g. 流量/节流装置, 常用/通用设备, 称重/称重传感器 等
+        /// Gets 类型. e.g. 流量/节流装置, 常用/通用设备, 称重/称重传感器 等
         /// </summary>
         public static string Type { get { return _type; } }
 

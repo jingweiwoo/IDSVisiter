@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 代码
         /// </summary>
         public string Code { get; set; }
@@ -39,10 +47,51 @@ namespace Flute.DataStruct.IDS
             set { _subSystems = value; }
         }
 
+        /// <summary>
+        /// 系统下所有设备的数量统计
+        /// </summary>
+        public Int32 EquipmentsCount
+        {
+            get
+            {
+                Int32 equipmentsCount = 0;
+
+                lock (this) {
+                    if (SubSystems != null && SubSystems.Count > 0) {
+                        foreach (IDSSubSystem subSystem in SubSystems) {
+                            if (subSystem.Loops != null && subSystem.Loops.Count > 0) {
+                                foreach (IDSLoop loop in subSystem.Loops) {
+                                    if (loop.SubLoops != null && loop.SubLoops.Count > 0) {
+                                        foreach (IDSSubLoop subLoop in loop.SubLoops) {
+                                            if (subLoop.Equipments != null && subLoop.Equipments.Count > 0) {
+                                                equipmentsCount += subLoop.Equipments.Count;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return equipmentsCount;
+            }
+        }
+
+        public Int32 CablesCount
+        {
+            get
+            {
+                Int32 cablesCount = 0;
+                return cablesCount;
+            }
+        }
+
         #endregion // 成员属性
 
         public IDSSystem()
         {
+            ID = "";
+            ParentID = "";
             Code = "";
             Name = "";
             Phase = "";

@@ -19,7 +19,7 @@ namespace IDS.Data.Table
         private static string _mountingType = "安装位置";
         private static string _mountingLocation = "安装地点_Ori";
         private static string _dataPlate = "铭牌内容_Ori";
-        private static string _mountingRepositoryID = "安装库序号";
+        private static string _mountingSchemeID = "安装库序号";
         private static string _powerSupply = "供电来源";
         private static string _switchTag = "开关位号_Ori";
         private static string _actingCurrent = "脱扣电流";
@@ -83,7 +83,7 @@ namespace IDS.Data.Table
         /// Gets 安装库序号 ------ 对应安装方案表的"名称"
         /// e.g. TE-GM27VYN, 详见产品说明书 等
         /// </summary>
-        public static string MountingRepositoryID { get { return _mountingRepositoryID; } }
+        public static string MountingSchemeID { get { return _mountingSchemeID; } }
 
         /// <summary>
         /// Gets 供电来源. e.g. 24VDC(UPS), 09.YP01-380VAC 等

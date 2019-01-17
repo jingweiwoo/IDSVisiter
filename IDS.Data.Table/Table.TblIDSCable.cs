@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IDS.Data.Table
 {
-    public class TblCable
+    public class TblIDSCable
     {
         #region .私有变量.
 

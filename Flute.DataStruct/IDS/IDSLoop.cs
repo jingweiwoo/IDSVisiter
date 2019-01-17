@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 位号
         /// </summary>
         public string Tag { get; set; }
@@ -99,7 +107,7 @@ namespace Flute.DataStruct.IDS
         /// <summary>fun
         /// Gets or Sets 功能
         /// </summary>
-        public Int32 Function { get; set; }
+        public string Function { get; set; }
         /// <summary>
         /// Gets or Sets 详细说明
         /// </summary>
@@ -119,10 +127,35 @@ namespace Flute.DataStruct.IDS
             set { _subLoops = value; }
         }
 
+        /// <summary>
+        /// 系统下所有设备的数量统计
+        /// </summary>
+        public Int32 EquipmentsCount
+        {
+            get
+            {
+                Int32 equipmentsCount = 0;
+
+                lock (this) {
+
+                    if (SubLoops != null && SubLoops.Count > 0) {
+                        foreach (IDSSubLoop subLoop in SubLoops) {
+                            if (subLoop.Equipments != null && subLoop.Equipments.Count > 0) {
+                                equipmentsCount += subLoop.Equipments.Count;
+                            }
+                        }
+                    }
+                }
+                return equipmentsCount;
+            }
+        }
+
         #endregion // 成员属性
 
         public IDSLoop()
         {
+            ID = "";
+            ParentID = "";
             Tag = "";
             LoopType = "";
             SerialNumber = "";
@@ -145,7 +178,7 @@ namespace Flute.DataStruct.IDS
             MeasurementRange = "";
             ProcessRange = "";
             Unit = "";
-            Function = 0;
+            Function = "";
             Description = "";
             Source = "";
 

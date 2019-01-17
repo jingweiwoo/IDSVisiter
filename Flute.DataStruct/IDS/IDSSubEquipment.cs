@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 位号
         /// </summary>
         public string Tag { get; set; }
@@ -49,14 +57,24 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ActingCurrent { get; set; }
 
-        private Object _mountingRepository;
+        private IDSMountingScheme _mountingScheme = null;
         /// <summary>
         /// Gets or Sets 安装库信息
         /// </summary>
-        public Object MountingRepository
+        public IDSMountingScheme MountingScheme
         {
-            get { return _mountingRepository; }
-            set { _mountingRepository = value; }
+            get { return _mountingScheme; }
+            set { _mountingScheme = value; }
+        }
+
+        private IDSCableCollection _cables = null;
+        /// <summary>
+        /// Gets or Sets 电缆
+        /// </summary>
+        public IDSCableCollection Cables
+        {
+            get { return _cables; }
+            set { _cables = value; }
         }
         
         #endregion // 成员属性
@@ -66,6 +84,8 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public IDSSubEquipment()
         {
+            ID = "";
+            ParentID = "";
             Tag = "";
             FunctionCode = "";
             Suffix = "";
@@ -77,7 +97,8 @@ namespace Flute.DataStruct.IDS
             SwitchTag = "";
             ActingCurrent = "";
 
-            _mountingRepository = new Object();
+            _cables = new IDSCableCollection();
+            _mountingScheme = new IDSMountingScheme();
         }
 
         #region .Copy.
@@ -90,6 +111,8 @@ namespace Flute.DataStruct.IDS
         {
             IDSSubEquipment idsSubEquipment = MemberwiseClone() as IDSSubEquipment;
             // idsSubEquipment.MountingRepository = this.MountingRepository.Copy();
+            idsSubEquipment.Cables = this.Cables.Copy();
+            idsSubEquipment.MountingScheme = this.MountingScheme.Copy();
 
             return idsSubEquipment;
         }
@@ -190,6 +213,12 @@ namespace Flute.DataStruct.IDS
         {
             if (this.Count > 0)
                 base.Sort(IDSSubEquipmentCollection.Comparer);
+
+            foreach (IDSSubEquipment subEquipment in this) {
+                if (subEquipment.Cables != null && subEquipment.Cables.Count > 0) {
+                    subEquipment.Cables.Sort();
+                }
+            }
         }
 
         #endregion

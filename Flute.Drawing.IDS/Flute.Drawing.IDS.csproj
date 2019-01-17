@@ -56,6 +56,10 @@
       <Project>{371D1373-05A1-4639-A875-9B7DA76CFA20}</Project>
       <Name>Flute.Drawing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Flute.Service\Flute.Service.csproj">
+      <Project>{93AFC058-C756-455C-A2D3-D7916BB12C02}</Project>
+      <Name>Flute.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Flute.UI.WinForms\Flute.UI.WinForms.csproj">
       <Project>{9C82F742-810E-43D0-8052-4774AF7B0726}</Project>
       <Name>Flute.UI.WinForms</Name>

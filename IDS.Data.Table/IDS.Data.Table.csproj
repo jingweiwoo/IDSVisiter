@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Table.TblCable.cs" />
+    <Compile Include="Table.TblIDSCable.cs" />
     <Compile Include="Table.TblIDSCabinet.cs" />
     <Compile Include="Table.TblIDSCabinetEquipment.cs" />
     <Compile Include="Table.TblIDSEquipment.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Table.TblIDSMountingSchemeMaterial.cs" />
     <Compile Include="Table.TblIDSRepository.cs" />
     <Compile Include="Table.TblIDSHierarchy.cs" />
-    <Compile Include="Table.TblIDSProcessLoop.cs" />
+    <Compile Include="Table.TblIDSLoop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.TblIDSSubEquipment.cs" />
   </ItemGroup>

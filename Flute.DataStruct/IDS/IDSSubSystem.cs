@@ -9,6 +9,14 @@ namespace Flute.DataStruct.IDS
         #region .成员属性.
 
         /// <summary>
+        /// Gets or Sets ID
+        /// </summary>
+        public string ID { get; set; }
+        /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 代码
         /// </summary>
         public string Code { get; set; }
@@ -47,6 +55,8 @@ namespace Flute.DataStruct.IDS
 
         public IDSSubSystem()
         {
+            ID = "";
+            ParentID = "";
             Code = "";
             Name = "";
             IsNameInLoop = false;

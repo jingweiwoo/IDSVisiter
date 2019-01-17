@@ -13,6 +13,10 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ID { get; set; }
         /// <summary>
+        /// Gets or Sets 父ID
+        /// </summary>
+        public string ParentID { get; set; }
+        /// <summary>
         /// Gets or Sets 代码
         /// </summary>
         public string Code { get; set; }
@@ -57,6 +61,7 @@ namespace Flute.DataStruct.IDS
         public IDSSubLoop()
         {
             ID = "";
+            ParentID = "";
             Code = "";
             Name = "";
             Phase = "";

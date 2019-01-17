@@ -124,6 +124,10 @@
       <Project>{511B281A-FCA0-4651-AF8B-D92B33FAB196}</Project>
       <Name>Flute.Drawing.EQA</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Flute.Drawing.IDS\Flute.Drawing.IDS.csproj">
+      <Project>{1EF47419-0B11-4028-A4C1-C035575097A8}</Project>
+      <Name>Flute.Drawing.IDS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Flute.Drawing\Flute.Drawing.csproj">
       <Project>{371D1373-05A1-4639-A875-9B7DA76CFA20}</Project>
       <Name>Flute.Drawing</Name>

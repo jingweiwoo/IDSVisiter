@@ -70,11 +70,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DrawingKeyword.cs" />
     <Compile Include="EQA\EQACableList.cs" />
     <Compile Include="DrawingEnums.cs" />
     <Compile Include="EQA\EQAEquipmentIndent.cs" />
     <Compile Include="EQA\EQAEquipmentList.cs" />
     <Compile Include="IDrawing.cs" />
+    <Compile Include="IDS\IDSEquipmentIndent.cs" />
+    <Compile Include="IDS\IDSEquipmentList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

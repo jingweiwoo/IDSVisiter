@@ -294,7 +294,7 @@ namespace Flute.DataStruct.EQA
         public static EQAEquipmentCollection CreateEQAEquipments(DataRow[] rowsEQAEquipment)
         {
             if(rowsEQAEquipment == null)
-                throw new System.ArgumentNullException("from function CreateEQAEquipments", "Parameter tableEQAEquipment equals to null");
+                throw new System.ArgumentNullException("from function CreateEQAEquipments", "Parameter rowsEQAEquipment equals to null");
             
             EQAEquipmentCollection equipments = new EQAEquipmentCollection();
 

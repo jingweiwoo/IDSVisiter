@@ -9,7 +9,7 @@ namespace IDS.Data.Table
     /// <summary>
     /// 回路表 -- 表名和各列名称
     /// </summary>
-    public class TblIDSProcessLoop
+    public class TblIDSLoop
     {
         #region .私有变量.
 
