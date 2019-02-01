@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDS.Data.Table", "IDS.Data.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flute.Drawing.IDS", "Flute.Drawing.IDS\Flute.Drawing.IDS.csproj", "{1EF47419-0B11-4028-A4C1-C035575097A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flute.Drawing.Excel", "Flute.Drawing.Excel\Flute.Drawing.Excel.csproj", "{2732DB51-8F96-4537-94D8-D1E15247B3BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +150,12 @@ Global
 		{1EF47419-0B11-4028-A4C1-C035575097A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EF47419-0B11-4028-A4C1-C035575097A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1EF47419-0B11-4028-A4C1-C035575097A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2732DB51-8F96-4537-94D8-D1E15247B3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2732DB51-8F96-4537-94D8-D1E15247B3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2732DB51-8F96-4537-94D8-D1E15247B3BB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2732DB51-8F96-4537-94D8-D1E15247B3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2732DB51-8F96-4537-94D8-D1E15247B3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2732DB51-8F96-4537-94D8-D1E15247B3BB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

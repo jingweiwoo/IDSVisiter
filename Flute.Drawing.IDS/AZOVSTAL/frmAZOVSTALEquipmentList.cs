@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 using Flute.UI.WinForms;
 
+using Flute.DataStruct.IDS;
+
 namespace Flute.Drawing.IDS
 {
     public partial class frmAZOVSTALEquipmentList : Flute.UI.WinForms.frmDialog
@@ -61,7 +63,6 @@ namespace Flute.Drawing.IDS
         private bool _hasOperationRangeMax = true;
         private bool _hasOperationRangeUnit = true;
         private bool _hasRemark = true;
-        private bool _keepETNo = true;
 
         public DrawingLanguage Language { get { return _language; } }
 
@@ -83,13 +84,13 @@ namespace Flute.Drawing.IDS
         public bool HasOperationRangeMax { get { return _hasOperationRangeMax; } }
         public bool HasOperationRangeUnit { get { return _hasOperationRangeUnit; } }
         public bool HasRemark { get { return _hasRemark; } }
-        public bool KeepETNo { get { return _keepETNo; } }
 
         public string ApprovedBy { get { return this.tbApprovedBy.Text; } }
         public string CheckedBy { get { return this.tbCheckedBy.Text; } }
         public string DesignBy { get { return this.tbDesignedBy.Text; } }
         public string MadeBy { get { return this.tbMadeBy.Text; } }
-        public string DrawingNo { get { return this.tbDrawingNo.Text; } }
+        public string ProjectID { get { return this.tbProjectID.Text; } }
+        public string DrawingID { get { return this.tbDrawingID.Text; } }
         public string Speciality { get { return this.tbSpeciality.Text; } }
         public string Stage { get { return this.tbStage.Text; } }
         public string Date { get { return this.tbDate.Text; } }
@@ -102,7 +103,7 @@ namespace Flute.Drawing.IDS
         
         #endregion
 
-        public frmAZOVSTALEquipmentList()
+        public frmAZOVSTALEquipmentList(IDSDesignInfo designInfo)
         {
             InitializeComponent();
 
@@ -187,8 +188,6 @@ namespace Flute.Drawing.IDS
             chkBoxRemark.Text = "备注";
             chkBoxRemark.Checked = true;
 
-            chkBoxKeepETNo.Checked = true;
-
             flowLayoutPanelElement.Controls.Add(chkBoxLoopNo);
             flowLayoutPanelElement.Controls.Add(chkBoxTagNo);
             flowLayoutPanelElement.Controls.Add(chkBoxItems);
@@ -207,25 +206,30 @@ namespace Flute.Drawing.IDS
             flowLayoutPanelElement.Controls.Add(chkBoxOperationRangeMax);
             flowLayoutPanelElement.Controls.Add(chkBoxOperationRangeUnit);
             flowLayoutPanelElement.Controls.Add(chkBoxRemark);
+
+            flowLayoutPanelElement.Visible = false;
+            this.groupBox2.Visible = false;
+
             //
             // 图框
             //
-            tbApprovedBy.Text = "吉青";
-            tbCheckedBy.Text = "蔡晓峰";
-            tbDesignedBy.Text = "吴经纬";
+            tbApprovedBy.Text = designInfo.ApprovedBy;
+            tbCheckedBy.Text = designInfo.CheckedBy;
+            tbDesignedBy.Text = designInfo.DesignedBy;
             tbMadeBy.Text = "";
-            tbDrawingNo.Text = "";
-            tbSpeciality.Text = "EE";
-            tbStage.Text = "DE";
+            tbProjectID.Text = designInfo.ProjectID;
+            tbDrawingID.Text = designInfo.DrawingID;
+            tbSpeciality.Text = designInfo.Speciality;
+            tbStage.Text = designInfo.DesignPhase;
             tbDate.Text = DateTime.Now.Year.ToString() + "." + DateTime.Now.Month.ToString();
-            tbContractNo.Text = "E152821";
-            tbRevision.Text = "";
+            tbContractNo.Text = "";
+            tbRevision.Text = designInfo.RevisionVersion;
             tbTopLevelNo.Text = "";
             //
             // 文件路径
             //
             tbTemplatePath.Enabled = true;
-            tbTemplatePath.Text = Application.StartupPath + @"\Template\MMK_chs.xlt";
+            tbTemplatePath.Text = Application.StartupPath + @"\Template\AZOVSTAL_enu.xlt";
             btnTemplatePath.Visible = false;
 
             tbDestPath.Enabled = false;
@@ -259,6 +263,7 @@ namespace Flute.Drawing.IDS
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            _language = radioBtnLangSimpChinese.Checked ? DrawingLanguage.SimpleChinese : DrawingLanguage.English;
             _hasLoopNo = chkBoxLoopNo.Checked;
             _hasTagNo = chkBoxTagNo.Checked;
             _hasItems = chkBoxItems.Checked;
@@ -277,7 +282,6 @@ namespace Flute.Drawing.IDS
             _hasOperationRangeMax = chkBoxOperationRangeMax.Checked;
             _hasOperationRangeUnit = chkBoxOperationRangeUnit.Checked;
             _hasRemark = chkBoxRemark.Checked;
-            _keepETNo = chkBoxKeepETNo.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Hide();

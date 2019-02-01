@@ -21,6 +21,7 @@ using Flute.Data;
 using Flute.Drawing;
 using Flute.Drawing.EQA;
 using Flute.Drawing.IDS;
+using Flute.Drawing.Excel;
 
 using Flute.Service;
 
@@ -49,6 +50,7 @@ namespace AppStart
             ToolStripMenuItem menuExit = new ToolStripMenuItem("退出(&C)");
             ToolStripMenuItem menuOpenEQA = new ToolStripMenuItem("打开EQA文件... (&E)");
             ToolStripMenuItem menuOpenIDS = new ToolStripMenuItem("打开IDS文件... (&I)");
+         
             ToolStripMenuItem menuCatalogSystem = new ToolStripMenuItem("文件(&F)");
 
             // menuCatalogSystem.DropDownItems.Add(menuOpenEQA);
@@ -67,25 +69,29 @@ namespace AppStart
 
             ToolStripMenuItem menuEQADrawingExport = new ToolStripMenuItem("导出EQA数据库内容");
 
-            ToolStripMenuItem menuAZOVSTALIDSEquipmentListExport = new ToolStripMenuItem("设备表(&Q)");
-            ToolStripMenuItem menuAZOVSTALIDSExport = new ToolStripMenuItem("亚速6#高炉项目");
+            ToolStripMenuItem menuAZOVSTALIDSEquipmentListExport = new ToolStripMenuItem("导出设备表(&Q)");
+            ToolStripMenuItem menuAZOVSTALIDSEquipmentListTranslation = new ToolStripMenuItem("替换设备表的翻译内容(&T)");
+            ToolStripMenuItem menuAZOVSTALExport = new ToolStripMenuItem("亚速6#高炉项目");
 
             ToolStripMenuItem menuIDSDrawingExport = new ToolStripMenuItem("导出IDS数据库内容");
 
-
             ToolStripMenuItem menuCatalogDrawing = new ToolStripMenuItem("图纸(&D)");
 
-            menuLongEQAExport.DropDownItems.Add(menuLongEQAEquipementIndentExport);
-            // menuEQADrawingExport.DropDownItems.Add(menuLongEQAExport);
+            //menuLongEQAExport.DropDownItems.Add(menuLongEQAEquipementIndentExport);
+            //// menuEQADrawingExport.DropDownItems.Add(menuLongEQAExport);
 
-            menuMMKEQAExport.DropDownItems.Add(menuMMKEQAEquipmentListExport);
-            menuMMKEQAExport.DropDownItems.Add(menuMMKEQACableListExport);
+            //menuMMKEQAExport.DropDownItems.Add(menuMMKEQAEquipmentListExport);
+            //menuMMKEQAExport.DropDownItems.Add(menuMMKEQACableListExport);
             // menuEQADrawingExport.DropDownItems.Add(menuMMKEQAExport);
 
-            menuAZOVSTALIDSExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListExport);
-            menuIDSDrawingExport.DropDownItems.Add(menuAZOVSTALIDSExport);
+            //menuAZOVSTALExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListExport);
+            //menuIDSDrawingExport.DropDownItems.Add(menuAZOVSTALExport);
 
-            menuCatalogDrawing.DropDownItems.Add(menuIDSDrawingExport);
+            //menuCatalogDrawing.DropDownItems.Add(menuIDSDrawingExport);
+
+            menuAZOVSTALExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListExport);
+            menuAZOVSTALExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListTranslation);
+            menuCatalogDrawing.DropDownItems.Add(menuAZOVSTALExport);
 
             // ------
 
@@ -103,6 +109,9 @@ namespace AppStart
             menuLongEQAEquipementIndentExport.Click += menuLongEQAEquipmentIndentExport_Click;
 
             menuAZOVSTALIDSEquipmentListExport.Click += menuAZOVSTALIDSEquipmentListExport_Click;
+            menuAZOVSTALIDSEquipmentListTranslation.Click += menuAZOVSTALIDSEquipmentListTranslation_Click;
+
+            
         }
 
         #region .载入EQA数据库.
@@ -231,13 +240,14 @@ namespace AppStart
             try {
                 ds = DatabaseHelper.CreateDataSet(dbConfigInfo.ConnectionString,
                                                   dbProvider,
+                                                  TblDesignInfo.TblName,
                                                   TblIDSEquipment.TblName,
                                                   TblIDSSubEquipment.TblName,
                                                   TblIDSRepository.TblName,
                                                   TblIDSHierarchy.TblName,
                                                   TblIDSLoop.TblName,
                                                   TblIDSCabinet.TblName,
-                                                  TblIDSCabinetEquipment.TblName,
+                                                  TblIDSEquipmentInCabinet.TblName,
                                                   TblIDSMountingScheme.TblName,
                                                   TblIDSMountingSchemeMaterial.TblName);
             }
@@ -328,6 +338,7 @@ namespace AppStart
 
         #region .IDS数据库内容导出.
 
+        #region .Azovstal 设备表导出.
         void menuAZOVSTALIDSEquipmentListExport_Click(object sender, EventArgs e)
         {
             if (DatabaseManager.Databases.Count <= 0) {
@@ -345,10 +356,59 @@ namespace AppStart
                                                                         dataSet.Tables[TblIDSMountingScheme.TblName]);
 
             IDrawing azovstalEquipmentList = new AZOVSTALEquipmentList(systems);
-            azovstalEquipmentList.Export("","");
+            azovstalEquipmentList.Export("","", IDSHelper.CreateIDSDesignInfo(dataSet.Tables[TblDesignInfo.TblName]));
 
             return;
         }
+
+        #endregion
+
+        #endregion
+
+        #region .Excel文件处理.
+
+        #region .Azovstal 设备表翻译内容替换.
+        void menuAZOVSTALIDSEquipmentListTranslation_Click(object sender, EventArgs e)
+        {
+            string fileName = null;
+            
+            OpenFileDialog openFileDlg;
+
+            openFileDlg = new OpenFileDialog();
+
+            openFileDlg.Multiselect = false;
+            openFileDlg.Title = "选择Excel文件";
+            openFileDlg.Filter = "Excel文件 (*.xlsx)|*.xlsx|Excel 1997~2003 文件 (*.xls)|*.xls|All Files (*.*)|*.*";
+
+            DialogResult dlgResult;
+
+            try {
+                dlgResult = openFileDlg.ShowDialog();
+            } catch (Exception ex) {
+                Flute.Service.MessageBoxWinForm.Error("选择Excel文件", ex.Message, "");
+                return;
+            }
+
+            if (dlgResult == DialogResult.OK) {
+                fileName = openFileDlg.FileName;
+            } else {
+                return;
+            }
+
+            // AzovstalExcelHelper.ReadKeywordList(fileName);
+
+
+            AzovstalExcelHelper.ReplaceEquipmentListKeywords(fileName, new DrawingKeywordCollection());
+
+
+
+
+            // Flute.Service.MessageBoxWinForm.Info("成功", "成功载入IDS数据库文件", "路径:\n" + fileName);
+
+            return;
+        }
+
+        #endregion
 
         #endregion
     }

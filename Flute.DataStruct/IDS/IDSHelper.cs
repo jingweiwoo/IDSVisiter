@@ -10,6 +10,56 @@ namespace Flute.DataStruct.IDS
 {
     public static class IDSHelper
     {
+        #region .Create Design Info.
+
+        public static IDSDesignInfo CreateIDSDesignInfo(DataTable tableDesignInfo)
+        {
+            if (tableDesignInfo == null)
+                throw new System.ArgumentNullException("frome function CreateIDSDesignInfo", "Parameter tableDesignInfo equals to null");
+
+            if (tableDesignInfo.Rows.Count > 0) {
+                return CreateIDSDesignInfo(tableDesignInfo.Rows[0]);
+            }
+
+            return new IDSDesignInfo();
+        }
+
+        public static IDSDesignInfo CreateIDSDesignInfo(DataRow rowDesignInfo)
+        {
+            if (rowDesignInfo == null)
+                throw new System.ArgumentNullException("frome function CreateIDSDesignInfo", "Parameter rowDesignInfo equals to null");
+
+            IDSDesignInfo designInfo = new IDSDesignInfo();
+
+            lock (rowDesignInfo) {
+                try {
+                    designInfo.ProjectName = (rowDesignInfo[TblDesignInfo.ProjectName] as string).Trim();
+                    designInfo.ProjectID = (rowDesignInfo[TblDesignInfo.ProjectID] as string).Trim();
+                    designInfo.DrawingID = (rowDesignInfo[TblDesignInfo.DrawingID] as string).Trim();
+                    designInfo.DesignPhase = (rowDesignInfo[TblDesignInfo.DesignPhase] as string).Trim();
+                    designInfo.Speciality = (rowDesignInfo[TblDesignInfo.Speciality] as string).Trim();
+                    designInfo.DesignedBy = (rowDesignInfo[TblDesignInfo.DesignedBy] as string).Trim();
+
+                    designInfo.RevisionVersion = (rowDesignInfo[TblDesignInfo.RevisionVersion] as string).Trim();
+                    designInfo.Date = (rowDesignInfo[TblDesignInfo.Date] as string).Trim();
+
+                    designInfo.CheckedBy = (rowDesignInfo[TblDesignInfo.CheckedBy] as string).Trim();
+                    designInfo.ApprovedBy = (rowDesignInfo[TblDesignInfo.ApprovedBy] as string).Trim();
+
+                    designInfo.AppendDrawingID = (rowDesignInfo[TblDesignInfo.AppendDrawingID] as string).Trim();
+                    designInfo.AppendDrawingIDNumber = Convert.ToInt32(rowDesignInfo[TblDesignInfo.AppendDrawingIDNumber]);
+                    
+                } catch (System.Data.DataException ex) {
+                    MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
+                }
+            }
+
+            return designInfo;
+        }
+
+        #endregion // Create Design Info
+
+
         #region .Create IDS Data Struct
 
         #region .创建系统.
@@ -590,10 +640,25 @@ namespace Flute.DataStruct.IDS
                     repository.Name = Convert.ToString(rowIDSRepository[TblIDSRepository.Name]);
                     repository.Usage = (rowIDSRepository[TblIDSRepository.Usage] as string);
                     repository.ModelNumber = (rowIDSRepository[TblIDSRepository.ModelNumber] as string);
+
+                    Int32 indexOfSymbol = repository.RepositoryID.LastIndexOf("__");
+                    Int32 repositoryIDLength = repository.RepositoryID.Length;
+                    repository.Supplier = indexOfSymbol != -1 ? repository.RepositoryID.Substring(indexOfSymbol + 2) : "";
+
                     repository.NameSuffix = Convert.ToString(rowIDSRepository[TblIDSRepository.NameSuffix]);
                     repository.TerminalDefinition = Convert.ToString(rowIDSRepository[TblIDSRepository.TerminalDefinition]);
                     repository.QuantityUnit = Convert.ToString(rowIDSRepository[TblIDSRepository.QuantityUnit]);
                     repository.NotPrintOut = Convert.ToBoolean(rowIDSRepository[TblIDSRepository.NotPrintOut]);
+
+                    if (repository.Usage.Length > 3) {
+                        //if (repository.Usage[0] == '/' && repository.Usage[1] == '/' && repository.Usage[2] == '/')
+                        if(repository.Usage.Substring(0,3) == "///")
+                            repository.ExportAllowed = false;
+                        else
+                            repository.ExportAllowed = true;
+                    } else {
+                        repository.ExportAllowed = true;
+                    }
 
                     repository.Text01 = Convert.ToString(rowIDSRepository[TblIDSRepository.Text01]).Trim();
                     repository.Text02 = Convert.ToString(rowIDSRepository[TblIDSRepository.Text02]).Trim();
@@ -676,6 +741,6 @@ namespace Flute.DataStruct.IDS
 
         #endregion
 
-        #endregion
+        #endregion // Create IDS Data Struct
     }
 }

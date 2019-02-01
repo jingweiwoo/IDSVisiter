@@ -13,7 +13,7 @@ namespace Flute.Drawing
 
         #region IDrawing Members
 
-        bool IDrawing.Export(string templatePath, string destPath)
+        bool IDrawing.Export(string templatePath, string destPath, params object[] anyObjects)
         {
             return true;
         }

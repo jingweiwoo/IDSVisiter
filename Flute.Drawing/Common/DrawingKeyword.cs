@@ -360,12 +360,14 @@ namespace Flute.Drawing
         public DrawingKeyword Copy()
         {
             DrawingKeyword keyword = this.MemberwiseClone() as DrawingKeyword;
-            keyword.KeywordsInOtherLanguage.AddRange(this.KeywordsInOtherLanguage);
+            if (this.KeywordsInOtherLanguage.Count > 0)
+                foreach (KeywordInOtherLanguage kw in this.KeywordsInOtherLanguage)
+                    keyword.KeywordsInOtherLanguage.Add(kw.Copy());
             keyword.Locations = this.Locations.Copy();
             return keyword;
         }
     }
-
+    
 
     public class DrawingKeywordCollection : List<DrawingKeyword>
     {
@@ -499,9 +501,10 @@ namespace Flute.Drawing
             if (this.ContainsKeyword(drawingKeyword.Keyword) == true) {
                 if (drawingKeyword.Locations != null && drawingKeyword.Locations.Count > 0)
                     this[drawingKeyword.Keyword].Locations.AddLocations(drawingKeyword.Locations);
-            }
+            } else if (drawingKeyword.Keyword != "")
+                this.Add(drawingKeyword);
             else
-                this.Add(drawingKeyword.Copy());
+                return;
         }
         
         #endregion

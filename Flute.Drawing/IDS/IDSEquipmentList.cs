@@ -16,7 +16,7 @@ namespace Flute.Drawing
 
         #region IDrawing Members
 
-        public virtual bool Export(string templatePath, string destPath)
+        public virtual bool Export(string templatePath, string destPath, params object[] anyObjects)
         {
             Console.WriteLine("calling Flute.Drawing.IDS.IDSEquipmentList.Export");
             return true;

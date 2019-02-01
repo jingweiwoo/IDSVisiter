@@ -45,6 +45,10 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ModelNumber { get; set; }
         /// <summary>
+        /// Gets or Sets 供应商
+        /// </summary>
+        public string Supplier { get; set; }
+        /// <summary>
         /// Gets or Sets 名称后缀选项
         /// </summary>
         public string NameSuffix { get; set; }
@@ -60,6 +64,10 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 不打印
         /// </summary>
         public bool NotPrintOut { get; set; }
+        /// <summary>
+        /// Gets or Sets 允许导出
+        /// </summary>
+        public bool ExportAllowed { get; set; }
 
         /// <summary>
         /// Gets or Sets 文本1
@@ -343,10 +351,12 @@ namespace Flute.DataStruct.IDS
             Name = "";
             Usage = "";
             ModelNumber = "";
+            Supplier = "";
             NameSuffix = "";
             TerminalDefinition = "";
             QuantityUnit = "";
             NotPrintOut = false;
+            ExportAllowed = false;
 
             Text01 = "";
             Text02 = "";

@@ -38,8 +38,7 @@
             this.tbTemplatePath = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.chkBoxKeepETNo = new System.Windows.Forms.CheckBox();
-            this.tbDrawingNo = new System.Windows.Forms.TextBox();
+            this.tbProjectID = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.tbTopLevelNo = new System.Windows.Forms.TextBox();
@@ -71,6 +70,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.tbApprovedBy = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.tbDrawingID = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -87,6 +89,7 @@
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -99,15 +102,15 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(408, 15);
+            this.btnApply.Location = new System.Drawing.Point(632, 15);
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(489, 15);
+            this.btnOK.Location = new System.Drawing.Point(713, 15);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(570, 15);
+            this.btnCancel.Location = new System.Drawing.Point(794, 15);
             // 
             // groupBox1
             // 
@@ -192,6 +195,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.panel14);
             this.groupBox4.Controls.Add(this.panel13);
             this.groupBox4.Controls.Add(this.panel12);
             this.groupBox4.Controls.Add(this.panel11);
@@ -212,39 +216,28 @@
             // 
             // panel13
             // 
-            this.panel13.Controls.Add(this.chkBoxKeepETNo);
-            this.panel13.Controls.Add(this.tbDrawingNo);
+            this.panel13.Controls.Add(this.tbProjectID);
             this.panel13.Controls.Add(this.label11);
             this.panel13.Location = new System.Drawing.Point(177, 20);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(336, 28);
+            this.panel13.Size = new System.Drawing.Size(165, 28);
             this.panel13.TabIndex = 4;
             // 
-            // chkBoxKeepETNo
+            // tbProjectID
             // 
-            this.chkBoxKeepETNo.AutoSize = true;
-            this.chkBoxKeepETNo.Location = new System.Drawing.Point(245, 6);
-            this.chkBoxKeepETNo.Name = "chkBoxKeepETNo";
-            this.chkBoxKeepETNo.Size = new System.Drawing.Size(84, 16);
-            this.chkBoxKeepETNo.TabIndex = 3;
-            this.chkBoxKeepETNo.Text = "保留ET箱号";
-            this.chkBoxKeepETNo.UseVisualStyleBackColor = true;
-            // 
-            // tbDrawingNo
-            // 
-            this.tbDrawingNo.Location = new System.Drawing.Point(62, 4);
-            this.tbDrawingNo.Name = "tbDrawingNo";
-            this.tbDrawingNo.Size = new System.Drawing.Size(155, 21);
-            this.tbDrawingNo.TabIndex = 2;
+            this.tbProjectID.Location = new System.Drawing.Point(62, 4);
+            this.tbProjectID.Name = "tbProjectID";
+            this.tbProjectID.Size = new System.Drawing.Size(100, 21);
+            this.tbProjectID.TabIndex = 2;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(3, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(29, 12);
+            this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 0;
-            this.label11.Text = "图号";
+            this.label11.Text = "项目编码";
             // 
             // panel12
             // 
@@ -496,13 +489,38 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "室审";
             // 
-            // frmMMKEquipmentList
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.tbDrawingID);
+            this.panel14.Controls.Add(this.label12);
+            this.panel14.Location = new System.Drawing.Point(348, 20);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(165, 28);
+            this.panel14.TabIndex = 10;
+            // 
+            // tbDrawingID
+            // 
+            this.tbDrawingID.Location = new System.Drawing.Point(62, 4);
+            this.tbDrawingID.Name = "tbDrawingID";
+            this.tbDrawingID.Size = new System.Drawing.Size(100, 21);
+            this.tbDrawingID.TabIndex = 2;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "图号";
+            // 
+            // frmAZOVSTALEquipmentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 566);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "frmMMKEquipmentList";
+            this.Name = "frmAZOVSTALEquipmentList";
             this.Text = "frmAZOVSTALEquipmentList";
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -532,6 +550,8 @@
             this.panel8.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -579,8 +599,10 @@
         private System.Windows.Forms.TextBox tbSpeciality;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.TextBox tbDrawingNo;
+        private System.Windows.Forms.TextBox tbProjectID;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox chkBoxKeepETNo;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.TextBox tbDrawingID;
+        private System.Windows.Forms.Label label12;
     }
 }

@@ -24,7 +24,9 @@ namespace Flute.Drawing.IDS
         enum EquipmentListType { Excel = 0, }
 
         string _contractNo = "";    // 合同号
-        string _drawingNo = "";     // 图号
+        string _projectName = "";   // 项目名称
+        string _projectID = "";     // 项目编码
+        string _drawingID = "";     // 图号
         string _revision = "";      // 修改号
         string _topLevelNo = "";    // 高层代号
         string _speciality = "";    // 专业
@@ -45,7 +47,7 @@ namespace Flute.Drawing.IDS
             DrawingKeywords = new DrawingKeywordCollection();
         }
 
-        public override bool Export(string templatePath, string destPath)
+        public override bool Export(string templatePath, string destPath, params object[] anyObjects)
         {
             Console.WriteLine("calling Flute.Drawing.IDS.AZOVSTALEquipmentList.Export");
             IDSSystemCollection systems = DrawingData as IDSSystemCollection;
@@ -55,7 +57,7 @@ namespace Flute.Drawing.IDS
 
             systems.Sort();
 
-            frmAZOVSTALEquipmentList FrmAZOVSTALEquipmentList = new frmAZOVSTALEquipmentList();
+            frmAZOVSTALEquipmentList FrmAZOVSTALEquipmentList = new frmAZOVSTALEquipmentList(anyObjects[0] as IDSDesignInfo);
             System.Windows.Forms.DialogResult dlgResult = FrmAZOVSTALEquipmentList.ShowDialog();
 
             if (dlgResult == System.Windows.Forms.DialogResult.Cancel)
@@ -64,7 +66,9 @@ namespace Flute.Drawing.IDS
             _drawingLanguage = FrmAZOVSTALEquipmentList.Language;
 
             _contractNo = FrmAZOVSTALEquipmentList.ContractNo;
-            _drawingNo = FrmAZOVSTALEquipmentList.DrawingNo;
+           
+            _projectID = FrmAZOVSTALEquipmentList.ProjectID;
+            _drawingID = FrmAZOVSTALEquipmentList.DrawingID;
             _revision = FrmAZOVSTALEquipmentList.Revision;
             _topLevelNo = FrmAZOVSTALEquipmentList.TopLevelNo;
             _speciality = FrmAZOVSTALEquipmentList.Speciality;
@@ -176,7 +180,7 @@ namespace Flute.Drawing.IDS
                                     // 合同号
                                     xlsWorkSheet.Shapes.Item("CONTRACT").TextFrame.Characters(Missing.Value, Missing.Value).Text = _contractNo;
                                     // 图号
-                                    xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _drawingNo;
+                                    xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _drawingID;
                                     // 高层代号
                                     xlsWorkSheet.Shapes.Item("=").TextFrame.Characters(Missing.Value, Missing.Value).Text = "=" + _topLevelNo;
                                     // 修改号
@@ -282,7 +286,7 @@ namespace Flute.Drawing.IDS
                                                                     // 合同号
                                                                     xlsWorkSheet.Shapes.Item("CONTRACT").TextFrame.Characters(Missing.Value, Missing.Value).Text = _contractNo;
                                                                     // 图号
-                                                                    xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _drawingNo;
+                                                                    xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _drawingID;
                                                                     // 高层代号
                                                                     xlsWorkSheet.Shapes.Item("=").TextFrame.Characters(Missing.Value, Missing.Value).Text = "=" + _topLevelNo;
                                                                     // 修改号
@@ -355,9 +359,9 @@ namespace Flute.Drawing.IDS
                         //// 合同号
                         //xlsWorkSheet.Shapes.Item("CONTRACT").TextFrame.Characters(Missing.Value, Missing.Value).Text = _contractNo;
                         //项目编码
-                        xlsWorkSheet.Shapes.Item("PROJECT_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = "";
+                        xlsWorkSheet.Shapes.Item("PROJECT_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _projectID;
                         // 图号
-                        xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _drawingNo;
+                        xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _drawingID;
                         //// 高层代号
                         //xlsWorkSheet.Shapes.Item("=").TextFrame.Characters(Missing.Value, Missing.Value).Text = "=" + _topLevelNo;
                         // 修改号
@@ -416,12 +420,15 @@ namespace Flute.Drawing.IDS
                                                     // 回路号
                                                     string loopTag = loop.Tag;
                                                     string loopTagCell = "B" + eqpNumberInPages.ToString();
+                                                    string loopTagCellNext = "B" + (eqpNumberInPages + 1).ToString();
                                                     // 回路检测与控制内容
                                                     string loopFunction = loop.Location + loop.Parameter;
                                                     string loopFunctionCell = "D" + eqpNumberInPages.ToString();
+                                                    string loopFunctionCellNext = "D" + (eqpNumberInPages + 1).ToString();
                                                     // 回路测量介质
                                                     string loopMedium = loop.Medium;
                                                     string loopMediumCell = "E" + eqpNumberInPages.ToString();
+                                                    string loopMediumCellNext = "E" + (eqpNumberInPages+1).ToString();
 
                                                     // 回路号                  
                                                     xlsWorkSheet.get_Range(loopTagCell, Missing.Value).Value2 = loopTag;
@@ -436,10 +443,12 @@ namespace Flute.Drawing.IDS
                                                     //                                            new KeywordLocation(currentPageNumber, loopTagCell)));
                                                     DrawingKeywords.AddKeyword(new DrawingKeyword(loopFunction,
                                                                                                 new KeywordInOtherLanguageCollection(),
-                                                                                                new KeywordLocation(currentPageNumber, loopFunctionCell)));
+                                                                                                new KeywordLocation(currentPageNumber, loopFunctionCell),
+                                                                                                new KeywordLocation(currentPageNumber, loopFunctionCellNext)));
                                                     DrawingKeywords.AddKeyword(new DrawingKeyword(loopMedium,
                                                                                                 new KeywordInOtherLanguageCollection(),
-                                                                                                new KeywordLocation(currentPageNumber, loopMediumCell)));
+                                                                                                new KeywordLocation(currentPageNumber, loopMediumCell),
+                                                                                                new KeywordLocation(currentPageNumber, loopMediumCellNext)));
 
                                                     for (int m = 0; m < loop.SubLoops.Count; m++) {
                                                         IDSSubLoop subLoop = loop.SubLoops[m];
@@ -447,6 +456,9 @@ namespace Flute.Drawing.IDS
                                                         if (subLoop.Equipments.Count > 0) {
                                                             for (int n = 0; n < subLoop.Equipments.Count; n++) {
                                                                 IDSEquipment equipment = subLoop.Equipments[n];
+
+                                                                if (equipment.EquipmentRepository.ExportAllowed == false)
+                                                                    continue;
 
                                                                 // 位号
                                                                 string equipmentTag = equipment.Tag;
@@ -464,32 +476,41 @@ namespace Flute.Drawing.IDS
                                                                 // 设备名称
                                                                 string equipmentRepository = FrmAZOVSTALEquipmentList.HasEqpName ? equipment.EquipmentRepository.Name : "";
                                                                 string equipmentRepositoryCell = "F" + eqpNumberInPages.ToString();
+                                                                string equipmentRepositoryCellNext = "F" + (eqpNumberInPages+1).ToString();
                                                                 // 设备型号
                                                                 string equipmentModelNumber = FrmAZOVSTALEquipmentList.HasEqpType ? equipment.EquipmentRepository.ModelNumber : "";
                                                                 string equipmentModelNumberCell = "G" + eqpNumberInPages.ToString();
+                                                                string equipmentModelNumberCellNext = "G" + (eqpNumberInPages+1).ToString();
                                                                 // 测量范围
                                                                 string loopMeasurementRange = loop.MeasurementRange;
                                                                 string loopMeasurementRangeCell = "H" + eqpNumberInPages.ToString();
+                                                                string loopMeasurementRangeCellNext = "H" + (eqpNumberInPages+1).ToString();
                                                                 // 测量单位
                                                                 string unit = loop.Unit;
                                                                 string unitCell = "I" + eqpNumberInPages.ToString();
+                                                                string unitCellNext = "I" + (eqpNumberInPages+1).ToString();
                                                                 // 供电
                                                                 string powerSupply = equipment.Remark;
                                                                 string powerSupplyCell = "J" + eqpNumberInPages.ToString();
+                                                                string powerSupplyCellNext = "J" + (eqpNumberInPages+1).ToString();
                                                                 // 供应商
-                                                                string supplier = "";
+                                                                string supplier = equipment.EquipmentRepository.Supplier;
                                                                 string supplierCell = "K" + eqpNumberInPages.ToString();
+                                                                string supplierCellNext = "K" + (eqpNumberInPages+1).ToString();
                                                                 // 规格
                                                                 string equipmentSpecification = equipment.EquipmentRepository.Remark01
                                                                                                     + equipment.EquipmentRepository.Remark02
                                                                                                         + equipment.EquipmentRepository.Remark03;
                                                                 string equipmentSpecificationCell = "L" + eqpNumberInPages.ToString();
+                                                                string equipmentSpecificationCellNext = "L" + (eqpNumberInPages+1).ToString();
                                                                 // 数量
                                                                 Int32 equipmentQuantity = equipment.Quantity;
                                                                 string equipmentQuantityCell = "M" + eqpNumberInPages.ToString();
+                                                                string equipmentQuantityCellNext = "M" + (eqpNumberInPages+1).ToString();
                                                                 // 安装位置
                                                                 string mountingType = equipment.SubEquipments[0].MountingType;
                                                                 string mountingTypeCell = "N" + eqpNumberInPages.ToString();
+                                                                string mountingTypeCellNext = "N" + (eqpNumberInPages+1).ToString();
 
                                                                 xlsWorkSheet.get_Range("F" + eqpNumberInPages.ToString(), "N" + eqpNumberInPages.ToString()).Value2
                                                                     = new object[] {equipmentRepository,
@@ -503,27 +524,30 @@ namespace Flute.Drawing.IDS
                                                                                     mountingType,
                                                                     };
 
+                                                                xlsWorkSheet.get_Range("B" + (eqpNumberInPages + 1).ToString(), "O" + (eqpNumberInPages + 1).ToString()).Value2
+                                                                        = xlsWorkSheet.get_Range("B" + eqpNumberInPages.ToString(), "O" + eqpNumberInPages.ToString()).Value2;
+
                                                                 // ++== 增加其他项目关键字
                                                                 DrawingKeywords.AddKeyword(new DrawingKeyword(equipmentRepository,
                                                                                                             new KeywordInOtherLanguageCollection(),
-                                                                                                            new KeywordLocation(currentPageNumber, equipmentRepositoryCell)));
+                                                                                                            new KeywordLocation(currentPageNumber, equipmentRepositoryCell),
+                                                                                                            new KeywordLocation(currentPageNumber,equipmentRepositoryCellNext)));
                                                                 //DrawingKeywords.AddKeyword(new DrawingKeyword(equipmentModelNumber,
                                                                 //                                            new KeywordInOtherLanguageCollection(),
                                                                 //                                            new KeywordLocation(currentPageNumber, equipmentModelNumberCell)));
                                                                 DrawingKeywords.AddKeyword(new DrawingKeyword(supplier,
                                                                                                             new KeywordInOtherLanguageCollection(),
-                                                                                                            new KeywordLocation(currentPageNumber, supplierCell)));
+                                                                                                            new KeywordLocation(currentPageNumber, supplierCell),
+                                                                                                            new KeywordLocation(currentPageNumber,supplierCellNext)));
                                                                 DrawingKeywords.AddKeyword(new DrawingKeyword(equipmentSpecification,
                                                                                                             new KeywordInOtherLanguageCollection(),
-                                                                                                            new KeywordLocation(currentPageNumber, equipmentSpecificationCell)));
+                                                                                                            new KeywordLocation(currentPageNumber, equipmentSpecificationCell),
+                                                                                                            new KeywordLocation(currentPageNumber,equipmentSpecificationCellNext)));
                                                                 DrawingKeywords.AddKeyword(new DrawingKeyword(mountingType,
                                                                                                             new KeywordInOtherLanguageCollection(),
-                                                                                                            new KeywordLocation(currentPageNumber, mountingTypeCell)));
-
-
-                                                                xlsWorkSheet.get_Range("B" + (eqpNumberInPages + 1).ToString(), "O" + (eqpNumberInPages + 1).ToString()).Value2
-                                                                    = xlsWorkSheet.get_Range("B" + eqpNumberInPages.ToString(), "O" + eqpNumberInPages.ToString()).Value2;
-
+                                                                                                            new KeywordLocation(currentPageNumber, mountingTypeCell),
+                                                                                                            new KeywordLocation(currentPageNumber,mountingTypeCellNext)));
+                                                                
                                                                 eqpNumberInPages += 2;
 
                                                                 if (eqpNumberInPages >= 15 && currentPageNumber < pageCount) {

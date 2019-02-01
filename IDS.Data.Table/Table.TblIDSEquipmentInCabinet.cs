@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IDS.Data.Table
 {
-    public class TblIDSCabinetEquipment
+    public class TblIDSEquipmentInCabinet
     {
         #region .私有变量.
 

@@ -13,6 +13,6 @@ namespace Flute.Drawing
         /// <param name="templatePath"></param>
         /// <param name="destPath"></param>
         /// <returns></returns>
-        bool Export(string templatePath, string destPath);
+        bool Export(string templatePath, string destPath, params object[] anyObjects);
     }
 }
