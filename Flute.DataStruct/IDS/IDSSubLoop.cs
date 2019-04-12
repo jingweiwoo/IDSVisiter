@@ -55,6 +55,26 @@ namespace Flute.DataStruct.IDS
             set { _equipments = value; }
         }
 
+        /// <summary>
+        /// 子回路下导出设备的数量统计
+        /// </summary>
+        public Int32 ExportEquipmentsCount
+        {
+            get
+            {
+                Int32 exportEquipmentsCount = 0;
+
+                lock (this) {
+                    if (this.Equipments != null && this.Equipments.Count > 0) {
+                        foreach (IDSEquipment equip in this.Equipments) {
+                            if (equip.EquipmentRepository.ExportAllowed == true)
+                                exportEquipmentsCount++;
+                        }
+                    }
+                }
+                return exportEquipmentsCount;
+            }
+        }
 
         #endregion // 成员属性
 

@@ -21,7 +21,7 @@ namespace Flute.Drawing.EQA
 
         enum EquipmentIndentType { Excel = 0, }
 
-        DrawingLanguage _drawingLanguage = DrawingLanguage.SimpleChinese;
+        DrawingLanguage _drawingLanguage = DrawingLanguage.SimplifiedChinese;
         IDictionary<string, string> subSystemIDprefixs = new Dictionary<string, string>();
 
         public LongEquipmentIndent(object drawingData)
@@ -118,7 +118,7 @@ namespace Flute.Drawing.EQA
                     case DrawingLanguage.English:
                         break;
 
-                    case DrawingLanguage.SimpleChinese:
+                    case DrawingLanguage.SimplifiedChinese:
                         currentPageNumber = 1;
 
                         currentLineNumber = 4;

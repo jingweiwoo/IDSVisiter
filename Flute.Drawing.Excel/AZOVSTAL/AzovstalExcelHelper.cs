@@ -18,6 +18,7 @@ namespace Flute.Drawing.Excel
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
 
+        #region .Function - ReadKeywordList.
         public static DrawingKeywordCollection ReadKeywordList(string fileName)
         {
             DrawingKeywordCollection drawingKeywords = new DrawingKeywordCollection();
@@ -41,6 +42,10 @@ namespace Flute.Drawing.Excel
 
             return drawingKeywords;
         }
+
+        #endregion // Function - ReadKeywordList
+
+        #region .Function - ReplaceEquipmentListKeywords.
 
         public static DrawingKeywordCollection ReplaceEquipmentListKeywords(string fileName, 
                                                                             DrawingKeywordCollection keywords)
@@ -87,7 +92,6 @@ namespace Flute.Drawing.Excel
             string keywordInRussian = "";
 
             for (int i = 2; i < 65536; i++) {
-                // 如果序号列的值为空，说明该行有可能是子项的名称
                 if (Convert.ToString(xlsWorkSheet.get_Range("A" + i.ToString(), Missing.Value).Value2) == String.Empty) {
                     keyword = Convert.ToString(xlsWorkSheet.get_Range("B" + i.ToString(), Missing.Value).Value2);
                     // 如果序号列的下一列也为空，没有Keyword
@@ -101,7 +105,7 @@ namespace Flute.Drawing.Excel
                             continue;
                     }
                 }
-                    // 如果序号列的下一列不为空,说明专业作业计划还没有结束,暂且将其看作子项
+
                     else {
                     nullCellNumber = 0;
                     currentCellNumber = i;
@@ -122,6 +126,7 @@ namespace Flute.Drawing.Excel
 
             if (drawingKeywords.Count > 0) {
                 int currentLine = 9;
+                string currentSubSystem = "";
                 string currentCellContent = "";
 
                 DrawingKeyword foundKeyword = new DrawingKeyword();
@@ -132,6 +137,17 @@ namespace Flute.Drawing.Excel
                 for (int i = 1; i < workSheetCount; i++) {
                     xlsWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlsApp.Worksheets.get_Item(i);
                     xlsWorkSheet.Activate();
+
+                    // SubSystem
+                    currentSubSystem = Convert.ToString(xlsWorkSheet.get_Range("B3", Missing.Value).Value2);
+
+                    if (drawingKeywords.ContainsKeyword(currentSubSystem)) {
+                        foundKeyword = drawingKeywords[currentSubSystem];
+                        englishTrans = foundKeyword.KeywordsInOtherLanguage[DrawingLanguage.English].Translated;
+                        // russianTrans = foundKeyword.KeywordsInOtherLanguage[DrawingLanguage.Russian].Translated;
+
+                        xlsWorkSheet.get_Range("B3", Missing.Value).Value2 = englishTrans;
+                    }
 
                     for (int j = 9; j < 15; j = j + 2) {
                         // Monitoring and control items
@@ -240,5 +256,6 @@ namespace Flute.Drawing.Excel
             return drawingKeywords;
         }
 
+        #endregion .Function - ReplaceEquipmentListKeywords.
     }
 }

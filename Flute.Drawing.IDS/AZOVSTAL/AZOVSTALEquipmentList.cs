@@ -41,12 +41,15 @@ namespace Flute.Drawing.IDS
 
         DrawingLanguage _drawingLanguage = DrawingLanguage.English;
 
+        #region .Constructor - AZOVSTALEquipmentList.
         public AZOVSTALEquipmentList(object drawingData)
         {
             DrawingData = drawingData;
             DrawingKeywords = new DrawingKeywordCollection();
         }
+        #endregion // Constructor - AZOVSTALEquipmentList
 
+        #region .Function - Export.
         public override bool Export(string templatePath, string destPath, params object[] anyObjects)
         {
             Console.WriteLine("calling Flute.Drawing.IDS.AZOVSTALEquipmentList.Export");
@@ -104,12 +107,13 @@ namespace Flute.Drawing.IDS
                 Int32 pageCount;
                 Int32 currentPageNumber;
                 Int32 eqpNumberInPages;
+                Int32 exportedEqpNumberInSubSystem;
 
                 Microsoft.Office.Interop.Excel.Worksheet xlsWorkSheet;
 
                 switch (_drawingLanguage) {
-                    #region .Case SimpleChinese.
-                    case DrawingLanguage.SimpleChinese:
+                    #region .Case SimplifiedChinese.
+                    case DrawingLanguage.SimplifiedChinese:
 
                         pageCount = 0;
 
@@ -310,7 +314,7 @@ namespace Flute.Drawing.IDS
                         }
 
                         break;
-                    #endregion
+                    #endregion // Simplified Chinese
 
                     #region .Case English.
                     case DrawingLanguage.English:
@@ -318,10 +322,14 @@ namespace Flute.Drawing.IDS
                         pageCount = 0;
 
                         foreach (IDSSystem system in systems) {
-                            if ((system.EquipmentsCount % 3) == 0)
-                                pageCount += system.EquipmentsCount / 3;
-                            else
-                                pageCount += Convert.ToInt32(Math.Ceiling(system.EquipmentsCount / 3.0f));
+                            if (system.SubSystems != null && system.SubSystems.Count > 0) {
+                                foreach (IDSSubSystem subSystem in system.SubSystems) {
+                                    if ((subSystem.ExportEquipmentsCount % 3) == 0)
+                                        pageCount += subSystem.ExportEquipmentsCount / 3;
+                                    else
+                                        pageCount += Convert.ToInt32(Math.Ceiling(subSystem.ExportEquipmentsCount / 3.0f));
+                                }
+                            }
                         }
 
                         xlsWorkSheet = xlsApp.Worksheets[1] as Microsoft.Office.Interop.Excel.Worksheet;
@@ -343,7 +351,8 @@ namespace Flute.Drawing.IDS
                         // 图框内容
 
                         // 专业
-                        xlsWorkSheet.Shapes.Item("DWG_SPECIALITY").TextFrame.Characters(Missing.Value, Missing.Value).Text = _speciality;
+                        if(_speciality != "")
+                            xlsWorkSheet.Shapes.Item("DWG_SPECIALITY").TextFrame.Characters(Missing.Value, Missing.Value).Text = _speciality;
                         // 设计阶段
                         xlsWorkSheet.Shapes.Item("DESIGN_STAGE").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stage;
                         // 日期
@@ -379,7 +388,7 @@ namespace Flute.Drawing.IDS
                                 for (int i = 0; i < systems.Count; i++) {
                                     IDSSystem system = systems[i];
                                     currentPageNumber++;
-                                    if (i > 0 && (systems[i - 1].EquipmentsCount % 3 == 0))
+                                    if (i > 0 && (systems[i - 1].ExportEquipmentsCount % 3 == 0))
                                         currentPageNumber--;
 
                                     eqpNumberInPages = 9;
@@ -412,6 +421,7 @@ namespace Flute.Drawing.IDS
                                     if (system.SubSystems.Count > 0) {
                                         for (int j = 0; j < system.SubSystems.Count; j++) {
                                             IDSSubSystem subSystem = system.SubSystems[j];
+                                            exportedEqpNumberInSubSystem = 0;
 
                                             for (int k = 0; k < subSystem.Loops.Count; k++) {
                                                 IDSLoop loop = subSystem.Loops[k];
@@ -422,7 +432,7 @@ namespace Flute.Drawing.IDS
                                                     string loopTagCell = "B" + eqpNumberInPages.ToString();
                                                     string loopTagCellNext = "B" + (eqpNumberInPages + 1).ToString();
                                                     // 回路检测与控制内容
-                                                    string loopFunction = loop.Location + loop.Parameter;
+                                                    string loopFunction = loop.Location + loop.Medium + loop.Parameter;
                                                     string loopFunctionCell = "D" + eqpNumberInPages.ToString();
                                                     string loopFunctionCellNext = "D" + (eqpNumberInPages + 1).ToString();
                                                     // 回路测量介质
@@ -460,6 +470,18 @@ namespace Flute.Drawing.IDS
                                                                 if (equipment.EquipmentRepository.ExportAllowed == false)
                                                                     continue;
 
+                                                                //
+                                                                // 图纸内容
+                                                                //
+                                                                // 子系统                  
+                                                                xlsWorkSheet.get_Range("B3", Missing.Value).Value2
+                                                                                    = "Sub-system/Подсистема: " + subSystem.Name;
+
+                                                                // ++== 增加子系统关键字
+                                                                DrawingKeywords.AddKeyword(new DrawingKeyword("Sub-system/Подсистема: " + subSystem.Name,
+                                                                                                        new KeywordInOtherLanguageCollection(),
+                                                                                                        new KeywordLocation(currentPageNumber, "B3")));
+
                                                                 // 位号
                                                                 string equipmentTag = equipment.Tag;
                                                                 string equipmentTagCell = "C" + eqpNumberInPages.ToString();
@@ -494,7 +516,7 @@ namespace Flute.Drawing.IDS
                                                                 string powerSupplyCell = "J" + eqpNumberInPages.ToString();
                                                                 string powerSupplyCellNext = "J" + (eqpNumberInPages+1).ToString();
                                                                 // 供应商
-                                                                string supplier = equipment.EquipmentRepository.Supplier;
+                                                                string supplier = FrmAZOVSTALEquipmentList.HasSupplier ? equipment.EquipmentRepository.Supplier : "";
                                                                 string supplierCell = "K" + eqpNumberInPages.ToString();
                                                                 string supplierCellNext = "K" + (eqpNumberInPages+1).ToString();
                                                                 // 规格
@@ -511,8 +533,12 @@ namespace Flute.Drawing.IDS
                                                                 string mountingType = equipment.SubEquipments[0].MountingType;
                                                                 string mountingTypeCell = "N" + eqpNumberInPages.ToString();
                                                                 string mountingTypeCellNext = "N" + (eqpNumberInPages+1).ToString();
+                                                                // 备注
+                                                                string customRemark = equipment.EquipmentRepository.CustomRemark;
+                                                                string customRemarkCell = "O" + eqpNumberInPages.ToString();
+                                                                string customRemarkCellNext = "O" + (eqpNumberInPages + 1).ToString();
 
-                                                                xlsWorkSheet.get_Range("F" + eqpNumberInPages.ToString(), "N" + eqpNumberInPages.ToString()).Value2
+                                                                xlsWorkSheet.get_Range("F" + eqpNumberInPages.ToString(), "O" + eqpNumberInPages.ToString()).Value2
                                                                     = new object[] {equipmentRepository,
                                                                                     equipmentModelNumber,
                                                                                     loopMeasurementRange,
@@ -522,6 +548,7 @@ namespace Flute.Drawing.IDS
                                                                                     equipmentSpecification,
                                                                                     equipmentQuantity,
                                                                                     mountingType,
+                                                                                    customRemark
                                                                     };
 
                                                                 xlsWorkSheet.get_Range("B" + (eqpNumberInPages + 1).ToString(), "O" + (eqpNumberInPages + 1).ToString()).Value2
@@ -535,10 +562,10 @@ namespace Flute.Drawing.IDS
                                                                 //DrawingKeywords.AddKeyword(new DrawingKeyword(equipmentModelNumber,
                                                                 //                                            new KeywordInOtherLanguageCollection(),
                                                                 //                                            new KeywordLocation(currentPageNumber, equipmentModelNumberCell)));
-                                                                DrawingKeywords.AddKeyword(new DrawingKeyword(supplier,
-                                                                                                            new KeywordInOtherLanguageCollection(),
-                                                                                                            new KeywordLocation(currentPageNumber, supplierCell),
-                                                                                                            new KeywordLocation(currentPageNumber,supplierCellNext)));
+                                                                //DrawingKeywords.AddKeyword(new DrawingKeyword(supplier,
+                                                                //                                            new KeywordInOtherLanguageCollection(),
+                                                                //                                            new KeywordLocation(currentPageNumber, supplierCell),
+                                                                //                                            new KeywordLocation(currentPageNumber,supplierCellNext)));
                                                                 DrawingKeywords.AddKeyword(new DrawingKeyword(equipmentSpecification,
                                                                                                             new KeywordInOtherLanguageCollection(),
                                                                                                             new KeywordLocation(currentPageNumber, equipmentSpecificationCell),
@@ -547,10 +574,17 @@ namespace Flute.Drawing.IDS
                                                                                                             new KeywordInOtherLanguageCollection(),
                                                                                                             new KeywordLocation(currentPageNumber, mountingTypeCell),
                                                                                                             new KeywordLocation(currentPageNumber,mountingTypeCellNext)));
+                                                                DrawingKeywords.AddKeyword(new DrawingKeyword(customRemark,
+                                                                                                            new KeywordInOtherLanguageCollection(),
+                                                                                                            new KeywordLocation(currentPageNumber, mountingTypeCell),
+                                                                                                            new KeywordLocation(currentPageNumber, mountingTypeCellNext)));
                                                                 
                                                                 eqpNumberInPages += 2;
+                                                                exportedEqpNumberInSubSystem++;
 
-                                                                if (eqpNumberInPages >= 15 && currentPageNumber < pageCount) {
+                                                                if (((eqpNumberInPages >= 15) || (exportedEqpNumberInSubSystem == subSystem.ExportEquipmentsCount))
+                                                                        && currentPageNumber < pageCount)
+                                                                {
                                                                     currentPageNumber++;
                                                                     Console.WriteLine("当前页号: " + currentPageNumber.ToString());
 
@@ -558,17 +592,17 @@ namespace Flute.Drawing.IDS
                                                                     xlsWorkSheet.Name = (currentPageNumber).ToString();
                                                                     xlsWorkSheet.Activate();
 
-                                                                    //
-                                                                    // 图纸内容
-                                                                    //
-                                                                    // 子系统                  
-                                                                    xlsWorkSheet.get_Range("B3", Missing.Value).Value2
-                                                                                        = "Sub-system/Подсистема: " + subSystem.Name;
+                                                                    ////
+                                                                    //// 图纸内容
+                                                                    ////
+                                                                    //// 子系统                  
+                                                                    //xlsWorkSheet.get_Range("B3", Missing.Value).Value2
+                                                                    //                    = "Sub-system/Подсистема: " + subSystem.Name;
 
-                                                                    // ++== 增加子系统关键字
-                                                                    DrawingKeywords.AddKeyword(new DrawingKeyword("Sub-system/Подсистема: " + subSystem.Name,
-                                                                                                            new KeywordInOtherLanguageCollection(),
-                                                                                                            new KeywordLocation(currentPageNumber, "B3")));
+                                                                    //// ++== 增加子系统关键字
+                                                                    //DrawingKeywords.AddKeyword(new DrawingKeyword("Sub-system/Подсистема: " + subSystem.Name,
+                                                                    //                                        new KeywordInOtherLanguageCollection(),
+                                                                    //                                        new KeywordLocation(currentPageNumber, "B3")));
 
                                                                     // 页次
                                                                     if (xlsWorkSheet.Index < pageCount)
@@ -615,7 +649,7 @@ namespace Flute.Drawing.IDS
 
                             xlsWorkSheetExtracted.get_Range("A1", Type.Missing).ColumnWidth = 6f;
                             xlsWorkSheetExtracted.get_Range("B1", "D1").ColumnWidth = 45f;
-                            xlsWorkSheetExtracted.get_Range("A1", "D1").RowHeight = 35f;
+                            xlsWorkSheetExtracted.get_Range("A1", "D1").RowHeight = 55f;
                             xlsWorkSheetExtracted.get_Range("A1", "D1").HorizontalAlignment = Constants.xlCenter;
                             xlsWorkSheetExtracted.get_Range("A1", "D1").VerticalAlignment = Constants.xlCenter;
                             xlsWorkSheetExtracted.get_Range("A1", "D1").WrapText = true;
@@ -631,7 +665,7 @@ namespace Flute.Drawing.IDS
                             xlsWorkSheetExtracted.get_Range("A2", lastCell).Font.Size = 11f;
                             xlsWorkSheetExtracted.get_Range("A2", lastCell).Font.Bold = false;
 
-                            xlsWorkSheetExtracted.get_Range("A2", lastCell).RowHeight = 30f;
+                            xlsWorkSheetExtracted.get_Range("A2", lastCell).RowHeight = 45f;
 
                             xlsWorkSheetExtracted.get_Range("A2", lastNumberCell).HorizontalAlignment = Constants.xlCenter;
                             xlsWorkSheetExtracted.get_Range("A2", lastNumberCell).VerticalAlignment = Constants.xlCenter;
@@ -678,6 +712,7 @@ namespace Flute.Drawing.IDS
 
 
         }
+        #endregion // Function - Export
     }
 }                    
 

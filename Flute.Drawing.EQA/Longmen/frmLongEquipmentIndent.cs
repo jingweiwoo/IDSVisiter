@@ -12,7 +12,7 @@ namespace Flute.Drawing
     {
         #region .Parameters.
 
-        private DrawingLanguage _language = DrawingLanguage.SimpleChinese;
+        private DrawingLanguage _language = DrawingLanguage.SimplifiedChinese;
         public DrawingLanguage Language { get { return _language; } }
 
         public string TemplatePath { get { return this.tbTemplatePath.Text; } }

@@ -25,6 +25,7 @@ namespace Flute.Drawing.IDS
         private System.Windows.Forms.CheckBox chkBoxItems;
         private System.Windows.Forms.CheckBox chkBoxEqpName;
         private System.Windows.Forms.CheckBox chkBoxEqpType;
+        private System.Windows.Forms.CheckBox chkBoxSupplier;
         private System.Windows.Forms.CheckBox chkBoxMeasuringRangeMin;
         private System.Windows.Forms.CheckBox chkBoxMeasuringRangeMax;
         private System.Windows.Forms.CheckBox chkBoxMeasuringRangeUnit;
@@ -43,12 +44,13 @@ namespace Flute.Drawing.IDS
 
         #region .Parameters.
 
-        private DrawingLanguage _language = DrawingLanguage.SimpleChinese;
+        private DrawingLanguage _language = DrawingLanguage.SimplifiedChinese;
 
         private bool _hasLoopNo = true;
         private bool _hasTagNo =true;
         private bool _hasItems = true;
         private bool _hasEqpType = true;
+        private bool _hasSupplier = true;
         private bool _hasEqpName = true;
         private bool _hasMeasuringRangeMin = true;
         private bool _hasMeasuringRangeMax = true;
@@ -70,6 +72,7 @@ namespace Flute.Drawing.IDS
         public bool HasTagNo { get { return _hasTagNo; } }
         public bool HasItems { get { return _hasItems; } }
         public bool HasEqpType { get { return _hasEqpType; } }
+        public bool HasSupplier { get { return _hasSupplier; } }
         public bool HasEqpName { get { return _hasEqpName; } }
         public bool HasMeasuringRangeMin { get { return _hasMeasuringRangeMin; } }
         public bool HasMeasuringRangeMax { get { return _hasMeasuringRangeMax; } }
@@ -145,6 +148,9 @@ namespace Flute.Drawing.IDS
             chkBoxEqpType = new CheckBox();
             chkBoxEqpType.Text = "型号";
             chkBoxEqpType.Checked = true;
+            chkBoxSupplier = new CheckBox();
+            chkBoxSupplier.Text = "厂家";
+            chkBoxSupplier.Checked = true;
             chkBoxEqpName = new CheckBox();
             chkBoxEqpName.Text = "设备名称";
             chkBoxEqpName.Checked = true;
@@ -188,10 +194,13 @@ namespace Flute.Drawing.IDS
             chkBoxRemark.Text = "备注";
             chkBoxRemark.Checked = true;
 
+            flowLayoutPanelElement.Controls.Add(chkBoxEqpType);
+            flowLayoutPanelElement.Controls.Add(chkBoxSupplier);
+
+            /*
             flowLayoutPanelElement.Controls.Add(chkBoxLoopNo);
             flowLayoutPanelElement.Controls.Add(chkBoxTagNo);
-            flowLayoutPanelElement.Controls.Add(chkBoxItems);
-            flowLayoutPanelElement.Controls.Add(chkBoxEqpType);
+            flowLayoutPanelElement.Controls.Add(chkBoxItems);            
             flowLayoutPanelElement.Controls.Add(chkBoxEqpName);
             flowLayoutPanelElement.Controls.Add(chkBoxMeasuringRangeMin);
             flowLayoutPanelElement.Controls.Add(chkBoxMeasuringRangeMax);
@@ -206,9 +215,10 @@ namespace Flute.Drawing.IDS
             flowLayoutPanelElement.Controls.Add(chkBoxOperationRangeMax);
             flowLayoutPanelElement.Controls.Add(chkBoxOperationRangeUnit);
             flowLayoutPanelElement.Controls.Add(chkBoxRemark);
+             */
 
-            flowLayoutPanelElement.Visible = false;
-            this.groupBox2.Visible = false;
+            flowLayoutPanelElement.Visible = true;
+            this.groupBox2.Visible = true;
 
             //
             // 图框
@@ -250,7 +260,7 @@ namespace Flute.Drawing.IDS
         {
             if ((sender as RadioButton).Text == radioBtnLangSimpChinese.Text) {
                 if ((sender as RadioButton).Checked) {
-                    _language = DrawingLanguage.SimpleChinese;
+                    _language = DrawingLanguage.SimplifiedChinese;
                     tbTemplatePath.Text = Application.StartupPath + @"\Template\MMK_chs.xlt";
                 }
             } else if ((sender as RadioButton).Text == radioBtnLangEnglish.Text) {
@@ -263,11 +273,12 @@ namespace Flute.Drawing.IDS
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            _language = radioBtnLangSimpChinese.Checked ? DrawingLanguage.SimpleChinese : DrawingLanguage.English;
+            _language = radioBtnLangSimpChinese.Checked ? DrawingLanguage.SimplifiedChinese : DrawingLanguage.English;
             _hasLoopNo = chkBoxLoopNo.Checked;
             _hasTagNo = chkBoxTagNo.Checked;
             _hasItems = chkBoxItems.Checked;
             _hasEqpType = chkBoxEqpType.Checked;
+            _hasSupplier = chkBoxSupplier.Checked;
             _hasEqpName = chkBoxEqpName.Checked;
             _hasMeasuringRangeMin = chkBoxMeasuringRangeMin.Checked;
             _hasMeasuringRangeMax = chkBoxMeasuringRangeMax.Checked;

@@ -77,6 +77,36 @@ namespace Flute.DataStruct.IDS
             }
         }
 
+        /// <summary>
+        /// 系统下导出设备的数量统计
+        /// </summary>
+        public Int32 ExportEquipmentsCount
+        {
+            get
+            {
+                Int32 exportEquipmentsCount = 0;
+
+                lock (this) {
+                    if (SubSystems != null && SubSystems.Count > 0) {
+                        foreach (IDSSubSystem subSystem in SubSystems) {
+                            if (subSystem.Loops != null && subSystem.Loops.Count > 0) {
+                                foreach (IDSLoop loop in subSystem.Loops) {
+                                    if (loop.SubLoops != null && loop.SubLoops.Count > 0) {
+                                        foreach (IDSSubLoop subLoop in loop.SubLoops) {
+                                            if (subLoop.Equipments != null && subLoop.Equipments.Count > 0) {
+                                                exportEquipmentsCount += subLoop.ExportEquipmentsCount;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return exportEquipmentsCount;
+            }
+        }
+
         public Int32 CablesCount
         {
             get

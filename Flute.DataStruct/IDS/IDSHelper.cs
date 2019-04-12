@@ -37,7 +37,7 @@ namespace Flute.DataStruct.IDS
                     designInfo.ProjectID = (rowDesignInfo[TblDesignInfo.ProjectID] as string).Trim();
                     designInfo.DrawingID = (rowDesignInfo[TblDesignInfo.DrawingID] as string).Trim();
                     designInfo.DesignPhase = (rowDesignInfo[TblDesignInfo.DesignPhase] as string).Trim();
-                    designInfo.Speciality = (rowDesignInfo[TblDesignInfo.Speciality] as string).Trim();
+                    designInfo.Speciality = Convert.ToString(rowDesignInfo[TblDesignInfo.Speciality]);
                     designInfo.DesignedBy = (rowDesignInfo[TblDesignInfo.DesignedBy] as string).Trim();
 
                     designInfo.RevisionVersion = (rowDesignInfo[TblDesignInfo.RevisionVersion] as string).Trim();
@@ -248,6 +248,7 @@ namespace Flute.DataStruct.IDS
                                 subSystem.Loops.Add(CreateIDSLoop(rowLoop,
                                                                     subSystem.Code,
                                                                     systemCode,
+                                                                    (subSystem.IsNameInLoop == true ? subSystem.Name : ""),
                                                                     tableHierarchy,
                                                                     tableEquipment,
                                                                     tableSubEquipment,
@@ -277,6 +278,7 @@ namespace Flute.DataStruct.IDS
         public static IDSLoop CreateIDSLoop(DataRow rowLoop,
                                             string subSystemCode,
                                             string systemCode,
+                                            string subSystemName,
                                             DataTable tableHierarchy,
                                             DataTable tableEquipment,
                                             DataTable tableSubEquipment,
@@ -300,7 +302,7 @@ namespace Flute.DataStruct.IDS
 
                     loop.Tag = systemCode + "." + loop.LoopType + "-" + subSystemCode + loop.SerialNumber + loop.Suffix;
 
-                    loop.Location = (rowLoop[TblIDSLoop.Location] as string).Trim();
+                    loop.Location = subSystemName + (rowLoop[TblIDSLoop.Location] as string).Trim();
                     loop.Medium = (rowLoop[TblIDSLoop.Medium] as string).Trim();
                     loop.Parameter = (rowLoop[TblIDSLoop.Parameter] as string).Trim();
                     loop.NormalTemperature = (rowLoop[TblIDSLoop.NormalTemperature] as string).Trim();
@@ -395,6 +397,7 @@ namespace Flute.DataStruct.IDS
                         foreach (DataRow rowEquipment in tableEquipment.Rows) {
                             if (Convert.ToString(rowEquipment[TblIDSEquipment.ParentID]).Trim() == subLoop.ID)
                                 subLoop.Equipments.Add(CreateIDSEquipment(rowEquipment,
+                                                                            subLoop.Code,
                                                                             loopType,
                                                                             loopSerialNumber,
                                                                             loopSuffix,
@@ -425,6 +428,7 @@ namespace Flute.DataStruct.IDS
 
         #region .CreateIDSEquipment.
         public static IDSEquipment CreateIDSEquipment(DataRow rowIDSEquipment,
+                                                        string subLoopCode,
                                                         string loopType,
                                                         string loopSerialNumber,
                                                         string loopSuffix,
@@ -451,7 +455,7 @@ namespace Flute.DataStruct.IDS
                     equipment.Tag = (rowIDSEquipment[TblIDSEquipment.Tag] as string).Trim();
                     equipment.Suffix = (rowIDSEquipment[TblIDSEquipment.Suffix] as string).Trim();
                     if (IDSEnumWayToGenerateSymbol.AutoGenerate == equipment.Tag)
-                        equipment.Tag = systemCode + "." + loopType + equipment.FunctionCode + "-" + subSystemCode + loopSerialNumber + loopSuffix + equipment.Suffix;
+                        equipment.Tag = systemCode + "." + loopType + equipment.FunctionCode + "-" + subSystemCode + loopSerialNumber + loopSuffix + subLoopCode + equipment.Suffix;
                                   
                     equipment.EquipmentCatagory = (rowIDSEquipment[TblIDSEquipment.EquipmentCatagory] as string).Trim();
                     equipment.SpecificInfo1 = (rowIDSEquipment[TblIDSEquipment.SpecificeInfo1] as string).Trim();
@@ -641,9 +645,13 @@ namespace Flute.DataStruct.IDS
                     repository.Usage = (rowIDSRepository[TblIDSRepository.Usage] as string);
                     repository.ModelNumber = (rowIDSRepository[TblIDSRepository.ModelNumber] as string);
 
-                    Int32 indexOfSymbol = repository.RepositoryID.LastIndexOf("__");
                     Int32 repositoryIDLength = repository.RepositoryID.Length;
+
+                    Int32 indexOfSymbol = repository.RepositoryID.LastIndexOf("__");
                     repository.Supplier = indexOfSymbol != -1 ? repository.RepositoryID.Substring(indexOfSymbol + 2) : "";
+
+                    Int32 indexOfSymbolDollar = repository.Usage.LastIndexOf("$$");
+                    repository.CustomRemark = indexOfSymbolDollar != -1 ? repository.Usage.Substring(indexOfSymbolDollar + 2) : "";
 
                     repository.NameSuffix = Convert.ToString(rowIDSRepository[TblIDSRepository.NameSuffix]);
                     repository.TerminalDefinition = Convert.ToString(rowIDSRepository[TblIDSRepository.TerminalDefinition]);

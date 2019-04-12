@@ -87,7 +87,7 @@ namespace Flute.Drawing.EQA
                 Microsoft.Office.Interop.Excel.Worksheet xlsWorkSheet;
 
                 switch (_drawingLanguage) {
-                    case DrawingLanguage.SimpleChinese:
+                    case DrawingLanguage.SimplifiedChinese:
                         break;
 
                     case DrawingLanguage.English:

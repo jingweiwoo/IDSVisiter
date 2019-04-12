@@ -51,6 +51,58 @@ namespace Flute.DataStruct.IDS
             set { _loops = value; }
         }
 
+        /// <summary>
+        /// 子系统下所有设备的数量统计
+        /// </summary>
+        public Int32 EquipmentsCount
+        {
+            get
+            {
+                Int32 equipmentsCount = 0;
+
+                lock (this) {
+                    if (Loops != null && Loops.Count > 0) {
+                        foreach (IDSLoop loop in Loops) {
+                            if (loop.SubLoops != null && loop.SubLoops.Count > 0) {
+                                foreach (IDSSubLoop subLoop in loop.SubLoops) {
+                                    if (subLoop.Equipments != null && subLoop.Equipments.Count > 0) {
+                                        equipmentsCount += subLoop.Equipments.Count;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return equipmentsCount;
+            }
+        }
+
+        /// <summary>
+        /// 子系统下导出设备的数量统计
+        /// </summary>
+        public Int32 ExportEquipmentsCount
+        {
+            get
+            {
+                Int32 exportEquipmentsCount = 0;
+
+                lock (this) {
+                    if (Loops != null && Loops.Count > 0) {
+                        foreach (IDSLoop loop in Loops) {
+                            if (loop.SubLoops != null && loop.SubLoops.Count > 0) {
+                                foreach (IDSSubLoop subLoop in loop.SubLoops) {
+                                    if (subLoop.Equipments != null && subLoop.Equipments.Count > 0) {
+                                        exportEquipmentsCount += subLoop.ExportEquipmentsCount;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return exportEquipmentsCount;
+            }
+        }
+
         #endregion // 成员属性
 
         public IDSSubSystem()

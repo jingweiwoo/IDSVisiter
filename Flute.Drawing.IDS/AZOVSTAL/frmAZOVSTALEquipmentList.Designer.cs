@@ -37,6 +37,9 @@
             this.tbDestPath = new System.Windows.Forms.TextBox();
             this.tbTemplatePath = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.tbDrawingID = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.tbProjectID = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -70,14 +73,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.tbApprovedBy = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.tbDrawingID = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
@@ -89,7 +90,6 @@
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -102,15 +102,15 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(632, 15);
+            this.btnApply.Location = new System.Drawing.Point(744, 15);
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(713, 15);
+            this.btnOK.Location = new System.Drawing.Point(825, 15);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(794, 15);
+            this.btnCancel.Location = new System.Drawing.Point(906, 15);
             // 
             // groupBox1
             // 
@@ -213,6 +213,31 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "图框";
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.tbDrawingID);
+            this.panel14.Controls.Add(this.label12);
+            this.panel14.Location = new System.Drawing.Point(348, 20);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(165, 28);
+            this.panel14.TabIndex = 10;
+            // 
+            // tbDrawingID
+            // 
+            this.tbDrawingID.Location = new System.Drawing.Point(62, 4);
+            this.tbDrawingID.Name = "tbDrawingID";
+            this.tbDrawingID.Size = new System.Drawing.Size(100, 21);
+            this.tbDrawingID.TabIndex = 2;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "图号";
             // 
             // panel13
             // 
@@ -489,31 +514,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "室审";
             // 
-            // panel14
-            // 
-            this.panel14.Controls.Add(this.tbDrawingID);
-            this.panel14.Controls.Add(this.label12);
-            this.panel14.Location = new System.Drawing.Point(348, 20);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(165, 28);
-            this.panel14.TabIndex = 10;
-            // 
-            // tbDrawingID
-            // 
-            this.tbDrawingID.Location = new System.Drawing.Point(62, 4);
-            this.tbDrawingID.Name = "tbDrawingID";
-            this.tbDrawingID.Size = new System.Drawing.Size(100, 21);
-            this.tbDrawingID.TabIndex = 2;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 9);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 12);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "图号";
-            // 
             // frmAZOVSTALEquipmentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -528,6 +528,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             this.panel13.ResumeLayout(false);
             this.panel13.PerformLayout();
             this.panel12.ResumeLayout(false);
@@ -550,8 +552,6 @@
             this.panel8.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
             this.ResumeLayout(false);
 
         }

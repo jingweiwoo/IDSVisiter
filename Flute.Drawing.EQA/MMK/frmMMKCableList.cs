@@ -107,7 +107,7 @@ namespace Flute.Drawing.EQA
         {
             if ((sender as RadioButton).Text == radioBtnLangSimpChinese.Text) {
                 if ((sender as RadioButton).Checked) {
-                    _language = DrawingLanguage.SimpleChinese;
+                    _language = DrawingLanguage.SimplifiedChinese;
                     tbTemplatePath.Text = Application.StartupPath + @"\Template\MMK_chs.xlt";
                 }
             } else if ((sender as RadioButton).Text == radioBtnLangEnglish.Text) {

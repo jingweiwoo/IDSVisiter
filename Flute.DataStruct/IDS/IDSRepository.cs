@@ -334,6 +334,11 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public bool ProtectionEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or Sets 备注 - 自定义
+        /// </summary>
+        public string CustomRemark { get; set; }
+
 
         #endregion // 成员属性
 
@@ -427,6 +432,8 @@ namespace Flute.DataStruct.IDS
             YesOrNo05 = false;
 
             ProtectionEnabled = false;
+
+            CustomRemark = "";
         }
 
         #region .Copy.
