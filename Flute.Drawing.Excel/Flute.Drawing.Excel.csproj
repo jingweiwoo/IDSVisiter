@@ -39,6 +39,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AZOVSTAL\AzovstalExcelHelper.cs" />
+    <Compile Include="AZOVSTAL\frmAZOVSTALEquipmentListModifyDrawingMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AZOVSTAL\frmAZOVSTALEquipmentListModifyDrawingMarks.Designer.cs">
+      <DependentUpon>frmAZOVSTALEquipmentListModifyDrawingMarks.cs</DependentUpon>
+    </Compile>
     <Compile Include="AZOVSTAL\frmAZOVSTALReplaceTrans.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Flute.DataStruct\Flute.DataStruct.csproj">
+      <Project>{539557C8-A076-4632-9FB7-0F1E661E6827}</Project>
+      <Name>Flute.DataStruct</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Flute.Drawing\Flute.Drawing.csproj">
       <Project>{371D1373-05A1-4639-A875-9B7DA76CFA20}</Project>
       <Name>Flute.Drawing</Name>
@@ -91,6 +101,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AZOVSTAL\frmAZOVSTALEquipmentListModifyDrawingMarks.resx">
+      <DependentUpon>frmAZOVSTALEquipmentListModifyDrawingMarks.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="AZOVSTAL\frmAZOVSTALReplaceTrans.resx">
       <DependentUpon>frmAZOVSTALReplaceTrans.cs</DependentUpon>
     </EmbeddedResource>

@@ -11,12 +11,170 @@ using System.Runtime.InteropServices;
 using Flute.Drawing;
 using Flute.Service;
 
+using Flute.DataStruct.IDS;
+
 namespace Flute.Drawing.Excel
 {
     public class AzovstalExcelHelper
     {
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
+
+        #region .Function - Modify Drawing Marks.
+
+        public static void ModifyEquipmentListDrawingMarks(string fileName)
+        {
+            Console.WriteLine("calling Flute.Drawing.Excel.AzovstalExcelHelper.ModifyEquipmentListDrawingMarks");
+
+            frmAZOVSTALEquipmentListModifyDrawingMarks FrmAZOVSTALEquipmentListModifyDrawingMarks = new frmAZOVSTALEquipmentListModifyDrawingMarks(new IDSDesignInfo());
+            System.Windows.Forms.DialogResult dlgResult = FrmAZOVSTALEquipmentListModifyDrawingMarks.ShowDialog();
+
+            if (dlgResult == System.Windows.Forms.DialogResult.Cancel)
+                return;
+
+            bool _modifyApprovedBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyApprovedBy;
+            bool _modifyCheckedBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyCheckedBy;
+            bool _modifyDesignedBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyDesignedBy;
+            bool _modifyMadeBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyMadeBy;
+            bool _modifyProjectID = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyProjectID;
+            bool _modifyDrawingID = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyDrawingID;
+            bool _modifySpeciality = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifySpeciality;
+            bool _modifyStage = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyStage;
+            bool _modifyDate = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyDate;
+            bool _modifyContractNo = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyContractNo;
+            bool _modifyRevision = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyRevision;
+            bool _modifyTopLevelNo = FrmAZOVSTALEquipmentListModifyDrawingMarks.ModifyTopLevelNo;
+
+            string _stringApprovedBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.ApprovedBy;
+            string _stringCheckedBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.CheckedBy;
+            string _stringDesignedBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.DesignedBy;
+            string _stringMadeBy = FrmAZOVSTALEquipmentListModifyDrawingMarks.MadeBy;
+            string _stringProjectID = FrmAZOVSTALEquipmentListModifyDrawingMarks.ProjectID;
+            string _stringDrawingID = FrmAZOVSTALEquipmentListModifyDrawingMarks.DrawingID;
+            string _stringSpeciality = FrmAZOVSTALEquipmentListModifyDrawingMarks.Speciality;
+            string _stringStage = FrmAZOVSTALEquipmentListModifyDrawingMarks.Stage;
+            string _stringDate = FrmAZOVSTALEquipmentListModifyDrawingMarks.Date;
+            string _stringContractNo = FrmAZOVSTALEquipmentListModifyDrawingMarks.ContractNo;
+            string _stringRevision = FrmAZOVSTALEquipmentListModifyDrawingMarks.Revision;
+            string _stringTopLevelNo = FrmAZOVSTALEquipmentListModifyDrawingMarks.TopLevelNo;
+
+            FrmAZOVSTALEquipmentListModifyDrawingMarks.Close();
+
+            Microsoft.Office.Interop.Excel.ApplicationClass xlsApp = new ApplicationClass();
+
+            // 打开文件
+            xlsApp.Workbooks.Open(fileName, Missing.Value,
+                                     XlFileAccess.xlReadOnly, Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                                        Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                                            Missing.Value, Missing.Value);
+
+            xlsApp.Visible = true;
+
+            int workSheetCount = xlsApp.Worksheets.Count;
+
+            Microsoft.Office.Interop.Excel.Workbook xlsWorkBook
+                                = xlsApp.Workbooks.get_Item(1);
+
+            Microsoft.Office.Interop.Excel.Worksheet xlsWorkSheet;
+
+            if (workSheetCount > 0) {
+                for (int i = 1; i < workSheetCount; i++) {
+                    xlsWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlsApp.Worksheets.get_Item(i);
+                    xlsWorkSheet.Activate();
+
+                    //
+                    // 图框内容
+
+                    // 专业
+                    if (_modifySpeciality)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DWG_SPECIALITY").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringSpeciality;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 设计阶段
+                    if (_modifyStage)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DESIGN_STAGE").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringStage;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 日期
+                    if (_modifyDate)
+                        try {
+                            xlsWorkSheet.Shapes.Item("PRINT_DATE").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringDate;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 室审
+                    if (_modifyApprovedBy)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DEPT_CHECKER").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringApprovedBy;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 审核
+                    if (_modifyCheckedBy)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DWG_CHECKER").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringCheckedBy;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 设计
+                    if (_modifyDesignedBy)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DWG_DESIGNER").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringDesignedBy;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 制图
+                    if (_modifyMadeBy)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DWG_DRAW").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringMadeBy;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    //// 合同号
+                    //xlsWorkSheet.Shapes.Item("CONTRACT").TextFrame.Characters(Missing.Value, Missing.Value).Text = _contractNo;
+                    //项目编码
+                    if (_modifyProjectID)
+                        try {
+                            xlsWorkSheet.Shapes.Item("PROJECT_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringProjectID;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    // 图号
+                    if (_modifyDrawingID)
+                        try {
+                            xlsWorkSheet.Shapes.Item("DRAWING_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringDrawingID;
+                        } catch {
+                            // Do Nothing
+                        }
+
+                    //// 高层代号
+                    //xlsWorkSheet.Shapes.Item("=").TextFrame.Characters(Missing.Value, Missing.Value).Text = "=" + _topLevelNo;
+                    // 修改号
+                    if (_modifyRevision)
+                        try {
+                            xlsWorkSheet.Shapes.Item("REVISE_NO").TextFrame.Characters(Missing.Value, Missing.Value).Text = _stringRevision;
+                        } catch {
+                            // Do Nothing
+                        }
+                }
+            }
+
+            Flute.Service.MessageBoxWinForm.Info("成功", "成功修改设备表图框内容", "");
+        }
+
+        #endregion // Function - Modify Drawing Marks
 
         #region .Function - ReadKeywordList.
         public static DrawingKeywordCollection ReadKeywordList(string fileName)
