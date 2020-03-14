@@ -22,10 +22,29 @@ namespace Flute.DataStruct.IDS
         /// Gets SubLoop
         /// </summary>
         public IDSSubLoop SubLoop { get { return _subLoop; } }
+
+        private string _tag = null;
         /// <summary>
         /// Gets or Sets 位号
         /// </summary>
-        public string Tag { get; set; }
+        public string Tag
+        {
+            get
+            {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_tag))
+                    return _tag;
+                else {
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_tag);
+                    if (contentWithIn == IDSEnumAutoGenerationSymbol.AutoGenerate)
+                        return _subLoop.Loop.SubSystem.System.Code
+                                + "." + _subLoop.Loop.LoopType + FunctionCode
+                                + "-" + _subLoop.Loop.SubSystem.Code + _subLoop.Loop.SerialNumber
+                                + _subLoop.Loop.Suffix + _subLoop.Code + Suffix;
+                    return _tag;
+                }
+            }
+            set { _tag = value; }
+        }
         /// <summary>
         /// Gets or Sets 功能代码
         /// </summary>

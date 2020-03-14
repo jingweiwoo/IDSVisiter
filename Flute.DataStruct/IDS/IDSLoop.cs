@@ -25,7 +25,15 @@ namespace Flute.DataStruct.IDS
         /// <summary>
         /// Gets or Sets 位号
         /// </summary>
-        public string Tag { get; set; }
+        public string Tag
+        {
+            get
+            {
+                return _subSystem.System.Code 
+                        + "." + LoopType 
+                        + "-" + _subSystem.Code + SerialNumber + Suffix;
+            }
+        }
         /// <summary>
         /// Gets or Sets 对象
         /// </summary>
@@ -39,9 +47,14 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string Suffix { get; set; }
         /// <summary>
-        /// Gets or Sets 位置
+        /// Gets or Sets 位置 (数据库中保存的位置信息)
         /// </summary>
-        public string Location { get; set; }
+        public string ShortLocation { private get; set; }
+        /// <summary>
+        /// Gets or Sets 显示的位置
+        /// </summary>
+        public string Location { get { return (_subSystem.IsNameInLoop == true ? _subSystem.Name : "") + ShortLocation; } }
+
         /// <summary>
         /// Gets or Sets 介质
         /// </summary>
@@ -168,11 +181,11 @@ namespace Flute.DataStruct.IDS
             ID = "";
             ParentID = "";
             _subSystem = subSystem;
-            Tag = "";
+
             LoopType = "";
             SerialNumber = "";
             Suffix = "";
-            Location = "";
+            ShortLocation = "";
             Medium = "";
             Parameter = "";
             NormalTemperature = "";

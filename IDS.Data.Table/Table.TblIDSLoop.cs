@@ -20,7 +20,7 @@ namespace IDS.Data.Table
         private static string _loopType = "对象";
         private static string _serialNumber = "序号";
         private static string _suffix = "后缀";
-        private static string _location = "短位置";
+        private static string _shortLocation = "短位置";
         private static string _medium = "介质";
         private static string _parameter = "参数";
         private static string _normalTemperature = "操作温度";
@@ -80,7 +80,7 @@ namespace IDS.Data.Table
         /// <summary>
         /// Gets 短位置. e.g. 焦炉煤气总管
         /// </summary>
-        public static string Location { get { return _location; } }
+        public static string ShortLocation { get { return _shortLocation; } }
 
         /// <summary>
         /// Gets 介质

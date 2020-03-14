@@ -23,10 +23,24 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public IDSEquipment Equipment { get { return _equipment; } }
 
+        private string _tag = null;
         /// <summary>
         /// Gets or Sets 位号
         /// </summary>
-        public string Tag { get; set; }
+        public string Tag
+        {
+            get {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_tag))
+                    return _tag;
+                else {
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_tag);
+                    if (contentWithIn == IDSEnumAutoGenerationSymbol.AutoGenerate)
+                        return _equipment.Tag;
+                    return _tag;
+                }
+            }
+            set { _tag = value; }
+        }
         /// <summary>
         /// Gets or Sets 功能代码
         /// </summary>
@@ -43,10 +57,29 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 安装位置
         /// </summary>
         public string MountingType { get; set; }
+
+        private string _mountingLocation = null;
         /// <summary>
         /// Gets or Sets 安装地点
         /// </summary>
-        public string MountingLocation { get; set; }
+        public string MountingLocation
+        {
+            get
+            {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_mountingLocation))
+                    return _mountingLocation;
+                else {
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_mountingLocation);
+                    if (IDSEnumAutoGenerationSymbol.Empty == contentWithIn)
+                        return _equipment.SubLoop.Loop.Location;
+                    else if (IDSEnumAutoGenerationSymbol.OnTheSide == contentWithIn)
+                        return _equipment.SubLoop.Loop.Location + "旁";
+                    else
+                        return _mountingLocation;
+                }
+            }
+            set { _mountingLocation = value; }
+        }
         /// <summary>
         /// Gets or Sets 铭牌内容
         /// </summary>

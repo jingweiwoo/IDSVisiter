@@ -35,21 +35,33 @@ namespace Flute.DataStruct.IDS
 
     public class IDSEnumWayToGenerateSymbol
     {
-        public static string AutoGenerate { get { return "[自动]"; } }
-        public static string ManualGenerate { get { return "[手动]"; } }
+        private static string AutoGenerate { get { return "[自动]"; } }
+        private static string ManualGenerate { get { return "[手动]"; } }
     }
 
     public class IDSEnumLocationSymbol
     {
-        public static string On { get { return "[]"; } }
-        public static string OnTheSide { get { return "[旁]"; } }
+        private static string On { get { return "[]"; } }
+        private static string OnTheSide { get { return "[旁]"; } }
     }
 
-    public class IDSEnumConstantSymbol
+    public class IDSEnumAutoGenerationSymbol
     {
+        /// <summary>
+        /// 自动
+        /// </summary>
         public static string AutoGenerate { get { return "自动"; } }
+        /// <summary>
+        /// 手动
+        /// </summary>
         public static string ManualGenerate { get { return "手动"; } }
+        /// <summary>
+        /// (空)
+        /// </summary>
         public static string Empty { get { return ""; } }
+        /// <summary>
+        /// 旁
+        /// </summary>
         public static string OnTheSide { get { return "旁"; } }
     }
 }

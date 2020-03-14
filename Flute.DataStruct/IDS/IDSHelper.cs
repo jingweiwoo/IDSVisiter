@@ -186,7 +186,6 @@ namespace Flute.DataStruct.IDS
                                     && Convert.ToString(rowSubSystem[TblIDSHierarchy.Type]).Trim() == IDSEnumSystemType.SubSystem)
                                 system.SubSystems.Add(CreateIDSSubSystem(system,
                                                                     rowSubSystem,
-                                                                    system.Code,
                                                                     tableLoop,
                                                                     tableHierarchy,
                                                                     tableEquipment,
@@ -216,7 +215,6 @@ namespace Flute.DataStruct.IDS
 
         public static IDSSubSystem CreateIDSSubSystem(IDSSystem system,
                                                         DataRow rowSubSystem,
-                                                        string systemCode,
                                                         DataTable tableLoop,
                                                         DataTable tableHierarchy,
                                                         DataTable tableEquipment,
@@ -249,9 +247,6 @@ namespace Flute.DataStruct.IDS
                             if (Convert.ToString(rowLoop[TblIDSLoop.ParentID]).Trim() == subSystem.ID)
                                 subSystem.Loops.Add(CreateIDSLoop(subSystem,
                                                                     rowLoop,
-                                                                    subSystem.Code,
-                                                                    systemCode,
-                                                                    (subSystem.IsNameInLoop == true ? subSystem.Name : ""),
                                                                     tableHierarchy,
                                                                     tableEquipment,
                                                                     tableSubEquipment,
@@ -280,9 +275,6 @@ namespace Flute.DataStruct.IDS
 
         public static IDSLoop CreateIDSLoop(IDSSubSystem subSystem,
                                             DataRow rowLoop,
-                                            string subSystemCode,
-                                            string systemCode,
-                                            string subSystemName,
                                             DataTable tableHierarchy,
                                             DataTable tableEquipment,
                                             DataTable tableSubEquipment,
@@ -304,9 +296,7 @@ namespace Flute.DataStruct.IDS
                     loop.SerialNumber = (rowLoop[TblIDSLoop.SerialNumber] as string).Trim();
                     loop.Suffix = (rowLoop[TblIDSLoop.Suffix] as string).Trim();
 
-                    loop.Tag = systemCode + "." + loop.LoopType + "-" + subSystemCode + loop.SerialNumber + loop.Suffix;
-
-                    loop.Location = subSystemName + (rowLoop[TblIDSLoop.Location] as string).Trim();
+                    loop.ShortLocation = (rowLoop[TblIDSLoop.ShortLocation] as string).Trim();
                     loop.Medium = (rowLoop[TblIDSLoop.Medium] as string).Trim();
                     loop.Parameter = (rowLoop[TblIDSLoop.Parameter] as string).Trim();
                     loop.NormalTemperature = (rowLoop[TblIDSLoop.NormalTemperature] as string).Trim();
@@ -335,12 +325,6 @@ namespace Flute.DataStruct.IDS
                                     && Convert.ToString(rowSubLoop[TblIDSHierarchy.Type]).Trim() == IDSEnumSystemType.SubLoop)
                                 loop.SubLoops.Add(CreateIDSSubLoop(loop,
                                                                     rowSubLoop,
-                                                                    loop.LoopType,
-                                                                    loop.SerialNumber,
-                                                                    loop.Suffix,
-                                                                    subSystemCode,
-                                                                    systemCode,
-                                                                    loop.Location,
                                                                     tableEquipment,
                                                                     tableSubEquipment,
                                                                     tableRepositories,
@@ -367,14 +351,10 @@ namespace Flute.DataStruct.IDS
         #region .CreateIDSSubLoop.
         public static IDSSubLoop CreateIDSSubLoop(IDSLoop loop,
                                                     DataRow rowSubLoop,
-                                                    string loopType,
-                                                    string loopSerialNumber,
-                                                    string loopSuffix,
-                                                    string subSystemCode,
-                                                    string systemCode,
-                                                    string location,
                                                     DataTable tableEquipment,
-                                                    DataTable tableSubEquipment,
+                                                    DataTable tableSubEquipment,/*
+                                                    DataTable tableEquipingLocation,
+                                                    DataTable tableIOSignal,*/
                                                     DataTable tableRepositories,
                                                     DataTable tableCable,
                                                     DataTable tableMountingScheme)
@@ -404,13 +384,6 @@ namespace Flute.DataStruct.IDS
                             if (Convert.ToString(rowEquipment[TblIDSEquipment.ParentID]).Trim() == subLoop.ID)
                                 subLoop.Equipments.Add(CreateIDSEquipment(subLoop,
                                                                             rowEquipment,
-                                                                            subLoop.Code,
-                                                                            loopType,
-                                                                            loopSerialNumber,
-                                                                            loopSuffix,
-                                                                            subSystemCode,
-                                                                            systemCode,
-                                                                            location,
                                                                             tableSubEquipment,
                                                                             tableRepositories,
                                                                             tableCable,
@@ -436,13 +409,6 @@ namespace Flute.DataStruct.IDS
         #region .CreateIDSEquipment.
         public static IDSEquipment CreateIDSEquipment(IDSSubLoop subLoop,
                                                         DataRow rowIDSEquipment,
-                                                        string subLoopCode,
-                                                        string loopType,
-                                                        string loopSerialNumber,
-                                                        string loopSuffix,
-                                                        string subSystemCode,
-                                                        string systemCode,
-                                                        string location,
                                                         DataTable tableSubEquipment,
                                                         DataTable tableRepositories,
                                                         DataTable tableCable,
@@ -462,9 +428,6 @@ namespace Flute.DataStruct.IDS
 
                     equipment.Tag = (rowIDSEquipment[TblIDSEquipment.Tag] as string).Trim();
                     equipment.Suffix = (rowIDSEquipment[TblIDSEquipment.Suffix] as string).Trim();
-                    if (IDSEnumWayToGenerateSymbol.AutoGenerate == equipment.Tag)
-                        equipment.Tag = systemCode + "." + loopType + equipment.FunctionCode + "-" + subSystemCode + loopSerialNumber + loopSuffix + subLoopCode + equipment.Suffix;
-                                  
                     equipment.EquipmentCatagory = (rowIDSEquipment[TblIDSEquipment.EquipmentCatagory] as string).Trim();
                     equipment.SpecificInfo1 = (rowIDSEquipment[TblIDSEquipment.SpecificeInfo1] as string).Trim();
                     equipment.SpecificInfo2 = (rowIDSEquipment[TblIDSEquipment.SpecificeInfo2] as string).Trim();
@@ -488,9 +451,7 @@ namespace Flute.DataStruct.IDS
                         foreach (DataRow rowSubEquipment in tableSubEquipment.Rows) {
                             if (Convert.ToString(rowSubEquipment[TblIDSSubEquipment.ParentID]).Trim() == equipment.ID)
                                 equipment.SubEquipments.Add(CreateIDSSubEquipment(equipment,
-                                                                                    rowSubEquipment, 
-                                                                                    equipment.Tag,
-                                                                                    location,
+                                                                                    rowSubEquipment,
                                                                                     tableCable,
                                                                                     tableMountingScheme));
                         }
@@ -513,8 +474,6 @@ namespace Flute.DataStruct.IDS
         #region .CreateIDSSubEquipment.
         public static IDSSubEquipment CreateIDSSubEquipment(IDSEquipment equipment,
                                                             DataRow rowIDSSubEquipment, 
-                                                            string equipmentTag, 
-                                                            string location,
                                                             DataTable tableIDSCable,
                                                             DataTable tableIDSMountingScheme)
         {
@@ -529,20 +488,12 @@ namespace Flute.DataStruct.IDS
                     subEquipment.ParentID = Convert.ToString(rowIDSSubEquipment[TblIDSSubEquipment.ParentID]);
 
                     subEquipment.Tag = (rowIDSSubEquipment[TblIDSSubEquipment.Tag] as string);
-                    if (IDSEnumWayToGenerateSymbol.AutoGenerate == subEquipment.Tag)
-                        subEquipment.Tag = equipmentTag;
 
                     subEquipment.FunctionCode = (rowIDSSubEquipment[TblIDSSubEquipment.FunctionCode] as string).Trim();
                     subEquipment.Suffix = (rowIDSSubEquipment[TblIDSSubEquipment.Suffix] as string).Trim();
                     subEquipment.NameSuffix = (rowIDSSubEquipment[TblIDSSubEquipment.NameSuffix] as string).Trim();
                     subEquipment.MountingType = (rowIDSSubEquipment[TblIDSSubEquipment.MountingType] as string).Trim();
-
                     subEquipment.MountingLocation = (rowIDSSubEquipment[TblIDSSubEquipment.MountingLocation] as string).Trim();
-                    if (IDSEnumLocationSymbol.On == subEquipment.MountingLocation)
-                        subEquipment.MountingLocation = location;
-                    else if (IDSEnumLocationSymbol.OnTheSide == subEquipment.MountingLocation)
-                        subEquipment.MountingLocation = location + "旁";
-
                     subEquipment.DataPlate = (rowIDSSubEquipment[TblIDSSubEquipment.DataPlate] as string).Trim();
                     subEquipment.PowerSupply = (rowIDSSubEquipment[TblIDSSubEquipment.PowerSupply] as string).Trim();
                     subEquipment.SwitchTag = (rowIDSSubEquipment[TblIDSSubEquipment.MountingLocation] as string).Trim();
@@ -776,9 +727,9 @@ namespace Flute.DataStruct.IDS
             return false;
         }
 
-        public static string ContentEncapsulatedInSquareBrackets(string content, out bool isEnCapsulatedInSuqareBrackets)
+        public static string ContentEncapsulatedInSquareBrackets(string content)
         {
-            isEnCapsulatedInSuqareBrackets = IsEncapsulatedInSquareBrackets(content);
+            bool isEnCapsulatedInSuqareBrackets = IsEncapsulatedInSquareBrackets(content);
             if (!isEnCapsulatedInSuqareBrackets)
                 return content;
 
