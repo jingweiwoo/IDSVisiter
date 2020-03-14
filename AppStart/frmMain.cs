@@ -71,6 +71,7 @@ namespace AppStart
 
             ToolStripMenuItem menuAZOVSTALIDSEquipmentListExport = new ToolStripMenuItem("导出设备表(&Q)");
             ToolStripMenuItem menuAZOVSTALIDSEquipmentListTranslation = new ToolStripMenuItem("替换设备表的翻译内容(&T)");
+            ToolStripMenuItem menuAZOVSTALIDSEquipmentListChangeDrawingMarks = new ToolStripMenuItem("替换设备表的图纸属性(&M)");
             ToolStripMenuItem menuAZOVSTALExport = new ToolStripMenuItem("亚速6#高炉项目");
 
             ToolStripMenuItem menuIDSDrawingExport = new ToolStripMenuItem("导出IDS数据库内容");
@@ -91,6 +92,7 @@ namespace AppStart
 
             menuAZOVSTALExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListExport);
             menuAZOVSTALExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListTranslation);
+            menuAZOVSTALExport.DropDownItems.Add(menuAZOVSTALIDSEquipmentListChangeDrawingMarks);
             menuCatalogDrawing.DropDownItems.Add(menuAZOVSTALExport);
 
             // ------
@@ -110,8 +112,7 @@ namespace AppStart
 
             menuAZOVSTALIDSEquipmentListExport.Click += menuAZOVSTALIDSEquipmentListExport_Click;
             menuAZOVSTALIDSEquipmentListTranslation.Click += menuAZOVSTALIDSEquipmentListTranslation_Click;
-
-            
+            menuAZOVSTALIDSEquipmentListChangeDrawingMarks.Click += menuAZOVSTALIDSEquipmentListChangeDrawingMarks_Click;
         }
 
         #region .载入EQA数据库.
@@ -397,11 +398,7 @@ namespace AppStart
 
             // AzovstalExcelHelper.ReadKeywordList(fileName);
 
-
             AzovstalExcelHelper.ReplaceEquipmentListKeywords(fileName, new DrawingKeywordCollection());
-
-
-
 
             // Flute.Service.MessageBoxWinForm.Info("成功", "成功载入IDS数据库文件", "路径:\n" + fileName);
 
@@ -409,6 +406,37 @@ namespace AppStart
         }
 
         #endregion
+
+        void menuAZOVSTALIDSEquipmentListChangeDrawingMarks_Click(object sender, EventArgs e)
+        {
+            string fileName = null;
+
+            OpenFileDialog openFileDlg;
+
+            openFileDlg = new OpenFileDialog();
+
+            openFileDlg.Multiselect = false;
+            openFileDlg.Title = "选择Excel文件";
+            openFileDlg.Filter = "Excel文件 (*.xlsx)|*.xlsx|Excel 1997~2003 文件 (*.xls)|*.xls|All Files (*.*)|*.*";
+
+            DialogResult dlgResult;
+
+            try {
+                dlgResult = openFileDlg.ShowDialog();
+            } catch (Exception ex) {
+                Flute.Service.MessageBoxWinForm.Error("选择Excel文件", ex.Message, "");
+                return;
+            }
+
+            if (dlgResult == DialogResult.OK) {
+                fileName = openFileDlg.FileName;
+            } else {
+                return;
+            }
+
+            AzovstalExcelHelper.ModifyEquipmentListDrawingMarks(fileName);
+        }
+
 
         #endregion
     }
