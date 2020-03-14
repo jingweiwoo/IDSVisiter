@@ -102,9 +102,159 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ChannelNumber { get; set; }
 
+        public string IOTerminalTagAndChannel
+        {
+            get {
+                if (IOTerminalTag == null || ChannelNumber == null)
+                    return null;
+
+                return IOTerminalTag + "-" + ChannelNumber;
+            }
+        }
+
         /// <summary>
         /// Gets or Sets 备注
         /// </summary>
-        public string Remark { get; set; }  
+        public string Remark { get; set; }
+
+
+        private IDSIOSignal()
+            : this(null)
+        {
+        }
+
+        public IDSIOSignal(IDSSubLoop subLoop)
+        {
+            ID = "";
+            ParentID = "";
+            _subLoop = subLoop;
+            SignalCategory = "";
+            FunctionCode = "";
+            FunctionName = "";
+            ObjectCode = "";
+            ObjectName = "";
+            ShortTag = "";
+            ShortName = "";
+            EngineeringRange = "";
+            SignalType = "";
+            SignalModulePlacement = "";
+            IOTerminalType = "";
+            IOTerminalTag = "";
+            ChannelNumber = "";
+            Remark = "";
+        }
+
+        #region .Copy.
+
+        /// <summary>
+        /// Deep Clone
+        /// </summary>
+        /// <returns></returns>
+        public IDSIOSignal Copy()
+        {
+            IDSIOSignal ioSignal = MemberwiseClone() as IDSIOSignal;
+            ioSignal._subLoop = this.SubLoop;
+
+            return ioSignal;
+        }
+
+        #endregion // Copy
+    }
+
+    public class IDSIOSignalCollection : List<IDSIOSignal>
+    {
+        public IDSIOSignalCollection()
+        {
+        }
+
+        #region .Key Index.
+
+        public IDSIOSignal this[string id]
+        {
+            get
+            {
+                if (this.Count > 0) {
+                    for (int i = 0; i < this.Count; i++) {
+                        if (this[i].ID == id)
+                            return (IDSIOSignal)this[i];
+                    }
+                    return null;
+                } else
+                    return null;
+            }
+            set
+            {
+                if (this.Count > 0) {
+                    for (int i = 0; i < this.Count; i++) {
+                        if (this[i].ID == id) {
+                            this[i] = value;
+                            break;
+                        }
+                    }
+                } else
+                    throw new System.ArgumentOutOfRangeException("IDS IO Signal Index", "No IO Signal with this ID can be found");
+            }
+        }
+
+        #endregion // Key Index
+
+        #region .Copy.
+
+        /// <summary>
+        /// Deep Clone
+        /// </summary>
+        /// <returns></returns>
+        public IDSIOSignalCollection Copy()
+        {
+            IDSIOSignalCollection ioSignals = new IDSIOSignalCollection();
+
+            if (this.Count <= 0)
+                return ioSignals;
+            else {
+                foreach (IDSIOSignal ioSignal in this)
+                    ioSignals.Add(ioSignal.Copy());
+                return ioSignals;
+            }
+        }
+
+        #endregion // Copy
+
+        #region .Comparer.
+
+        public static int Comparer(IDSIOSignal x, IDSIOSignal y)
+        {
+            if (x.IOTerminalTagAndChannel == null) {
+                if (y.IOTerminalTagAndChannel == null) {
+                    // If x.Tag is null and y.Tag is null, they're
+                    // equal. 
+                    return 0;
+                } else {
+                    // If x.Tag is null and y.Tag is not null, y
+                    // is greater. 
+                    return -1;
+                }
+            } else {
+                // If x.Tag is not null...
+                //
+                if (y.IOTerminalTagAndChannel == null)
+                // ...and y.Tag is null, x.Tag is greater.
+                {
+                    return 1;
+                } else {
+                    return string.Compare(x.IOTerminalTagAndChannel, y.IOTerminalTagAndChannel /*, true, System.Globalization.CultureInfo.InstalledUICulture*/);
+                }
+            }
+        }
+
+        #endregion // Comparer
+
+        #region .Sort.
+
+        public new void Sort()
+        {
+            base.Sort(IDSIOSignalCollection.Comparer);
+        }
+
+        #endregion
     }
 }

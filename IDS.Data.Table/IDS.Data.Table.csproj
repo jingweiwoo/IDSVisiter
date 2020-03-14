@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Table.TblDesignInfo.cs" />
-    <Compile Include="Table.TblIDSCabinetInSubLoop.cs" />
+    <Compile Include="Table.TblIDSEquipingLocation.cs" />
     <Compile Include="Table.TblIDSCable.cs" />
     <Compile Include="Table.TblIDSCabinet.cs" />
     <Compile Include="Table.TblIDSEquipmentInCabinet.cs" />

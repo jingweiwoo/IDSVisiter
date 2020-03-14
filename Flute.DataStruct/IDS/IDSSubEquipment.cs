@@ -16,6 +16,13 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 父ID
         /// </summary>
         public string ParentID { get; set; }
+
+        private IDSEquipment _equipment = null;
+        /// <summary>
+        /// Gets IDSEquipment
+        /// </summary>
+        public IDSEquipment Equipment { get { return _equipment; } }
+
         /// <summary>
         /// Gets or Sets 位号
         /// </summary>
@@ -79,13 +86,19 @@ namespace Flute.DataStruct.IDS
         
         #endregion // 成员属性
 
-                /// <summary>
+        private IDSSubEquipment()
+            : this(null)
+        {
+        }
+
+        /// <summary>
         /// 构造函数, 初始化成员属性为默认值
         /// </summary>
-        public IDSSubEquipment()
+        public IDSSubEquipment(IDSEquipment equipment)
         {
             ID = "";
             ParentID = "";
+            _equipment = equipment;
             Tag = "";
             FunctionCode = "";
             Suffix = "";
@@ -111,6 +124,7 @@ namespace Flute.DataStruct.IDS
         {
             IDSSubEquipment idsSubEquipment = MemberwiseClone() as IDSSubEquipment;
             // idsSubEquipment.MountingRepository = this.MountingRepository.Copy();
+            idsSubEquipment._equipment = this.Equipment;
             idsSubEquipment.Cables = this.Cables.Copy();
             idsSubEquipment.MountingScheme = this.MountingScheme.Copy();
 

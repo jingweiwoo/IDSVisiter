@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IDS.Data.Table
 {
-    class TblIDSCabinetInSubLoop
+    class TblIDSEquipingLocation
     {
         #region .私有变量.
 
@@ -43,7 +43,7 @@ namespace IDS.Data.Table
         public static string ID { get { return _ID; } }
 
         /// <summary>
-        /// Gets 父ID ------ 对应分组表的"ID"
+        /// Gets 父ID ------ 对应分组表的"ID" (子回路)
         /// </summary>
         public static string ParentID { get { return _parentID; } }
 

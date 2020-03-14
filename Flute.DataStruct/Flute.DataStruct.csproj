@@ -74,6 +74,7 @@
     <Compile Include="IDS\IDSCable.cs" />
     <Compile Include="IDS\IDSDesignInfo.cs" />
     <Compile Include="IDS\IDSEnum.cs" />
+    <Compile Include="IDS\IDSEquipingLocation.cs" />
     <Compile Include="IDS\IDSEquipment.cs" />
     <Compile Include="IDS\IDSHelper.cs" />
     <Compile Include="IDS\IDSIOSignal.cs" />

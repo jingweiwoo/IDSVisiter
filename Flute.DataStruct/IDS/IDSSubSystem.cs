@@ -16,6 +16,13 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 父ID
         /// </summary>
         public string ParentID { get; set; }
+
+        private IDSSystem _system = null;
+        /// <summary>
+        /// Gets IDS System
+        /// </summary>
+        public IDSSystem System { get { return _system; } }
+
         /// <summary>
         /// Gets or Sets 代码
         /// </summary>
@@ -105,10 +112,16 @@ namespace Flute.DataStruct.IDS
 
         #endregion // 成员属性
 
-        public IDSSubSystem()
+        private IDSSubSystem()
+            : this(null)
+        {
+        }
+
+        public IDSSubSystem(IDSSystem system)
         {
             ID = "";
             ParentID = "";
+            _system = system;
             Code = "";
             Name = "";
             IsNameInLoop = false;
@@ -128,6 +141,7 @@ namespace Flute.DataStruct.IDS
         public IDSSubSystem Copy()
         {
             IDSSubSystem subSystem = MemberwiseClone() as IDSSubSystem;
+            subSystem._system = this.System;
             subSystem.Loops = this.Loops.Copy();
             return subSystem;
         }

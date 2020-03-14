@@ -16,6 +16,12 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 父ID
         /// </summary>
         public string ParentID { get; set; }
+
+        private IDSLoop _loop = null;
+        /// <summary>
+        /// Gets IDSLoop
+        /// </summary>
+        public IDSLoop Loop { get { return _loop; } }
         /// <summary>
         /// Gets or Sets 代码
         /// </summary>
@@ -55,6 +61,26 @@ namespace Flute.DataStruct.IDS
             set { _equipments = value; }
         }
 
+        private IDSEquipingLocationCollection _equipingLocations = null;
+        /// <summary>
+        /// Gets or Sets 安装位置
+        /// </summary>
+        public IDSEquipingLocationCollection EquipingLocations
+        {
+            get { return _equipingLocations; }
+            set { _equipingLocations = value; }
+        }
+
+        private IDSIOSignalCollection _ioSignals = null;
+        /// <summary>
+        /// Gets or Sets I/O信号
+        /// </summary>
+        public IDSIOSignalCollection IOSignals
+        {
+            get { return _ioSignals; }
+            set { _ioSignals = value; }
+        }
+
         /// <summary>
         /// 子回路下导出设备的数量统计
         /// </summary>
@@ -78,10 +104,16 @@ namespace Flute.DataStruct.IDS
 
         #endregion // 成员属性
 
-        public IDSSubLoop()
+        private IDSSubLoop()
+            : this(null)
+        {
+        }
+
+        public IDSSubLoop(IDSLoop loop)
         {
             ID = "";
             ParentID = "";
+            _loop = loop;
             Code = "";
             Name = "";
             Phase = "";
@@ -91,6 +123,8 @@ namespace Flute.DataStruct.IDS
             IsNameInFront = false;
 
             Equipments = new IDSEquipmentCollection();
+            EquipingLocations = new IDSEquipingLocationCollection();
+            IOSignals = new IDSIOSignalCollection();
         }
 
         #region .Copy.
@@ -102,7 +136,10 @@ namespace Flute.DataStruct.IDS
         public IDSSubLoop Copy()
         {
             IDSSubLoop subLoop = MemberwiseClone() as IDSSubLoop;
+            subLoop._loop = this.Loop;
             subLoop.Equipments = this.Equipments.Copy();
+            subLoop.EquipingLocations = this.EquipingLocations.Copy();
+            subLoop.IOSignals = this.IOSignals.Copy();
             return subLoop;
         }
 

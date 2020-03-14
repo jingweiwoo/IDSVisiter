@@ -16,6 +16,12 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 父ID
         /// </summary>
         public string ParentID { get; set; }
+
+        private IDSSubLoop _subLoop = null;
+        /// <summary>
+        /// Gets SubLoop
+        /// </summary>
+        public IDSSubLoop SubLoop { get { return _subLoop; } }
         /// <summary>
         /// Gets or Sets 位号
         /// </summary>
@@ -48,7 +54,7 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 备注
         /// </summary>
         public string Remark { get; set; }
-        
+
         private IDSRepository _equipmentRepository = null;
         /// <summary>
         /// Gets or Sets 库设备
@@ -68,13 +74,19 @@ namespace Flute.DataStruct.IDS
             get { return _subEquipments; }
             set { _subEquipments = value; }
         }
-        
+
         #endregion // 成员属性
 
-        public IDSEquipment()
+        private IDSEquipment()
+            : this(null)
+        {
+        }
+
+        public IDSEquipment(IDSSubLoop subLoop)
         {
             ID = "";
             ParentID = "";
+            _subLoop = subLoop;
             Tag = "";
             FunctionCode = "";
             Suffix = "";
@@ -96,6 +108,7 @@ namespace Flute.DataStruct.IDS
         public IDSEquipment Copy()
         {
             IDSEquipment equipment = MemberwiseClone() as IDSEquipment;
+            equipment._subLoop = this.SubLoop;
             equipment.EquipmentRepository = this.EquipmentRepository.Copy();
             equipment.SubEquipments = this.SubEquipments.Copy();
 
@@ -194,7 +207,7 @@ namespace Flute.DataStruct.IDS
 
         #region .Sort.
 
-        public void Sort()
+        public new void Sort()
         {
             base.Sort(IDSEquipmentCollection.Comparer);
 

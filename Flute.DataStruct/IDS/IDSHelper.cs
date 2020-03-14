@@ -184,7 +184,8 @@ namespace Flute.DataStruct.IDS
                         foreach (DataRow rowSubSystem in tableHierarchy.Rows) {
                             if (Convert.ToString(rowSubSystem[TblIDSHierarchy.ParentID]).Trim() == system.ID
                                     && Convert.ToString(rowSubSystem[TblIDSHierarchy.Type]).Trim() == IDSEnumSystemType.SubSystem)
-                                system.SubSystems.Add(CreateIDSSubSystem(rowSubSystem,
+                                system.SubSystems.Add(CreateIDSSubSystem(system,
+                                                                    rowSubSystem,
                                                                     system.Code,
                                                                     tableLoop,
                                                                     tableHierarchy,
@@ -213,7 +214,8 @@ namespace Flute.DataStruct.IDS
 
         #region .CreateIDSSubSystem.
 
-        public static IDSSubSystem CreateIDSSubSystem(DataRow rowSubSystem,
+        public static IDSSubSystem CreateIDSSubSystem(IDSSystem system,
+                                                        DataRow rowSubSystem,
                                                         string systemCode,
                                                         DataTable tableLoop,
                                                         DataTable tableHierarchy,
@@ -226,7 +228,7 @@ namespace Flute.DataStruct.IDS
             if (rowSubSystem == null)
                 throw new System.ArgumentNullException("frome function CreateIDSSubSystem", "Parameter rowSubSystem equals to null");
 
-            IDSSubSystem subSystem = new IDSSubSystem();
+            IDSSubSystem subSystem = new IDSSubSystem(system);
 
             lock (rowSubSystem) {
                 try {
@@ -245,7 +247,8 @@ namespace Flute.DataStruct.IDS
                     lock (tableLoop) {
                         foreach (DataRow rowLoop in tableLoop.Rows) {
                             if (Convert.ToString(rowLoop[TblIDSLoop.ParentID]).Trim() == subSystem.ID)
-                                subSystem.Loops.Add(CreateIDSLoop(rowLoop,
+                                subSystem.Loops.Add(CreateIDSLoop(subSystem,
+                                                                    rowLoop,
                                                                     subSystem.Code,
                                                                     systemCode,
                                                                     (subSystem.IsNameInLoop == true ? subSystem.Name : ""),
@@ -275,7 +278,8 @@ namespace Flute.DataStruct.IDS
 
         #region .CreateIDSLoop.
 
-        public static IDSLoop CreateIDSLoop(DataRow rowLoop,
+        public static IDSLoop CreateIDSLoop(IDSSubSystem subSystem,
+                                            DataRow rowLoop,
                                             string subSystemCode,
                                             string systemCode,
                                             string subSystemName,
@@ -289,7 +293,7 @@ namespace Flute.DataStruct.IDS
             if (rowLoop == null)
                 throw new System.ArgumentNullException("frome function CreateIDSLoop", "Parameter rowLoop equals to null");
 
-            IDSLoop loop = new IDSLoop();
+            IDSLoop loop = new IDSLoop(subSystem);
 
             lock (rowLoop) {
                 try {
@@ -329,7 +333,8 @@ namespace Flute.DataStruct.IDS
                         foreach (DataRow rowSubLoop in tableHierarchy.Rows) {
                             if (Convert.ToString(rowSubLoop[TblIDSHierarchy.ParentID]).Trim() == loop.ID
                                     && Convert.ToString(rowSubLoop[TblIDSHierarchy.Type]).Trim() == IDSEnumSystemType.SubLoop)
-                                loop.SubLoops.Add(CreateIDSSubLoop(rowSubLoop,
+                                loop.SubLoops.Add(CreateIDSSubLoop(loop,
+                                                                    rowSubLoop,
                                                                     loop.LoopType,
                                                                     loop.SerialNumber,
                                                                     loop.Suffix,
@@ -360,7 +365,8 @@ namespace Flute.DataStruct.IDS
         #region .创建子回路.
 
         #region .CreateIDSSubLoop.
-        public static IDSSubLoop CreateIDSSubLoop(DataRow rowSubLoop,
+        public static IDSSubLoop CreateIDSSubLoop(IDSLoop loop,
+                                                    DataRow rowSubLoop,
                                                     string loopType,
                                                     string loopSerialNumber,
                                                     string loopSuffix,
@@ -376,7 +382,7 @@ namespace Flute.DataStruct.IDS
             if (rowSubLoop == null)
                 throw new System.ArgumentNullException("frome function CreateIDSSubLoop", "Parameter rowSubLoop equals to null");
 
-            IDSSubLoop subLoop = new IDSSubLoop();
+            IDSSubLoop subLoop = new IDSSubLoop(loop);
 
             lock (rowSubLoop) {
                 try {
@@ -396,7 +402,8 @@ namespace Flute.DataStruct.IDS
                     lock (tableEquipment) {
                         foreach (DataRow rowEquipment in tableEquipment.Rows) {
                             if (Convert.ToString(rowEquipment[TblIDSEquipment.ParentID]).Trim() == subLoop.ID)
-                                subLoop.Equipments.Add(CreateIDSEquipment(rowEquipment,
+                                subLoop.Equipments.Add(CreateIDSEquipment(subLoop,
+                                                                            rowEquipment,
                                                                             subLoop.Code,
                                                                             loopType,
                                                                             loopSerialNumber,
@@ -427,7 +434,8 @@ namespace Flute.DataStruct.IDS
         #region .创建设备.
 
         #region .CreateIDSEquipment.
-        public static IDSEquipment CreateIDSEquipment(DataRow rowIDSEquipment,
+        public static IDSEquipment CreateIDSEquipment(IDSSubLoop subLoop,
+                                                        DataRow rowIDSEquipment,
                                                         string subLoopCode,
                                                         string loopType,
                                                         string loopSerialNumber,
@@ -443,7 +451,7 @@ namespace Flute.DataStruct.IDS
             if (rowIDSEquipment == null)
                 throw new System.ArgumentNullException("frome function CreateIDSEquipment", "Parameter rowIDSEquipment equals to null");
 
-            IDSEquipment equipment = new IDSEquipment();
+            IDSEquipment equipment = new IDSEquipment(subLoop);
 
             lock (rowIDSEquipment) {
                 try {
@@ -479,7 +487,8 @@ namespace Flute.DataStruct.IDS
                     lock (tableSubEquipment) {
                         foreach (DataRow rowSubEquipment in tableSubEquipment.Rows) {
                             if (Convert.ToString(rowSubEquipment[TblIDSSubEquipment.ParentID]).Trim() == equipment.ID)
-                                equipment.SubEquipments.Add(CreateIDSSubEquipment(rowSubEquipment, 
+                                equipment.SubEquipments.Add(CreateIDSSubEquipment(equipment,
+                                                                                    rowSubEquipment, 
                                                                                     equipment.Tag,
                                                                                     location,
                                                                                     tableCable,
@@ -502,7 +511,8 @@ namespace Flute.DataStruct.IDS
         #region .创建子设备.
                
         #region .CreateIDSSubEquipment.
-        public static IDSSubEquipment CreateIDSSubEquipment(DataRow rowIDSSubEquipment, 
+        public static IDSSubEquipment CreateIDSSubEquipment(IDSEquipment equipment,
+                                                            DataRow rowIDSSubEquipment, 
                                                             string equipmentTag, 
                                                             string location,
                                                             DataTable tableIDSCable,
@@ -511,7 +521,7 @@ namespace Flute.DataStruct.IDS
             if (rowIDSSubEquipment == null)
                 throw new System.ArgumentNullException("frome function CreateIDSSubEquipment", "Parameter rowIDSSubEquipment equals to null");
 
-            IDSSubEquipment subEquipment = new IDSSubEquipment();
+            IDSSubEquipment subEquipment = new IDSSubEquipment(equipment);
 
             lock (rowIDSSubEquipment) {
                 try {
