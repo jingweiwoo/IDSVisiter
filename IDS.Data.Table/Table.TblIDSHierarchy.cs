@@ -32,8 +32,7 @@ namespace IDS.Data.Table
         /// Gets 分组表 -- 表名
         /// </summary>
         public static string TblName { get { return _tblName; } }
-
-
+        
         /// <summary>
         /// Gets ID
         /// </summary>
