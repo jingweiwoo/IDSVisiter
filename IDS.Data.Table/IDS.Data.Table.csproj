@@ -54,6 +54,7 @@
     <Compile Include="Table.TblIDSCabinet.cs" />
     <Compile Include="Table.TblIDSEquipmentInCabinet.cs" />
     <Compile Include="Table.TblIDSEquipment.cs" />
+    <Compile Include="Table.TblIDSIOSignal.cs" />
     <Compile Include="Table.TblIDSMountingScheme.cs" />
     <Compile Include="Table.TblIDSMountingSchemeMaterial.cs" />
     <Compile Include="Table.TblIDSRepository.cs" />

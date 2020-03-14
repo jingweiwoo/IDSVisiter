@@ -26,7 +26,6 @@ namespace Flute.Service
 				loggingService = value;
 			}
 		}
-		
 
 #if FALSE // 
 		static IMessageService messageService = new TextWriterMessageService(Console.Out);

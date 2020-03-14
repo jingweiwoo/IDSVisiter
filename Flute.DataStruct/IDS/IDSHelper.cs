@@ -750,5 +750,37 @@ namespace Flute.DataStruct.IDS
         #endregion
 
         #endregion // Create IDS Data Struct
+
+
+        #region .Content Teardown.
+
+        public static bool IsEncapsulatedInSquareBrackets(string content)
+        {
+            if (content == null || content.Length<=1)
+                return false;
+
+            if (content is string
+                && content[0].Equals('[') && content[content.Length - 1].Equals(']'))
+                return true;
+
+            return false;
+        }
+
+        public static string ContentEncapsulatedInSquareBrackets(string content, out bool isEnCapsulatedInSuqareBrackets)
+        {
+            isEnCapsulatedInSuqareBrackets = IsEncapsulatedInSquareBrackets(content);
+            if (!isEnCapsulatedInSuqareBrackets)
+                return content;
+
+            else
+                return content.Substring(1, content.Length - 2);
+        }
+
+        public static string[] ContentSeparatedBySlash(string content)
+        {
+            return content.Split(new string[] { "/" }, StringSplitOptions.None);
+        }
+
+        #endregion
     }
 }

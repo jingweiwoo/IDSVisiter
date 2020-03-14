@@ -76,6 +76,7 @@
     <Compile Include="IDS\IDSEnum.cs" />
     <Compile Include="IDS\IDSEquipment.cs" />
     <Compile Include="IDS\IDSHelper.cs" />
+    <Compile Include="IDS\IDSIOSignal.cs" />
     <Compile Include="IDS\IDSLoop.cs" />
     <Compile Include="IDS\IDSMountingScheme.cs" />
     <Compile Include="IDS\IDSMountingSchemeMaterial.cs" />

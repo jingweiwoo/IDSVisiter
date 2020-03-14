@@ -44,4 +44,12 @@ namespace Flute.DataStruct.IDS
         public static string On { get { return "[]"; } }
         public static string OnTheSide { get { return "[旁]"; } }
     }
+
+    public class IDSEnumConstantSymbol
+    {
+        public static string AutoGenerate { get { return "自动"; } }
+        public static string ManualGenerate { get { return "手动"; } }
+        public static string Empty { get { return ""; } }
+        public static string OnTheSide { get { return "旁"; } }
+    }
 }
