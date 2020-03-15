@@ -23,6 +23,11 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string SignalCategory { get; set; }
 
+        public string SignalCategoryCode
+        {
+            get { return IDSEnumSignalCategoryCode.GetCategoryCode(SignalCategory); }
+        }
+
         /// <summary>
         /// Gets or Sets  功能代码. e.g. PV, CV, S
         /// </summary>
@@ -43,34 +48,93 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ObjectName { get; set; }
 
-        private string _shortTag = null;
+        private string _originalShortTag = null;
         /// <summary>
-        /// Gets or Sets 短位号_Ori (需要关联) e.g. [自动] 组成方式为: 回路位号/类别代码/功能代码
+        /// Gets or Sets 短位号_Ori (数据库中保存的值) (需要关联) e.g. [自动] 组成方式为: 回路位号/类别代码/功能代码
+        /// </summary>
+        public string OriginalShortTag
+        {
+            private get { return _originalShortTag; }
+            set { _originalShortTag = value; }
+        }
+
+        /// <summary>
+        /// Gets 短位号 组成方式为: 回路位号/类别代码/功能代码
         /// </summary>
         public string ShortTag
         {
-            get { return _shortTag; }
-            set { _shortTag = value; }
+            get
+            {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_originalShortTag))
+                    return _originalShortTag;
+                else {
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_originalShortTag);
+                    if (contentWithIn == IDSEnumAutoGenerationSymbol.AutoGenerate && _subLoop != null && _subLoop.Loop != null)
+                        return _subLoop.Loop.Tag + "/" + SignalCategoryCode + "/" + FunctionCode;
+                    return _originalShortTag;
+                }
+            }
         }
 
-        private string _shortName = null;
+        private string _originalShortName = null;
         /// <summary>
-        /// Gets or Sets 短名称_Ori (需要关联) e.g. [自动] 组成方式为: 回路名称/类别名称/功能名称
+        /// Gets or Sets 短名称_Ori (数据库中保存的值) (需要关联) e.g. [自动] 组成方式为: 回路名称/类别名称/功能名称
+        /// </summary>
+        public string OriginalShortName
+        {
+            private get { return _originalShortName; }
+            set { _originalShortName = value; }
+        }
+
+        /// <summary>
+        /// Gets 短名称 组成方式为: 回路名称/类别名称/功能名称
         /// </summary>
         public string ShortName
         {
-            get { return _shortName; }
-            set { _shortName = value; }
+            get
+            {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_originalShortName))
+                    return _originalShortName;
+                else {
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_originalShortName);
+                    if (contentWithIn == IDSEnumAutoGenerationSymbol.AutoGenerate && _subLoop != null && _subLoop.Loop != null)
+                        return _subLoop.Loop.LoopFunction + "/" + SignalCategory + "/" + FunctionName;
+                    return _originalShortName;
+                }
+            }
         }
 
-        private string _engineeringRange;
+        private string _originalEngineeringRange;
         /// <summary>
-        /// Gets or Sets 工程范围_Ori (需要关联) e.g. [回路], 0~100%, [T/], [X/B]
+        /// Gets or Sets 工程范围_Ori (数据库中保存的值) (需要关联) e.g. [回路], 0~100%, [T/], [X/B]
+        /// </summary>
+        public string OriginalEngineeringRange
+        {
+            private get { return _originalEngineeringRange; }
+            set { _originalEngineeringRange = value; }
+        }
+
+        /// <summary>
+        /// Gets 工程范围 - [回路], 0~100%, [T/], [X/B]
         /// </summary>
         public string EngineeringRange
         {
-            get { return _engineeringRange; }
-            set { _engineeringRange = value; }
+            get
+            {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_originalEngineeringRange))
+                    return _originalEngineeringRange;
+
+                else {
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_originalEngineeringRange);
+
+                    if (contentWithIn == IDSEnumAutoGenerationSymbol.Loop && _subLoop != null && _subLoop.Loop != null)
+                        return _subLoop.Loop.MeasurementRange;
+                    else if (_subLoop != null && _subLoop.Equipments != null && _subLoop.Equipments.ContainsByFunctionCodeAndSuffix(contentWithIn)) {
+                        return _subLoop.Equipments.GetEquipmentByFunctionCodeAndSuffix(contentWithIn).SpecificInfo1;
+                    } else
+                        return _originalEngineeringRange;
+                }
+            }
         }
 
         /// <summary>
@@ -78,13 +142,31 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string SignalType { get; set; }
 
-        private string _signalModulePlacement;
+        private string _originalSignalModulePlacement;
         /// <summary>
-        /// Gets or Sets 安装位置 (需要关联) e.g. PLC柜1
+        /// Gets or Sets 安装位置 (数据库中保存的值) (需要关联) e.g. PLC柜1
         /// </summary>
-        public string SignalModulePlacement { 
-            get { return _signalModulePlacement; }
-            set { _signalModulePlacement = value; }
+        public string OriginalSignalModulePlacement
+        {
+            private get { return _originalSignalModulePlacement; }
+            set { _originalSignalModulePlacement = value; }
+        }
+
+        /// <summary>
+        /// Gets 安装位置 - PLC柜1
+        /// </summary>
+        public string SignalModulePlacement
+        {
+            get
+            {
+                if (_subLoop != null && _subLoop.EquipingLocations != null) {
+                    if (_subLoop.EquipingLocations.ContainsByEquipingLocationCode(_originalSignalModulePlacement)) {
+                        return _subLoop.EquipingLocations[_originalSignalModulePlacement].Tag;
+                    } else
+                        return _originalSignalModulePlacement;
+                } else
+                    return _originalSignalModulePlacement;
+            }
         }
 
         /// <summary>
@@ -102,6 +184,9 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ChannelNumber { get; set; }
 
+        /// <summary>
+        /// Gets IO端子排位号-通道号
+        /// </summary>
         public string IOTerminalTagAndChannel
         {
             get {
@@ -133,11 +218,11 @@ namespace Flute.DataStruct.IDS
             FunctionName = "";
             ObjectCode = "";
             ObjectName = "";
-            ShortTag = "";
-            ShortName = "";
-            EngineeringRange = "";
+            OriginalShortTag = "";
+            OriginalShortName = "";
+            OriginalEngineeringRange = "";
             SignalType = "";
-            SignalModulePlacement = "";
+            OriginalSignalModulePlacement = "";
             IOTerminalType = "";
             IOTerminalTag = "";
             ChannelNumber = "";

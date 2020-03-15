@@ -23,28 +23,37 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public IDSSubLoop SubLoop { get { return _subLoop; } }
 
-        private string _tag = null;
+        private string _originalTag = null;
         /// <summary>
-        /// Gets or Sets 位号
+        /// Gets or Sets 位号 (数据库中保存的值)
+        /// </summary>
+        public string OriginalTag
+        {
+            private get { return _originalTag; }
+            set { _originalTag = value; }
+        }
+
+        /// <summary>
+        /// Gets 位号 
         /// </summary>
         public string Tag
         {
             get
             {
-                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_tag))
-                    return _tag;
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_originalTag))
+                    return _originalTag;
                 else {
-                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_tag);
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_originalTag);
                     if (contentWithIn == IDSEnumAutoGenerationSymbol.AutoGenerate)
                         return _subLoop.Loop.SubSystem.System.Code
                                 + "." + _subLoop.Loop.LoopType + FunctionCode
                                 + "-" + _subLoop.Loop.SubSystem.Code + _subLoop.Loop.SerialNumber
                                 + _subLoop.Loop.Suffix + _subLoop.Code + Suffix;
-                    return _tag;
+                    return _originalTag;
                 }
             }
-            set { _tag = value; }
         }
+
         /// <summary>
         /// Gets or Sets 功能代码
         /// </summary>
@@ -53,6 +62,12 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 后缀
         /// </summary>
         public string Suffix { get; set; }
+
+        /// <summary>
+        /// Gets 功能代码/后缀
+        /// </summary>
+        public string FunctionCodeAndSuffix { get { return FunctionCode + "/" + Suffix; } }
+
         /// <summary>
         /// Gets or Sets 设备类型
         /// </summary>
@@ -106,7 +121,7 @@ namespace Flute.DataStruct.IDS
             ID = "";
             ParentID = "";
             _subLoop = subLoop;
-            Tag = "";
+            OriginalTag = "";
             FunctionCode = "";
             Suffix = "";
             EquipmentCatagory = "";
@@ -194,6 +209,30 @@ namespace Flute.DataStruct.IDS
         }
 
         #endregion // Copy
+
+        public bool ContainsByFunctionCodeAndSuffix(string functionCodeAndSuffix) 
+        {
+            if (this.Count > 0) {
+                for (int i = 0; i < this.Count; i++) {
+                    if (this[i].FunctionCodeAndSuffix == functionCodeAndSuffix)
+                        return true;
+                }
+                return false;
+            } else
+                return false;
+        }
+
+        public IDSEquipment GetEquipmentByFunctionCodeAndSuffix(string functionCodeAndSuffix)
+        {
+            if (this.Count > 0) {
+                for (int i = 0; i < this.Count; i++) {
+                    if (this[i].FunctionCodeAndSuffix == functionCodeAndSuffix)
+                        return (IDSEquipment)this[i];
+                }
+                return null;
+            } else
+                return null;
+        }
 
         #region .Comparer.
 

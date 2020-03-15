@@ -15,7 +15,7 @@ namespace Flute.DataStruct.IDS
         public static IDSDesignInfo CreateIDSDesignInfo(DataTable tableDesignInfo)
         {
             if (tableDesignInfo == null)
-                throw new System.ArgumentNullException("frome function CreateIDSDesignInfo", "Parameter tableDesignInfo equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSDesignInfo", "Parameter tableDesignInfo equals to null");
 
             if (tableDesignInfo.Rows.Count > 0) {
                 return CreateIDSDesignInfo(tableDesignInfo.Rows[0]);
@@ -27,7 +27,7 @@ namespace Flute.DataStruct.IDS
         public static IDSDesignInfo CreateIDSDesignInfo(DataRow rowDesignInfo)
         {
             if (rowDesignInfo == null)
-                throw new System.ArgumentNullException("frome function CreateIDSDesignInfo", "Parameter rowDesignInfo equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSDesignInfo", "Parameter rowDesignInfo equals to null");
 
             IDSDesignInfo designInfo = new IDSDesignInfo();
 
@@ -70,30 +70,32 @@ namespace Flute.DataStruct.IDS
                                                             DataTable tableHierarchy,
                                                             DataTable tableEquipment,
                                                             DataTable tableSubEquipment,
+                                                            DataTable tableEquipingLocation,
+                                                            DataTable tableIOSignal,
                                                             DataTable tableRepositories,
                                                             DataTable tableCable,
                                                             DataTable tableMountingScheme)
         {
             if (tableLoop == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableLoop equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableLoop equals to null");
 
             if (tableHierarchy == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableHierarchy equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableHierarchy equals to null");
 
             if (tableEquipment == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableEquipment equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableEquipment equals to null");
 
             if (tableSubEquipment == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableSubEquipment equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableSubEquipment equals to null");
 
             if (tableRepositories == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableRepositories equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableRepositories equals to null");
 
             if (tableCable == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableCable equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableCable equals to null");
 
             if (tableMountingScheme == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter tableMountingScheme equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableMountingScheme equals to null");
 
             IDSSystemCollection systems = new IDSSystemCollection();
 
@@ -108,6 +110,8 @@ namespace Flute.DataStruct.IDS
                                                 tableHierarchy,
                                                 tableEquipment,
                                                 tableSubEquipment,
+                                                tableEquipingLocation,
+                                                tableIOSignal,
                                                 tableRepositories,
                                                 tableCable,
                                                 tableMountingScheme));
@@ -121,6 +125,8 @@ namespace Flute.DataStruct.IDS
                                                             DataTable tableHierarchy,
                                                             DataTable tableEquipment,
                                                             DataTable tableSubEquipment,
+                                                            DataTable tableEquipingLocation,
+                                                            DataTable tableIOSignal,
                                                             DataTable tableRepositories,
                                                             DataTable tableCable,
                                                             DataTable tableMountingScheme)
@@ -140,6 +146,8 @@ namespace Flute.DataStruct.IDS
                                             tableHierarchy,
                                             tableEquipment,
                                             tableSubEquipment,
+                                            tableEquipingLocation,
+                                            tableIOSignal,
                                             tableRepositories,
                                             tableCable,
                                             tableMountingScheme));
@@ -158,12 +166,14 @@ namespace Flute.DataStruct.IDS
                                                 DataTable tableHierarchy,
                                                 DataTable tableEquipment,
                                                 DataTable tableSubEquipment,
+                                                DataTable tableEquipingLocation,
+                                                DataTable tableIOSignal,
                                                 DataTable tableRepositories,
                                                 DataTable tableCable,
                                                 DataTable tableMountingScheme)
         {
             if (rowSystem == null)
-                throw new System.ArgumentNullException("frome function CreateIDSSystem", "Parameter rowSystem equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSSystem", "Parameter rowSystem equals to null");
 
             IDSSystem system = new IDSSystem();
 
@@ -190,6 +200,8 @@ namespace Flute.DataStruct.IDS
                                                                     tableHierarchy,
                                                                     tableEquipment,
                                                                     tableSubEquipment,
+                                                                    tableEquipingLocation,
+                                                                    tableIOSignal,
                                                                     tableRepositories,
                                                                     tableCable,
                                                                     tableMountingScheme));
@@ -219,6 +231,8 @@ namespace Flute.DataStruct.IDS
                                                         DataTable tableHierarchy,
                                                         DataTable tableEquipment,
                                                         DataTable tableSubEquipment,
+                                                        DataTable tableEquipingLocation,
+                                                        DataTable tableIOSignal,
                                                         DataTable tableRepositories,
                                                         DataTable tableCable,
                                                         DataTable tableMountingScheme)
@@ -250,6 +264,8 @@ namespace Flute.DataStruct.IDS
                                                                     tableHierarchy,
                                                                     tableEquipment,
                                                                     tableSubEquipment,
+                                                                    tableEquipingLocation,
+                                                                    tableIOSignal,
                                                                     tableRepositories,
                                                                     tableCable,
                                                                     tableMountingScheme));
@@ -278,6 +294,8 @@ namespace Flute.DataStruct.IDS
                                             DataTable tableHierarchy,
                                             DataTable tableEquipment,
                                             DataTable tableSubEquipment,
+                                            DataTable tableEquipingLocation,
+                                            DataTable tableIOSignal,
                                             DataTable tableRepositories,
                                             DataTable tableCable,
                                             DataTable tableMountingScheme)
@@ -327,6 +345,8 @@ namespace Flute.DataStruct.IDS
                                                                     rowSubLoop,
                                                                     tableEquipment,
                                                                     tableSubEquipment,
+                                                                    tableEquipingLocation,
+                                                                    tableIOSignal,
                                                                     tableRepositories,
                                                                     tableCable,
                                                                     tableMountingScheme));
@@ -352,9 +372,9 @@ namespace Flute.DataStruct.IDS
         public static IDSSubLoop CreateIDSSubLoop(IDSLoop loop,
                                                     DataRow rowSubLoop,
                                                     DataTable tableEquipment,
-                                                    DataTable tableSubEquipment,/*
+                                                    DataTable tableSubEquipment,
                                                     DataTable tableEquipingLocation,
-                                                    DataTable tableIOSignal,*/
+                                                    DataTable tableIOSignal,
                                                     DataTable tableRepositories,
                                                     DataTable tableCable,
                                                     DataTable tableMountingScheme)
@@ -390,6 +410,23 @@ namespace Flute.DataStruct.IDS
                                                                             tableMountingScheme));
                         }
                     }
+
+                    subLoop.EquipingLocations.Clear();
+                    lock (tableEquipingLocation) {
+                        foreach (DataRow rowEquipingLocation in tableEquipingLocation.Rows) {
+                            if (Convert.ToString(rowEquipingLocation[TblIDSEquipingLocation.ParentID]).Trim() == subLoop.ID)
+                                subLoop.EquipingLocations.Add(CreateIDSEquipingLocation(subLoop, rowEquipingLocation));
+                        }
+                    }
+
+                    subLoop.IOSignals.Clear();
+                    lock (tableIOSignal) {
+                        foreach (DataRow rowIOSignal in tableIOSignal.Rows) {
+                            if (Convert.ToString(rowIOSignal[TblIDSIOSignal.ParentID]).Trim() == subLoop.ID)
+                                subLoop.IOSignals.Add(CreateIDSIOSignal(subLoop, rowIOSignal));
+                        }
+                    }
+                    
                 }
                 catch (System.Data.DataException ex) {
                     MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
@@ -415,7 +452,7 @@ namespace Flute.DataStruct.IDS
                                                         DataTable tableMountingScheme)
         {
             if (rowIDSEquipment == null)
-                throw new System.ArgumentNullException("frome function CreateIDSEquipment", "Parameter rowIDSEquipment equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSEquipment", "Parameter rowIDSEquipment equals to null");
 
             IDSEquipment equipment = new IDSEquipment(subLoop);
 
@@ -426,7 +463,7 @@ namespace Flute.DataStruct.IDS
 
                     equipment.FunctionCode = (rowIDSEquipment[TblIDSEquipment.Function] as string).Trim();
 
-                    equipment.Tag = (rowIDSEquipment[TblIDSEquipment.Tag] as string).Trim();
+                    equipment.OriginalTag = (rowIDSEquipment[TblIDSEquipment.Tag] as string).Trim();
                     equipment.Suffix = (rowIDSEquipment[TblIDSEquipment.Suffix] as string).Trim();
                     equipment.EquipmentCatagory = (rowIDSEquipment[TblIDSEquipment.EquipmentCatagory] as string).Trim();
                     equipment.SpecificInfo1 = (rowIDSEquipment[TblIDSEquipment.SpecificeInfo1] as string).Trim();
@@ -487,13 +524,13 @@ namespace Flute.DataStruct.IDS
                     subEquipment.ID = Convert.ToString(rowIDSSubEquipment[TblIDSSubEquipment.ID]);
                     subEquipment.ParentID = Convert.ToString(rowIDSSubEquipment[TblIDSSubEquipment.ParentID]);
 
-                    subEquipment.Tag = (rowIDSSubEquipment[TblIDSSubEquipment.Tag] as string);
+                    subEquipment.OriginalTag = (rowIDSSubEquipment[TblIDSSubEquipment.Tag] as string);
 
                     subEquipment.FunctionCode = (rowIDSSubEquipment[TblIDSSubEquipment.FunctionCode] as string).Trim();
                     subEquipment.Suffix = (rowIDSSubEquipment[TblIDSSubEquipment.Suffix] as string).Trim();
                     subEquipment.NameSuffix = (rowIDSSubEquipment[TblIDSSubEquipment.NameSuffix] as string).Trim();
-                    subEquipment.MountingType = (rowIDSSubEquipment[TblIDSSubEquipment.MountingType] as string).Trim();
-                    subEquipment.MountingLocation = (rowIDSSubEquipment[TblIDSSubEquipment.MountingLocation] as string).Trim();
+                    subEquipment.OriginalMountingType = (rowIDSSubEquipment[TblIDSSubEquipment.MountingType] as string).Trim();
+                    subEquipment.OriginalMountingLocation = (rowIDSSubEquipment[TblIDSSubEquipment.MountingLocation] as string).Trim();
                     subEquipment.DataPlate = (rowIDSSubEquipment[TblIDSSubEquipment.DataPlate] as string).Trim();
                     subEquipment.PowerSupply = (rowIDSSubEquipment[TblIDSSubEquipment.PowerSupply] as string).Trim();
                     subEquipment.SwitchTag = (rowIDSSubEquipment[TblIDSSubEquipment.MountingLocation] as string).Trim();
@@ -531,6 +568,111 @@ namespace Flute.DataStruct.IDS
 
         #endregion
 
+        #region .创建安装位置.
+
+        #region .CreateEquipingLocation.
+        public static IDSEquipingLocation CreateIDSEquipingLocation(IDSSubLoop subLoop, DataRow rowIDSEquipingLocation)
+        {
+            if (rowIDSEquipingLocation == null)
+                throw new System.ArgumentNullException("from function CreateIDSEquipingLocation", "Parameter rowIDSEquipingLocation equals to null");
+
+            IDSEquipingLocation equipingLocation = new IDSEquipingLocation(subLoop);
+
+            lock (rowIDSEquipingLocation) {
+                try {
+                    equipingLocation.ID = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.ID]).Trim();
+                    equipingLocation.ParentID = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.ParentID]).Trim();
+
+                    equipingLocation.CabinetType = (rowIDSEquipingLocation[TblIDSEquipingLocation.CabinetType] as string).Trim();
+                    equipingLocation.SerialNumber = (rowIDSEquipingLocation[TblIDSEquipingLocation.SerialNumber] as string).Trim();
+                    equipingLocation.Description = (rowIDSEquipingLocation[TblIDSEquipingLocation.Description] as string).Trim();
+                    equipingLocation.Area = (rowIDSEquipingLocation[TblIDSEquipingLocation.Area] as string).Trim();
+                    equipingLocation.SubArea = (rowIDSEquipingLocation[TblIDSEquipingLocation.SubArea] as string).Trim();
+                    equipingLocation.Tag = (rowIDSEquipingLocation[TblIDSEquipingLocation.Tag] as string).Trim();
+                    equipingLocation.CabinetUnit = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.CabinetUnit]).Trim();
+                    equipingLocation.CabinetUnitHeight = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.CabinetUnitHeight]).Trim();
+                    equipingLocation.Name = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.Name]).Trim();
+                    equipingLocation.ModelNumber = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.ModelNumber]).Trim();
+                    equipingLocation.Dimension = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.Dimension]).Trim();
+                    equipingLocation.Color = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.Color]).Trim();
+                    equipingLocation.OpenType = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.OpenType]).Trim();
+                    equipingLocation.Remark = Convert.ToString(rowIDSEquipingLocation[TblIDSEquipingLocation.Remark]).Trim();
+
+                } catch (System.Data.DataException ex) {
+                    MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
+                }
+            }
+
+            return equipingLocation;
+        }
+        #endregion
+
+        #endregion
+
+        #region .创建IO信号.
+
+        #region .CreateIDSIOSignals.
+        public static IDSIOSignalCollection CreateIDSIOSignals(DataRow[] rowIDSIOSignals, IDSSubLoop subLoop)
+        {
+            if (rowIDSIOSignals == null)
+                throw new System.ArgumentNullException("from function CreateIDSIOSignals", "Parameter rowIDSIOSignals equals to null");
+
+            IDSIOSignalCollection ioSignals = new IDSIOSignalCollection();
+
+            if (rowIDSIOSignals.Length <= 0)
+                return ioSignals;
+
+            lock (rowIDSIOSignals) {
+                try {
+                    foreach (DataRow rowIDSIOSignal in rowIDSIOSignals)
+                        ioSignals.Add(CreateIDSIOSignal(subLoop, rowIDSIOSignal));
+                } catch (DataException ex) {
+                    MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
+                }
+            }
+
+            return ioSignals;
+        }
+        #endregion
+
+        #region .CreateIDSIOSignal.
+        public static IDSIOSignal CreateIDSIOSignal(IDSSubLoop subLoop, DataRow rowIDSIOSignal)
+        {
+            if (rowIDSIOSignal == null)
+                throw new System.ArgumentNullException("from function CreateIDSIOSignal", "Parameter rowIDSIOSignal equals to null");
+
+            IDSIOSignal ioSignal = new IDSIOSignal(subLoop);
+
+            lock (rowIDSIOSignal) {
+                try {
+                    ioSignal.ID = Convert.ToString(rowIDSIOSignal[TblIDSIOSignal.ID]).Trim();
+                    ioSignal.ParentID = Convert.ToString(rowIDSIOSignal[TblIDSIOSignal.ParentID]).Trim();
+                    ioSignal.SignalCategory = (rowIDSIOSignal[TblIDSIOSignal.SignalCategory] as string).Trim();
+                    ioSignal.FunctionCode = (rowIDSIOSignal[TblIDSIOSignal.FunctionCode] as string).Trim();
+                    ioSignal.FunctionName = (rowIDSIOSignal[TblIDSIOSignal.FunctionName] as string).Trim();
+                    ioSignal.ObjectCode = Convert.ToString(rowIDSIOSignal[TblIDSIOSignal.ObjectCode]).Trim();
+                    ioSignal.ObjectName = Convert.ToString(rowIDSIOSignal[TblIDSIOSignal.ObjectName]).Trim();
+                    ioSignal.OriginalShortTag = (rowIDSIOSignal[TblIDSIOSignal.ShortTag] as string).Trim();
+                    ioSignal.OriginalShortName = (rowIDSIOSignal[TblIDSIOSignal.ShortName] as string).Trim();
+                    ioSignal.OriginalEngineeringRange = (rowIDSIOSignal[TblIDSIOSignal.EngineeringRange] as string).Trim();
+                    ioSignal.SignalType = (rowIDSIOSignal[TblIDSIOSignal.SignalType] as string).Trim();
+                    ioSignal.OriginalSignalModulePlacement = (rowIDSIOSignal[TblIDSIOSignal.SignalModulePlacement] as string).Trim();
+                    ioSignal.IOTerminalType = (rowIDSIOSignal[TblIDSIOSignal.IOTerminalType] as string).Trim();
+                    ioSignal.IOTerminalTag = (rowIDSIOSignal[TblIDSIOSignal.IOTerminalTag] as string).Trim();
+                    ioSignal.ChannelNumber = (rowIDSIOSignal[TblIDSIOSignal.ChannelNumber] as string).Trim();
+                    ioSignal.Remark = (rowIDSIOSignal[TblIDSIOSignal.Remark] as string).Trim();
+
+                } catch (System.Data.DataException ex) {
+                    MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
+                }
+            }
+
+            return ioSignal;
+        }
+        #endregion
+
+        #endregion
+
 
         #region .创建电缆 - 未完成.
 
@@ -539,7 +681,6 @@ namespace Flute.DataStruct.IDS
         {
             return new IDSCable();
         }
-
         #endregion
 
         #endregion
@@ -552,7 +693,6 @@ namespace Flute.DataStruct.IDS
         {
             return new IDSMountingScheme();
         }
-
         #endregion
 
         #endregion

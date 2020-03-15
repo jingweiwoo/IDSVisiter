@@ -35,7 +35,7 @@ namespace Flute.DataStruct.IDS
         /// <summary>
         /// Gets 安装位置代码
         /// </summary>
-        public string CabinetCode {
+        public string EquipingLocationCode {
             get {
                 if (CabinetType == null || SerialNumber == null)
                     return null;
@@ -155,13 +155,13 @@ namespace Flute.DataStruct.IDS
 
         #region .Key Index.
 
-        public IDSEquipingLocation this[string cabinetCode]
+        public IDSEquipingLocation this[string equipingLocationCode]
         {
             get
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
-                        if (this[i].CabinetCode == cabinetCode)
+                        if (this[i].EquipingLocationCode == equipingLocationCode)
                             return (IDSEquipingLocation)this[i];
                     }
                     return null;
@@ -172,13 +172,13 @@ namespace Flute.DataStruct.IDS
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
-                        if (this[i].CabinetCode == cabinetCode) {
+                        if (this[i].EquipingLocationCode == equipingLocationCode) {
                             this[i] = value;
                             break;
                         }
                     }
                 } else
-                    throw new System.ArgumentOutOfRangeException("IDS Equiping Location Index", "No Equiping Location with this Tag can be found");
+                    throw new System.ArgumentOutOfRangeException("IDS Equiping Location Code", "No Equiping Location with this Code can be found");
             }
         }
 
@@ -197,7 +197,7 @@ namespace Flute.DataStruct.IDS
             if (this.Count <= 0)
                 return equipingLocations;
             else {
-                foreach (IDSEquipingLocation equipingLocation  in this)
+                foreach (IDSEquipingLocation equipingLocation in this)
                     equipingLocations.Add(equipingLocation.Copy());
                 return equipingLocations;
             }
@@ -205,29 +205,45 @@ namespace Flute.DataStruct.IDS
 
         #endregion // Copy
 
+        #region .ContainsByEquipingLocationCode.
+        public bool ContainsByEquipingLocationCode(string equipingLocationCode)
+        {
+            if (equipingLocationCode == null || this.Count <= 0)
+                return false;
+
+            foreach (IDSEquipingLocation equipingLocation in this) {
+                if (equipingLocation.EquipingLocationCode == equipingLocationCode) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
         #region .Comparer.
 
         public static int Comparer(IDSEquipingLocation x, IDSEquipingLocation y)
         {
-            if (x.CabinetCode == null) {
-                if (y.CabinetCode == null) {
-                    // If x.CabinetCode is null and y.CabinetCode is null, they're
+            if (x.EquipingLocationCode == null) {
+                if (y.EquipingLocationCode == null) {
+                    // If x.EquipingLocationCode is null and y.EquipingLocationCode is null, they're
                     // equal. 
                     return 0;
                 } else {
-                    // If x.CabinetCode is null and y.CabinetCode is not null, y
+                    // If x.EquipingLocationCode is null and y.EquipingLocationCode is not null, y
                     // is greater. 
                     return -1;
                 }
             } else {
-                // If x.CabinetCode is not null...
+                // If x.EquipingLocationCode is not null...
                 //
-                if (y.CabinetCode == null)
-                // ...and y.CabinetCode is null, x.CabinetCode is greater.
+                if (y.EquipingLocationCode == null)
+                // ...and y.EquipingLocationCode is null, x.EquipingLocationCode is greater.
                 {
                     return 1;
                 } else {
-                    return string.Compare(x.CabinetCode, y.CabinetCode /*, true, System.Globalization.CultureInfo.InstalledUICulture*/);
+                    return string.Compare(x.EquipingLocationCode, y.EquipingLocationCode /*, true, System.Globalization.CultureInfo.InstalledUICulture*/);
                 }
             }
         }

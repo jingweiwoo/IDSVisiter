@@ -23,24 +23,34 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public IDSEquipment Equipment { get { return _equipment; } }
 
-        private string _tag = null;
+        private string _originalTag = null;
         /// <summary>
-        /// Gets or Sets 位号
+        /// Gets or Sets 位号 (数据库中保存的值)
+        /// </summary>
+        public string OriginalTag
+        {
+            private get { return _originalTag; }
+            set { _originalTag = value; }
+        }
+
+        /// <summary>
+        /// Gets 位号
         /// </summary>
         public string Tag
         {
-            get {
-                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_tag))
-                    return _tag;
+            get
+            {
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_originalTag))
+                    return _originalTag;
                 else {
-                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_tag);
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_originalTag);
                     if (contentWithIn == IDSEnumAutoGenerationSymbol.AutoGenerate)
                         return _equipment.Tag;
-                    return _tag;
+                    return _originalTag;
                 }
             }
-            set { _tag = value; }
         }
+
         /// <summary>
         /// Gets or Sets 功能代码
         /// </summary>
@@ -53,33 +63,65 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 子设备名称后缀
         /// </summary>
         public string NameSuffix { get; set; }
-        /// <summary>
-        /// Gets or Sets 安装位置
-        /// </summary>
-        public string MountingType { get; set; }
 
-        private string _mountingLocation = null;
+        private string _originalMountingType = null;
         /// <summary>
-        /// Gets or Sets 安装地点
+        /// Gets or Sets 安装位置 (数据库中保存的值)
+        /// </summary>
+        public string OriginalMountingType
+        {
+            private get { return _originalMountingType; }
+            set { _originalMountingType = value; }
+        }
+
+        /// <summary>
+        /// Gets 安装位置
+        /// </summary>
+        public string MountingType
+        {
+            get
+            {
+                if (_equipment != null && _equipment.SubLoop != null && _equipment.SubLoop.EquipingLocations != null) {
+                    if (_equipment.SubLoop.EquipingLocations.ContainsByEquipingLocationCode(_originalMountingType)) {
+                        return _equipment.SubLoop.EquipingLocations[_originalMountingType].Tag;
+                    } else
+                        return _originalMountingType;
+                } else
+                    return _originalMountingType;
+            }
+        }
+
+        private string _originalMountingLocation = null;
+        /// <summary>
+        /// Gets or Sets 安装地点 (数据库中保存的值)
+        /// </summary>
+        public string OriginalMountingLocation
+        {
+            private get { return _originalMountingLocation; }
+            set { _originalMountingLocation = value; }
+        }
+
+        /// <summary>
+        /// Gets 安装地点
         /// </summary>
         public string MountingLocation
         {
             get
             {
-                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_mountingLocation))
-                    return _mountingLocation;
+                if (!IDSHelper.IsEncapsulatedInSquareBrackets(_originalMountingLocation))
+                    return _originalMountingLocation;
                 else {
-                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_mountingLocation);
+                    string contentWithIn = IDSHelper.ContentEncapsulatedInSquareBrackets(_originalMountingLocation);
                     if (IDSEnumAutoGenerationSymbol.Empty == contentWithIn)
                         return _equipment.SubLoop.Loop.Location;
                     else if (IDSEnumAutoGenerationSymbol.OnTheSide == contentWithIn)
                         return _equipment.SubLoop.Loop.Location + "旁";
                     else
-                        return _mountingLocation;
+                        return _originalMountingLocation;
                 }
             }
-            set { _mountingLocation = value; }
         }
+
         /// <summary>
         /// Gets or Sets 铭牌内容
         /// </summary>
@@ -132,12 +174,12 @@ namespace Flute.DataStruct.IDS
             ID = "";
             ParentID = "";
             _equipment = equipment;
-            Tag = "";
+            OriginalTag = "";
             FunctionCode = "";
             Suffix = "";
             NameSuffix = "";
-            MountingType = "";
-            MountingLocation = "";
+            OriginalMountingType = "";
+            OriginalMountingLocation = "";
             DataPlate = "";
             PowerSupply = "";
             SwitchTag = "";
@@ -231,19 +273,19 @@ namespace Flute.DataStruct.IDS
         {
             if (x.Tag == null) {
                 if (y.Tag == null) {
-                    // If x.TagNo is null and y.TagNo is null, they're
+                    // If x.Tag is null and y.Tag is null, they're
                     // equal. 
                     return 0;
                 } else {
-                    // If x.TagNo is null and y.TagNo is not null, y
+                    // If x.Tag is null and y.Tag is not null, y
                     // is greater. 
                     return -1;
                 }
             } else {
-                // If x.TagNo is not null...
+                // If x.Tag is not null...
                 //
                 if (y.Tag == null)
-                // ...and y.TagNo is null, x.TagNo is greater.
+                // ...and y.Tag is null, x.Tag is greater.
                 {
                     return 1;
                 } else {

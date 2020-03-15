@@ -22,8 +22,9 @@ namespace Flute.DataStruct.IDS
         /// Gets SubSystem
         /// </summary>
         public IDSSubSystem SubSystem { get { return _subSystem; } }
+
         /// <summary>
-        /// Gets or Sets 位号
+        /// Gets 位号
         /// </summary>
         public string Tag
         {
@@ -34,6 +35,7 @@ namespace Flute.DataStruct.IDS
                         + "-" + _subSystem.Code + SerialNumber + Suffix;
             }
         }
+
         /// <summary>
         /// Gets or Sets 对象
         /// </summary>
@@ -47,7 +49,7 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string Suffix { get; set; }
         /// <summary>
-        /// Gets or Sets 位置 (数据库中保存的位置信息)
+        /// Gets or Sets 位置 (数据库中保存的值)
         /// </summary>
         public string ShortLocation { private get; set; }
         /// <summary>
@@ -63,6 +65,12 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 参数
         /// </summary>
         public string Parameter { get; set; }
+
+        /// <summary>
+        /// 回路功能 (或回路名称)
+        /// </summary>
+        public string LoopFunction { get { return Location + Medium + Parameter; } }
+
         /// <summary>
         /// Gets or Sets 操作温度
         /// </summary>

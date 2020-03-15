@@ -244,11 +244,14 @@ namespace AppStart
                                                   TblDesignInfo.TblName,
                                                   TblIDSEquipment.TblName,
                                                   TblIDSSubEquipment.TblName,
+                                                  TblIDSEquipingLocation.TblName,
+                                                  TblIDSIOSignal.TblName,
                                                   TblIDSRepository.TblName,
                                                   TblIDSHierarchy.TblName,
                                                   TblIDSLoop.TblName,
                                                   TblIDSCabinet.TblName,
                                                   TblIDSEquipmentInCabinet.TblName,
+                                                  TblIDSCable.TblName,
                                                   TblIDSMountingScheme.TblName,
                                                   TblIDSMountingSchemeMaterial.TblName);
             }
@@ -352,6 +355,8 @@ namespace AppStart
                                                                         dataSet.Tables[TblIDSHierarchy.TblName],
                                                                         dataSet.Tables[TblIDSEquipment.TblName],
                                                                         dataSet.Tables[TblIDSSubEquipment.TblName],
+                                                                        dataSet.Tables[TblIDSEquipingLocation.TblName],
+                                                                        dataSet.Tables[TblIDSIOSignal.TblName],
                                                                         dataSet.Tables[TblIDSRepository.TblName],
                                                                         dataSet.Tables[TblIDSCable.TblName],
                                                                         dataSet.Tables[TblIDSMountingScheme.TblName]);
