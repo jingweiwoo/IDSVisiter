@@ -117,6 +117,18 @@ namespace Flute.DataStruct.IDS
 
         #endregion // Copy
 
+        public bool ContainsByCode(string code)
+        {
+            if (this.Count > 0) {
+                for (int i = 0; i < this.Count; i++) {
+                    if (this[i].Code == code)
+                        return true;
+                }
+                return false;
+            } else
+                return false;
+        }
+
         #region .Comparer.
 
         public static int Comparer(IDSRepositoryCategory x, IDSRepositoryCategory y)

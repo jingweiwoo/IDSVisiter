@@ -853,6 +853,7 @@ namespace Flute.DataStruct.IDS
         #endregion // Create IDS Data Struct
 
 
+
         #region .Content Teardown.
 
         public static bool IsEncapsulatedInSquareBrackets(string content)
