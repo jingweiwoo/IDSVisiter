@@ -82,6 +82,7 @@
     <Compile Include="IDS\IDSMountingScheme.cs" />
     <Compile Include="IDS\IDSMountingSchemeMaterial.cs" />
     <Compile Include="IDS\IDSRepository.cs" />
+    <Compile Include="IDS\IDSRepositoryCategory.cs" />
     <Compile Include="IDS\IDSSubEquipment.cs" />
     <Compile Include="IDS\IDSSubLoop.cs" />
     <Compile Include="IDS\IDSSubSystem.cs" />

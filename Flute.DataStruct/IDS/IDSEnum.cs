@@ -7,15 +7,59 @@ namespace Flute.DataStruct.IDS
     /// <summary>
     /// 对应分组表"类型"项的内容
     /// </summary>
-    public class IDSEnumSystemType
+    public static class IDSEnumSystemType
     {
-        public static string System { get { return "系统"; } }
-        public static string SubSystem { get { return "子系统"; } }
-        public static string SubLoop { get { return "子回路"; } }
-        public static string Region { get { return "区域"; } }
-        public static string SubRegion { get { return "子区域"; } }
-        public static string EquipmentCatagory { get { return "设备类别"; } }
-        public static string MountingCatagory { get { return "安装类别"; } }
+        /// <summary>
+        /// 系统
+        /// </summary>
+        public const string System = "系统";
+        /// <summary>
+        /// 子系统
+        /// </summary>
+        public const string SubSystem = "子系统";
+        /// <summary>
+        /// 子回路
+        /// </summary>
+        public const string SubLoop = "子回路";
+        /// <summary>
+        /// 区域
+        /// </summary>
+        public const string Region = "区域";
+        /// <summary>
+        /// 子区域
+        /// </summary>
+        public const string SubRegion = "子区域";
+        /// <summary>
+        /// 设备类别
+        /// </summary>
+        public const string EquipmentCatagory = "设备类别";
+        /// <summary>
+        /// 安装类别
+        /// </summary>
+        public const string MountingCatagory = "安装类别";
+    }
+
+    /// <summary>
+    /// 对应分组表"阶段类型"项的内容
+    /// </summary>
+    public static class IDSEnumPhaseType
+    {
+        /// <summary>
+        /// 系统
+        /// </summary>
+        public const string SystemDesign = "系统";
+        /// <summary>
+        /// 设备
+        /// </summary>
+        public const string EquipmentDesign = "设备";
+        /// <summary>
+        /// 施工
+        /// </summary>
+        public const string ConstructionDesign = "施工";
+        /// <summary>
+        /// 其它
+        /// </summary>
+        public const string Others = "其它";
     }
 
     /// <summary>

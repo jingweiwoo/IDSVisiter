@@ -13,7 +13,7 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ID { get; set; }
         /// <summary>
-        /// Gets or Sets 父ID
+        /// Gets or Sets 父ID ------ 对应分组表的"ID" (设备类别)
         /// </summary>
         public string ParentID { get; set; }
         /// <summary>
@@ -545,7 +545,7 @@ namespace Flute.DataStruct.IDS
 
         #region .Sort.
 
-        public void Sort()
+        public new void Sort()
         {
             if (this.Count > 0)
                 base.Sort(IDSRepositoryCollection.Comparer);
