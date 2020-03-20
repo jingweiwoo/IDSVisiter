@@ -31,6 +31,10 @@ namespace Flute.DataStruct.IDS
         /// Gets or Sets 阶段类型
         /// </summary>
         public string Phase { get; set; }
+        /// <summary>
+        /// Gets or Sets 库设备
+        /// </summary>
+        public IDSRepositoryCollection Repositories { get; set; }
 
         #endregion // 成员属性
 
@@ -42,6 +46,8 @@ namespace Flute.DataStruct.IDS
             Name = "";
             Description = "";
             Phase = "";
+
+            Repositories = new IDSRepositoryCollection();
         }
 
         #region .Copy.
@@ -53,6 +59,10 @@ namespace Flute.DataStruct.IDS
         public IDSRepositoryCategory Copy()
         {
             IDSRepositoryCategory idsRepositoryCategory = MemberwiseClone() as IDSRepositoryCategory;
+            if (Repositories != null && Repositories.Count > 0)
+                foreach (IDSRepository repository in this.Repositories) {
+                    idsRepositoryCategory.Repositories.Add(repository.Copy());
+                }
             return idsRepositoryCategory;
         }
 

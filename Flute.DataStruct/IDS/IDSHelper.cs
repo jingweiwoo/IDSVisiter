@@ -72,7 +72,7 @@ namespace Flute.DataStruct.IDS
                                                             DataTable tableSubEquipment,
                                                             DataTable tableEquipingLocation,
                                                             DataTable tableIOSignal,
-                                                            DataTable tableRepositories,
+                                                            DataTable tableRepository,
                                                             DataTable tableCable,
                                                             DataTable tableMountingScheme)
         {
@@ -88,7 +88,13 @@ namespace Flute.DataStruct.IDS
             if (tableSubEquipment == null)
                 throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableSubEquipment equals to null");
 
-            if (tableRepositories == null)
+            if (tableEquipingLocation == null)
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableEquipingLocation equals to null");
+
+            if (tableIOSignal == null)
+                throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableIOSignal equals to null");
+
+            if (tableRepository == null)
                 throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableRepositories equals to null");
 
             if (tableCable == null)
@@ -112,7 +118,7 @@ namespace Flute.DataStruct.IDS
                                                 tableSubEquipment,
                                                 tableEquipingLocation,
                                                 tableIOSignal,
-                                                tableRepositories,
+                                                tableRepository,
                                                 tableCable,
                                                 tableMountingScheme));
             }
@@ -120,14 +126,14 @@ namespace Flute.DataStruct.IDS
             return systems;
         }
 
-        public static IDSSystemCollection CreateIDSSystems(DataRow[] rowSystems,
+        private static IDSSystemCollection CreateIDSSystems(DataRow[] rowSystems,
                                                             DataTable tableLoop,
                                                             DataTable tableHierarchy,
                                                             DataTable tableEquipment,
                                                             DataTable tableSubEquipment,
                                                             DataTable tableEquipingLocation,
                                                             DataTable tableIOSignal,
-                                                            DataTable tableRepositories,
+                                                            DataTable tableRepository,
                                                             DataTable tableCable,
                                                             DataTable tableMountingScheme)
         {
@@ -148,7 +154,7 @@ namespace Flute.DataStruct.IDS
                                             tableSubEquipment,
                                             tableEquipingLocation,
                                             tableIOSignal,
-                                            tableRepositories,
+                                            tableRepository,
                                             tableCable,
                                             tableMountingScheme));
             }
@@ -156,8 +162,7 @@ namespace Flute.DataStruct.IDS
             return systems;
         }
 
-
-        #endregion
+        #endregion // CreateIDSSystems
 
         #region .CreateIDSSystem.
 
@@ -216,11 +221,10 @@ namespace Flute.DataStruct.IDS
             return system;
         }
 
-        #endregion
+        #endregion // CreateIDSSystem
 
-        #endregion
-
-
+        #endregion // 创建系统
+        
         #region .创建子系统.
 
         #region .CreateIDSSubSystem.
@@ -280,10 +284,9 @@ namespace Flute.DataStruct.IDS
             return subSystem;
         }
 
-        #endregion
+        #endregion // CreateIDSSubSystem
 
-        #endregion
-
+        #endregion // 创建子系统
 
         #region .创建回路.
 
@@ -361,10 +364,9 @@ namespace Flute.DataStruct.IDS
             return loop;
         }
 
-        #endregion
+        #endregion // CreateIDSLoop
 
-        #endregion
-
+        #endregion // 创建回路
 
         #region .创建子回路.
 
@@ -436,10 +438,9 @@ namespace Flute.DataStruct.IDS
             return subLoop;
         }
 
-        #endregion
+        #endregion // CreateIDSSubLoop
 
-        #endregion
-
+        #endregion // 创建子回路
 
         #region .创建设备.
 
@@ -501,13 +502,12 @@ namespace Flute.DataStruct.IDS
 
             return equipment;
         }
-        #endregion
+        #endregion // CreateIDSEquipment
 
-        #endregion
-
+        #endregion // 创建设备
 
         #region .创建子设备.
-               
+
         #region .CreateIDSSubEquipment.
         public static IDSSubEquipment CreateIDSSubEquipment(IDSEquipment equipment,
                                                             DataRow rowIDSSubEquipment, 
@@ -564,13 +564,14 @@ namespace Flute.DataStruct.IDS
             
             return subEquipment;
         }
-        #endregion
+        #endregion // CreateIDSSubEquipment
 
-        #endregion
+        #endregion // 创建子设备
 
         #region .创建安装位置.
 
         #region .CreateEquipingLocation.
+
         public static IDSEquipingLocation CreateIDSEquipingLocation(IDSSubLoop subLoop, DataRow rowIDSEquipingLocation)
         {
             if (rowIDSEquipingLocation == null)
@@ -605,13 +606,15 @@ namespace Flute.DataStruct.IDS
 
             return equipingLocation;
         }
-        #endregion
 
-        #endregion
+        #endregion // CreateEquipingLocation
+
+        #endregion // 创建安装位置
 
         #region .创建IO信号.
 
         #region .CreateIDSIOSignals.
+
         public static IDSIOSignalCollection CreateIDSIOSignals(DataRow[] rowIDSIOSignals, IDSSubLoop subLoop)
         {
             if (rowIDSIOSignals == null)
@@ -633,9 +636,11 @@ namespace Flute.DataStruct.IDS
 
             return ioSignals;
         }
-        #endregion
+
+        #endregion // CreateIDSIOSignals
 
         #region .CreateIDSIOSignal.
+
         public static IDSIOSignal CreateIDSIOSignal(IDSSubLoop subLoop, DataRow rowIDSIOSignal)
         {
             if (rowIDSIOSignal == null)
@@ -669,11 +674,11 @@ namespace Flute.DataStruct.IDS
 
             return ioSignal;
         }
-        #endregion
 
-        #endregion
+        #endregion // CreateIDSIOSignal
 
-
+        #endregion // 创建IO信号
+        
         #region .创建电缆 - 未完成.
 
         #region .CreateIDSCable.
@@ -684,8 +689,7 @@ namespace Flute.DataStruct.IDS
         #endregion
 
         #endregion
-
-
+        
         #region .创建安装方案 - 未完成.
 
         #region .CreateIDSMountingScheme.
@@ -697,10 +701,78 @@ namespace Flute.DataStruct.IDS
 
         #endregion
 
+        #region .创建设备类别.
+
+        #region .CreateIDSRepositoryCategories.
+        public static IDSRepositoryCategoryCollection CreateIDSRepositoryCategories(DataTable tableHierarchy, DataTable tableRepository)
+        {
+            if (tableHierarchy == null)
+                throw new System.ArgumentNullException("from function CreateIDSRepositoryCategories", "Parameter tableHierarchy equals to null");
+
+            if (tableRepository == null)
+                throw new System.ArgumentNullException("from function CreateIDSRepositoryCategories", "Parameter tableRepository equals to null");
+
+            IDSRepositoryCategoryCollection repositoryCategories = new IDSRepositoryCategoryCollection();
+
+            if (tableHierarchy.Rows.Count <= 0) {
+                return repositoryCategories;
+            }
+            lock (tableRepository) {
+                foreach (DataRow rowIDSRepositoryCategory in tableHierarchy.Rows) {
+                    if (IDSEnumSystemType.RepositoryCatagory == Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Type]).Trim())
+                        repositoryCategories.Add(CreateIDSRepositoryCategory(rowIDSRepositoryCategory, tableRepository));
+                }
+            }
+
+            return repositoryCategories;
+        }
+
+        #endregion // CreateIDSRepositoryCategories
+
+        #region .CreateIDSRepositoryCategory.
+
+        public static IDSRepositoryCategory CreateIDSRepositoryCategory(DataRow rowIDSRepositoryCategory, DataTable tableRepository)
+        {
+            if (rowIDSRepositoryCategory == null)
+                throw new System.ArgumentNullException("from function CreateIDSRepositoryCategory", "Parameter rowIDSRepositoryCategory equals to null");
+
+            IDSRepositoryCategory repositoryCategory = new IDSRepositoryCategory();
+
+            lock (rowIDSRepositoryCategory) {
+                try {
+                    repositoryCategory.ID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.ID]);
+                    repositoryCategory.ParentID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.ParentID]);
+
+                    repositoryCategory.Code = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Code]);
+                    repositoryCategory.Name = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Name]);
+                    repositoryCategory.Description = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Description]);
+                    repositoryCategory.Phase = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Phase]);
+
+                    repositoryCategory.Repositories.Clear();
+
+                    lock (tableRepository) {
+                        foreach (DataRow rowRepository in tableRepository.Rows) {
+                            if (Convert.ToString(rowRepository[TblIDSRepository.ParentID]).Trim() == repositoryCategory.ID)
+                                repositoryCategory.Repositories.Add(CreateIDSRepository(rowRepository));
+                        }
+                    }
+
+                } catch (System.Data.DataException ex) {
+                    MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
+                }
+            }
+
+            return repositoryCategory;
+        }
+
+        #endregion // CreateIDSRepositoryCategory
+
+        #endregion // 创建设备类别
 
         #region .创建库设备.
 
         #region .CreateIDSRepositories.
+
         public static IDSRepositoryCollection CreateIDSRepositories(DataRow[] rowIDSRepositories)
         {
             if (rowIDSRepositories == null)
@@ -723,13 +795,15 @@ namespace Flute.DataStruct.IDS
 
             return repositories;
         }
-        #endregion
+
+        #endregion // CreateIDSRepositories
 
         #region .CreateIDSRepository.
+
         public static IDSRepository CreateIDSRepository(DataRow rowIDSRepository)
         {
             if (rowIDSRepository == null)
-                throw new System.ArgumentNullException("frome function CreateIDSRepository", "Parameter rowIDSRepository equals to null");
+                throw new System.ArgumentNullException("from function CreateIDSRepository", "Parameter rowIDSRepository equals to null");
 
             IDSRepository repository = new IDSRepository();
            

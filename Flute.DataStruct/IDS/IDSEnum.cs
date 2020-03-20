@@ -32,7 +32,7 @@ namespace Flute.DataStruct.IDS
         /// <summary>
         /// 设备类别
         /// </summary>
-        public const string EquipmentCatagory = "设备类别";
+        public const string RepositoryCatagory = "设备类别";
         /// <summary>
         /// 安装类别
         /// </summary>
