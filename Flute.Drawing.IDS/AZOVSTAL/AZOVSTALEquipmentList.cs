@@ -112,6 +112,7 @@ namespace Flute.Drawing.IDS
                 Microsoft.Office.Interop.Excel.Worksheet xlsWorkSheet;
 
                 switch (_drawingLanguage) {
+
                     #region .Case SimplifiedChinese.
                     case DrawingLanguage.SimplifiedChinese:
 
@@ -223,7 +224,7 @@ namespace Flute.Drawing.IDS
 
                                                                 // 其他项目
                                                                 xlsWorkSheet.get_Range("E" + eqpNumberInPages.ToString(), "S" + eqpNumberInPages.ToString()).Value2
-                                                                    = new object[] { FrmAZOVSTALEquipmentList.HasEqpName?equipment.EquipmentRepository.Name:"",
+                                                                    = new object[] { FrmAZOVSTALEquipmentList.HasEqpName?equipment.Repository.Name:"",
                                                                                     //FrmAZOVSTALEquipmentList.HasEqpType?eqp.EqpType:"",
                                                                                     //FrmAZOVSTALEquipmentList.HasMeasuringRangeMin?eqp.LowerLimit:"",
                                                                                     //FrmAZOVSTALEquipmentList.HasMeasuringRangeMax?eqp.UpperLimit:"",
@@ -467,7 +468,7 @@ namespace Flute.Drawing.IDS
                                                             for (int n = 0; n < subLoop.Equipments.Count; n++) {
                                                                 IDSEquipment equipment = subLoop.Equipments[n];
 
-                                                                if (equipment.EquipmentRepository.ExportAllowed == false)
+                                                                if (equipment.Repository.ExportAllowed == false)
                                                                     continue;
 
                                                                 //
@@ -496,11 +497,11 @@ namespace Flute.Drawing.IDS
 
                                                                 // 其他项目 --
                                                                 // 设备名称
-                                                                string equipmentRepository = FrmAZOVSTALEquipmentList.HasEqpName ? equipment.EquipmentRepository.Name : "";
+                                                                string equipmentRepository = FrmAZOVSTALEquipmentList.HasEqpName ? equipment.Repository.Name : "";
                                                                 string equipmentRepositoryCell = "F" + eqpNumberInPages.ToString();
                                                                 string equipmentRepositoryCellNext = "F" + (eqpNumberInPages+1).ToString();
                                                                 // 设备型号
-                                                                string equipmentModelNumber = FrmAZOVSTALEquipmentList.HasEqpType ? equipment.EquipmentRepository.ModelNumber : "";
+                                                                string equipmentModelNumber = FrmAZOVSTALEquipmentList.HasEqpType ? equipment.Repository.ModelNumber : "";
                                                                 string equipmentModelNumberCell = "G" + eqpNumberInPages.ToString();
                                                                 string equipmentModelNumberCellNext = "G" + (eqpNumberInPages+1).ToString();
                                                                 // 测量范围
@@ -516,13 +517,28 @@ namespace Flute.Drawing.IDS
                                                                 string powerSupplyCell = "J" + eqpNumberInPages.ToString();
                                                                 string powerSupplyCellNext = "J" + (eqpNumberInPages+1).ToString();
                                                                 // 供应商
-                                                                string supplier = FrmAZOVSTALEquipmentList.HasSupplier ? equipment.EquipmentRepository.Supplier : "";
+                                                                string supplier = FrmAZOVSTALEquipmentList.HasSupplier ? equipment.Repository.Supplier : "";
                                                                 string supplierCell = "K" + eqpNumberInPages.ToString();
                                                                 string supplierCellNext = "K" + (eqpNumberInPages+1).ToString();
                                                                 // 规格
-                                                                string equipmentSpecification = equipment.EquipmentRepository.Remark01
-                                                                                                    + equipment.EquipmentRepository.Remark02
-                                                                                                        + equipment.EquipmentRepository.Remark03;
+
+                                                                string equipmentSpecification = "";
+
+                                                                switch (equipment.Repository.Type) {
+                                                                    case IDSEnumRepositoryType.ValveRegulationGas:
+                                                                    case IDSEnumRepositoryType.ValveRegulationLiquid:
+                                                                    case IDSEnumRepositoryType.ValveRegulationSteam:
+                                                                    case IDSEnumRepositoryType.ValveShutOff:
+                                                                        equipmentSpecification = equipment.Repository.Remark02;
+                                                                        break;
+
+                                                                    default:
+                                                                        equipmentSpecification = equipment.Repository.Remark01
+                                                                                                    + equipment.Repository.Remark02
+                                                                                                        + equipment.Repository.Remark03;
+                                                                        break;
+                                                                }
+                                                                    
                                                                 string equipmentSpecificationCell = "L" + eqpNumberInPages.ToString();
                                                                 string equipmentSpecificationCellNext = "L" + (eqpNumberInPages+1).ToString();
                                                                 // 数量
@@ -534,7 +550,7 @@ namespace Flute.Drawing.IDS
                                                                 string mountingTypeCell = "N" + eqpNumberInPages.ToString();
                                                                 string mountingTypeCellNext = "N" + (eqpNumberInPages+1).ToString();
                                                                 // 备注
-                                                                string customRemark = equipment.EquipmentRepository.CustomRemark;
+                                                                string customRemark = equipment.Repository.CustomRemark;
                                                                 string customRemarkCell = "O" + eqpNumberInPages.ToString();
                                                                 string customRemarkCellNext = "O" + (eqpNumberInPages + 1).ToString();
 

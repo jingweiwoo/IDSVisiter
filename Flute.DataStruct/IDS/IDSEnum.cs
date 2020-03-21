@@ -67,8 +67,8 @@ namespace Flute.DataStruct.IDS
     /// </summary>
     public class IDSEnumMountingType
     {
-        public static string TubeConnection { get { return "导管连接"; } }
-        public static string EquipmentMounting { get { return "设备安装"; } }
+        public const string TubeConnection = "导管连接";
+        public const string EquipmentMounting = "设备安装";
     }
 
     public static class IDSEnumSignalCategory
@@ -152,5 +152,62 @@ namespace Flute.DataStruct.IDS
         /// 回路
         /// </summary>
         public const string Loop = "回路";
+    }
+
+    public static class IDSEnumRepositoryType
+    {
+        /// <summary>
+        /// 常用/通用设备
+        /// </summary>
+        public const string CommonGeneralEquipment = @"常用/通用设备";
+        /// <summary>
+        /// 常用/无格式设备
+        /// </summary>
+        public const string CommonEquipment = @"常用/无格式设备";
+        /// <summary>
+        /// 常用/取压口
+        /// </summary>
+        public const string CommonPeEquipment = @"常用/取压口";
+        /// <summary>
+        /// 常用/简单设备
+        /// </summary>
+        public const string CommonSimpleEquipment = @"常用/简单设备";
+
+        /// <summary>
+        /// 称重/称重传感器
+        /// </summary>
+        public const string WeightingLoadCell = @"称重/称重传感器";
+        /// <summary>
+        /// 称重/皮带秤
+        /// </summary>
+        public const string WeightingBeltScale = @"称重/皮带秤";
+        /// <summary>
+        /// 称重/钢卷秤
+        /// </summary>
+        public const string WeightingSteelRollScale = @"称重/钢卷秤";
+        /// <summary>
+        /// 称重/轨道衡
+        /// </summary>
+        public const string WeightingRailWeighBridge = @"称重/轨道衡";
+
+        /// <summary>
+        /// 阀门/调节阀_气体
+        /// </summary>
+        public const string ValveRegulationGas = @"阀门/调节阀_气体";
+        /// <summary>
+        /// 阀门/调节阀_液体
+        /// </summary>
+        public const string ValveRegulationLiquid = @"阀门/调节阀_液体";
+        /// <summary>
+        /// 阀门/调节阀_蒸汽
+        /// </summary>
+        public const string ValveRegulationSteam = @"阀门/调节阀_蒸汽";
+        /// <summary>
+        /// 阀门/切断阀
+        /// </summary>
+        public const string ValveShutOff = @"阀门/切断阀";
+
+
+
     }
 }

@@ -12,13 +12,13 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string ID { get; set; }
         /// <summary>
-        /// Gets or Sets 父ID ------ 对应分组表的"ID" (设备类别)
+        /// Gets or Sets 父ID ------ 常数0
         /// </summary>
         public string ParentID { get; set; }
         /// <summary>
-        /// Gets or Sets 代码
+        /// Gets or Sets 设备类型 (对应表中的"代码"项 Code)
         /// </summary>
-        public string Code { get; set; }
+        public string RepositoryCatagoryID { get; set; }
         /// <summary>
         /// Gets or Sets 名称
         /// </summary>
@@ -42,7 +42,7 @@ namespace Flute.DataStruct.IDS
         {
             ID = "";
             ParentID = "";
-            Code = "";
+            RepositoryCatagoryID = "";
             Name = "";
             Description = "";
             Phase = "";
@@ -77,13 +77,13 @@ namespace Flute.DataStruct.IDS
 
         #region .Key Index.
 
-        public IDSRepositoryCategory this[string code]
+        public IDSRepositoryCategory this[string repositoryCatagoryID]
         {
             get
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
-                        if (this[i].Code == code)
+                        if (this[i].RepositoryCatagoryID == repositoryCatagoryID)
                             return (IDSRepositoryCategory)this[i];
                     }
                     return null;
@@ -94,13 +94,13 @@ namespace Flute.DataStruct.IDS
             {
                 if (this.Count > 0) {
                     for (int i = 0; i < this.Count; i++) {
-                        if (this[i].Code == code) {
+                        if (this[i].RepositoryCatagoryID == repositoryCatagoryID) {
                             this[i] = value;
                             break;
                         }
                     }
                 } else
-                    throw new System.ArgumentOutOfRangeException("IDSRepositoryCategory Index", "No Repository Category with this Code can be found");
+                    throw new System.ArgumentOutOfRangeException("IDSRepositoryCategory Index", "No Repository Category with this RepositoryCatagoryID can be found");
             }
         }
 
@@ -127,11 +127,11 @@ namespace Flute.DataStruct.IDS
 
         #endregion // Copy
 
-        public bool ContainsByCode(string code)
+        public bool ContainsByRepositoryCatagoryID(string repositoryCatagoryID)
         {
             if (this.Count > 0) {
                 for (int i = 0; i < this.Count; i++) {
-                    if (this[i].Code == code)
+                    if (this[i].RepositoryCatagoryID == repositoryCatagoryID)
                         return true;
                 }
                 return false;
@@ -143,25 +143,25 @@ namespace Flute.DataStruct.IDS
 
         public static int Comparer(IDSRepositoryCategory x, IDSRepositoryCategory y)
         {
-            if (x.Code == null) {
-                if (y.Code == null) {
-                    // If x.Code is null and y.Code is null, they're
+            if (x.RepositoryCatagoryID == null) {
+                if (y.RepositoryCatagoryID == null) {
+                    // If x.RepositoryCatagoryID is null and y.RepositoryCatagoryID is null, they're
                     // equal. 
                     return 0;
                 } else {
-                    // If x.Code is null and y.Code is not null, y
+                    // If x.RepositoryCatagoryID is null and y.RepositoryCatagoryID is not null, y
                     // is greater. 
                     return -1;
                 }
             } else {
-                // If x.Code is not null...
+                // If x.RepositoryCatagoryID is not null...
                 //
-                if (y.Code == null)
-                // ...and y.Code is null, x.Code is greater.
+                if (y.RepositoryCatagoryID == null)
+                // ...and y.RepositoryCatagoryID is null, x.RepositoryCatagoryID is greater.
                 {
                     return 1;
                 } else {
-                    return string.Compare(x.Code, y.Code /*, true, System.Globalization.CultureInfo.InstalledUICulture*/);
+                    return string.Compare(x.RepositoryCatagoryID, y.RepositoryCatagoryID /*, true, System.Globalization.CultureInfo.InstalledUICulture*/);
                 }
             }
         }

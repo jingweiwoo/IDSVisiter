@@ -74,7 +74,8 @@ namespace Flute.DataStruct.IDS
                                                             DataTable tableIOSignal,
                                                             DataTable tableRepository,
                                                             DataTable tableCable,
-                                                            DataTable tableMountingScheme)
+                                                            DataTable tableMountingScheme,
+                                                            IDSRepositoryCategoryCollection repositoryCategories)
         {
             if (tableLoop == null)
                 throw new System.ArgumentNullException("from function CreateIDSSystems", "Parameter tableLoop equals to null");
@@ -120,7 +121,8 @@ namespace Flute.DataStruct.IDS
                                                 tableIOSignal,
                                                 tableRepository,
                                                 tableCable,
-                                                tableMountingScheme));
+                                                tableMountingScheme,
+                                                repositoryCategories));
             }
 
             return systems;
@@ -135,7 +137,8 @@ namespace Flute.DataStruct.IDS
                                                             DataTable tableIOSignal,
                                                             DataTable tableRepository,
                                                             DataTable tableCable,
-                                                            DataTable tableMountingScheme)
+                                                            DataTable tableMountingScheme,
+                                                            IDSRepositoryCategoryCollection repositoryCategories)
         {
             if (rowSystems == null)
                 throw new System.ArgumentNullException("frome function CreateIDSSystems", "Parameter rowSystems equals to null");
@@ -156,7 +159,8 @@ namespace Flute.DataStruct.IDS
                                             tableIOSignal,
                                             tableRepository,
                                             tableCable,
-                                            tableMountingScheme));
+                                            tableMountingScheme,
+                                            repositoryCategories));
             }
 
             return systems;
@@ -175,7 +179,8 @@ namespace Flute.DataStruct.IDS
                                                 DataTable tableIOSignal,
                                                 DataTable tableRepositories,
                                                 DataTable tableCable,
-                                                DataTable tableMountingScheme)
+                                                DataTable tableMountingScheme,
+                                                IDSRepositoryCategoryCollection repositoryCategories)
         {
             if (rowSystem == null)
                 throw new System.ArgumentNullException("from function CreateIDSSystem", "Parameter rowSystem equals to null");
@@ -209,7 +214,8 @@ namespace Flute.DataStruct.IDS
                                                                     tableIOSignal,
                                                                     tableRepositories,
                                                                     tableCable,
-                                                                    tableMountingScheme));
+                                                                    tableMountingScheme,
+                                                                    repositoryCategories));
                         }
                     }
                 }
@@ -239,7 +245,8 @@ namespace Flute.DataStruct.IDS
                                                         DataTable tableIOSignal,
                                                         DataTable tableRepositories,
                                                         DataTable tableCable,
-                                                        DataTable tableMountingScheme)
+                                                        DataTable tableMountingScheme,
+                                                        IDSRepositoryCategoryCollection repositoryCategories)
         {
             if (rowSubSystem == null)
                 throw new System.ArgumentNullException("frome function CreateIDSSubSystem", "Parameter rowSubSystem equals to null");
@@ -272,7 +279,8 @@ namespace Flute.DataStruct.IDS
                                                                     tableIOSignal,
                                                                     tableRepositories,
                                                                     tableCable,
-                                                                    tableMountingScheme));
+                                                                    tableMountingScheme,
+                                                                    repositoryCategories));
                         }
                     }
                 }
@@ -301,7 +309,8 @@ namespace Flute.DataStruct.IDS
                                             DataTable tableIOSignal,
                                             DataTable tableRepositories,
                                             DataTable tableCable,
-                                            DataTable tableMountingScheme)
+                                            DataTable tableMountingScheme,
+                                            IDSRepositoryCategoryCollection repositoryCategories)
         {
             if (rowLoop == null)
                 throw new System.ArgumentNullException("frome function CreateIDSLoop", "Parameter rowLoop equals to null");
@@ -352,7 +361,8 @@ namespace Flute.DataStruct.IDS
                                                                     tableIOSignal,
                                                                     tableRepositories,
                                                                     tableCable,
-                                                                    tableMountingScheme));
+                                                                    tableMountingScheme,
+                                                                    repositoryCategories));
                         }
                     }
                 }
@@ -379,7 +389,8 @@ namespace Flute.DataStruct.IDS
                                                     DataTable tableIOSignal,
                                                     DataTable tableRepositories,
                                                     DataTable tableCable,
-                                                    DataTable tableMountingScheme)
+                                                    DataTable tableMountingScheme,
+                                                    IDSRepositoryCategoryCollection repositoryCategories)
         {
             if (rowSubLoop == null)
                 throw new System.ArgumentNullException("frome function CreateIDSSubLoop", "Parameter rowSubLoop equals to null");
@@ -409,7 +420,8 @@ namespace Flute.DataStruct.IDS
                                                                             tableSubEquipment,
                                                                             tableRepositories,
                                                                             tableCable,
-                                                                            tableMountingScheme));
+                                                                            tableMountingScheme,
+                                                                            repositoryCategories));
                         }
                     }
 
@@ -445,6 +457,7 @@ namespace Flute.DataStruct.IDS
         #region .创建设备.
 
         #region .CreateIDSEquipment.
+        [Obsolete]
         public static IDSEquipment CreateIDSEquipment(IDSSubLoop subLoop,
                                                         DataRow rowIDSEquipment,
                                                         DataTable tableSubEquipment,
@@ -466,19 +479,20 @@ namespace Flute.DataStruct.IDS
 
                     equipment.OriginalTag = (rowIDSEquipment[TblIDSEquipment.Tag] as string).Trim();
                     equipment.Suffix = (rowIDSEquipment[TblIDSEquipment.Suffix] as string).Trim();
-                    equipment.EquipmentCatagory = (rowIDSEquipment[TblIDSEquipment.EquipmentCatagory] as string).Trim();
+                    equipment.RepositoryCatagoryID = (rowIDSEquipment[TblIDSEquipment.RepositoryCatagoryID] as string).Trim();
+                    equipment.RepositoryID = Convert.ToString(rowIDSEquipment[TblIDSEquipment.RepositoryID]).Trim();
                     equipment.SpecificInfo1 = (rowIDSEquipment[TblIDSEquipment.SpecificeInfo1] as string).Trim();
                     equipment.SpecificInfo2 = (rowIDSEquipment[TblIDSEquipment.SpecificeInfo2] as string).Trim();
                     equipment.Quantity = Convert.ToInt32(rowIDSEquipment[TblIDSEquipment.Quantity]);
                     equipment.Remark = (rowIDSEquipment[TblIDSEquipment.Remark] as string).Trim();
 
-                    string repositoryName = Convert.ToString(rowIDSEquipment[TblIDSEquipment.EquipmentRepositoryID]).Trim();
+                    string repositoryName = Convert.ToString(rowIDSEquipment[TblIDSEquipment.RepositoryID]).Trim();
 
                     if (repositoryName != null && repositoryName != "")
                         lock (tableRepositories) {
                             foreach (DataRow rowRepository in tableRepositories.Rows) {
                                 if (Convert.ToString(rowRepository[TblIDSRepository.RepositoryID]) == repositoryName) {
-                                    equipment.EquipmentRepository = CreateIDSRepository(rowRepository);
+                                    equipment.Repository = CreateIDSRepository(rowRepository);
                                     break;
                                 }
                             }
@@ -502,6 +516,78 @@ namespace Flute.DataStruct.IDS
 
             return equipment;
         }
+
+        public static IDSEquipment CreateIDSEquipment(IDSSubLoop subLoop,
+                                                DataRow rowIDSEquipment,
+                                                DataTable tableSubEquipment,
+                                                DataTable tableRepositories,
+                                                DataTable tableCable,
+                                                DataTable tableMountingScheme,
+                                                IDSRepositoryCategoryCollection repositoryCategories)
+        {
+            if (rowIDSEquipment == null)
+                throw new System.ArgumentNullException("from function CreateIDSEquipment", "Parameter rowIDSEquipment equals to null");
+
+            IDSEquipment equipment = new IDSEquipment(subLoop);
+
+            lock (rowIDSEquipment) {
+                try {
+                    equipment.ID = Convert.ToString(rowIDSEquipment[TblIDSEquipment.ID]).Trim();
+                    equipment.ParentID = Convert.ToString(rowIDSEquipment[TblIDSEquipment.ParentID]).Trim();
+
+                    equipment.FunctionCode = (rowIDSEquipment[TblIDSEquipment.Function] as string).Trim();
+
+                    equipment.OriginalTag = (rowIDSEquipment[TblIDSEquipment.Tag] as string).Trim();
+                    equipment.Suffix = (rowIDSEquipment[TblIDSEquipment.Suffix] as string).Trim();
+                    equipment.RepositoryCatagoryID = Convert.ToString(rowIDSEquipment[TblIDSEquipment.RepositoryCatagoryID]).Trim();
+                    equipment.RepositoryID = Convert.ToString(rowIDSEquipment[TblIDSEquipment.RepositoryID]).Trim();
+                    equipment.SpecificInfo1 = Convert.ToString(rowIDSEquipment[TblIDSEquipment.SpecificeInfo1]).Trim();
+                    equipment.SpecificInfo2 = Convert.ToString(rowIDSEquipment[TblIDSEquipment.SpecificeInfo2]).Trim();
+                    equipment.Quantity = Convert.ToInt32(rowIDSEquipment[TblIDSEquipment.Quantity]);
+                    equipment.Remark = (rowIDSEquipment[TblIDSEquipment.Remark] as string).Trim();
+
+                    //string repositoryName = Convert.ToString(rowIDSEquipment[TblIDSEquipment.RepositoryID]).Trim();
+
+                    //if (repositoryName != null && repositoryName != "")
+                    //    lock (tableRepositories) {
+                    //        foreach (DataRow rowRepository in tableRepositories.Rows) {
+                    //            if (Convert.ToString(rowRepository[TblIDSRepository.RepositoryID]) == repositoryName) {
+                    //                equipment.Repository = CreateIDSRepository(rowRepository);
+                    //                break;
+                    //            }
+                    //        }
+                    //    }
+
+                    if (repositoryCategories != null
+                        && repositoryCategories.Count > 0
+                        && repositoryCategories.ContainsByRepositoryCatagoryID(equipment.RepositoryCatagoryID)) {
+                        IDSRepositoryCategory repositoryCategory = repositoryCategories[equipment.RepositoryCatagoryID];
+
+                        if (repositoryCategory.Repositories != null
+                            && repositoryCategory.Repositories.Count > 0
+                            && repositoryCategory.Repositories.ContainsByRepositoryID(equipment.RepositoryID)) {
+                            equipment.Repository = repositoryCategory.Repositories[equipment.RepositoryID];
+                        }
+                    }
+
+                    equipment.SubEquipments.Clear();
+                    lock (tableSubEquipment) {
+                        foreach (DataRow rowSubEquipment in tableSubEquipment.Rows) {
+                            if (Convert.ToString(rowSubEquipment[TblIDSSubEquipment.ParentID]).Trim() == equipment.ID)
+                                equipment.SubEquipments.Add(CreateIDSSubEquipment(equipment,
+                                                                                    rowSubEquipment,
+                                                                                    tableCable,
+                                                                                    tableMountingScheme));
+                        }
+                    }
+                } catch (System.Data.DataException ex) {
+                    MessageBoxWinForm.Info("数据访问错误", ex.Message, "");
+                }
+            }
+
+            return equipment;
+        }
+
         #endregion // CreateIDSEquipment
 
         #endregion // 创建设备
@@ -717,7 +803,7 @@ namespace Flute.DataStruct.IDS
             if (tableHierarchy.Rows.Count <= 0) {
                 return repositoryCategories;
             }
-            lock (tableRepository) {
+            lock (tableHierarchy) {
                 foreach (DataRow rowIDSRepositoryCategory in tableHierarchy.Rows) {
                     if (IDSEnumSystemType.RepositoryCatagory == Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Type]).Trim())
                         repositoryCategories.Add(CreateIDSRepositoryCategory(rowIDSRepositoryCategory, tableRepository));
@@ -740,13 +826,13 @@ namespace Flute.DataStruct.IDS
 
             lock (rowIDSRepositoryCategory) {
                 try {
-                    repositoryCategory.ID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.ID]);
-                    repositoryCategory.ParentID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.ParentID]);
+                    repositoryCategory.ID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.ID]).Trim();
+                    repositoryCategory.ParentID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.ParentID]).Trim();
 
-                    repositoryCategory.Code = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Code]);
-                    repositoryCategory.Name = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Name]);
-                    repositoryCategory.Description = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Description]);
-                    repositoryCategory.Phase = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Phase]);
+                    repositoryCategory.RepositoryCatagoryID = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Code]).Trim();
+                    repositoryCategory.Name = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Name]).Trim();
+                    repositoryCategory.Description = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Description]).Trim();
+                    repositoryCategory.Phase = Convert.ToString(rowIDSRepositoryCategory[TblIDSHierarchy.Phase]).Trim();
 
                     repositoryCategory.Repositories.Clear();
 
@@ -809,16 +895,16 @@ namespace Flute.DataStruct.IDS
            
             lock (rowIDSRepository) {
                 try {
-                    repository.ID = Convert.ToString(rowIDSRepository[TblIDSRepository.ID]);
-                    repository.ParentID = Convert.ToString(rowIDSRepository[TblIDSRepository.ParentID]);
+                    repository.ID = Convert.ToString(rowIDSRepository[TblIDSRepository.ID]).Trim();
+                    repository.ParentID = Convert.ToString(rowIDSRepository[TblIDSRepository.ParentID]).Trim();
 
-                    repository.RepositoryID = (rowIDSRepository[TblIDSRepository.RepositoryID] as string);
-                    repository.Type = (rowIDSRepository[TblIDSRepository.Type] as string);
-                    repository.Version = (rowIDSRepository[TblIDSRepository.Version] as string);
-                    repository.Attribute = Convert.ToString(rowIDSRepository[TblIDSRepository.Attribute]);
-                    repository.Name = Convert.ToString(rowIDSRepository[TblIDSRepository.Name]);
-                    repository.Usage = (rowIDSRepository[TblIDSRepository.Usage] as string);
-                    repository.ModelNumber = (rowIDSRepository[TblIDSRepository.ModelNumber] as string);
+                    repository.RepositoryID = Convert.ToString(rowIDSRepository[TblIDSRepository.RepositoryID]).Trim();
+                    repository.Type = Convert.ToString(rowIDSRepository[TblIDSRepository.Type]).Trim();
+                    repository.Version = Convert.ToString(rowIDSRepository[TblIDSRepository.Version]).Trim();
+                    repository.Attribute = Convert.ToString(rowIDSRepository[TblIDSRepository.Attribute]).Trim();
+                    repository.Name = Convert.ToString(rowIDSRepository[TblIDSRepository.Name]).Trim();
+                    repository.Usage = Convert.ToString(rowIDSRepository[TblIDSRepository.Usage]).Trim();
+                    repository.ModelNumber = Convert.ToString(rowIDSRepository[TblIDSRepository.ModelNumber]).Trim();
 
                     Int32 repositoryIDLength = repository.RepositoryID.Length;
 

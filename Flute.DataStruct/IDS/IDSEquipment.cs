@@ -71,7 +71,11 @@ namespace Flute.DataStruct.IDS
         /// <summary>
         /// Gets or Sets 设备类型
         /// </summary>
-        public string EquipmentCatagory { get; set; }
+        public string RepositoryCatagoryID { get; set; }
+        /// <summary>
+        /// Gets or Sets 库序号
+        /// </summary>
+        public string RepositoryID { get; set; }
         /// <summary>
         /// Gets or Sets 规格1
         /// </summary>
@@ -89,14 +93,14 @@ namespace Flute.DataStruct.IDS
         /// </summary>
         public string Remark { get; set; }
 
-        private IDSRepository _equipmentRepository = null;
+        private IDSRepository _repository = null;
         /// <summary>
         /// Gets or Sets 库设备
         /// </summary>
-        public IDSRepository EquipmentRepository
+        public IDSRepository Repository
         {
-            get { return _equipmentRepository; }
-            set { _equipmentRepository = value; }
+            get { return _repository; }
+            set { _repository = value; }
         }
 
         private IDSSubEquipmentCollection _subEquipments = null;
@@ -124,12 +128,12 @@ namespace Flute.DataStruct.IDS
             OriginalTag = "";
             FunctionCode = "";
             Suffix = "";
-            EquipmentCatagory = "";
+            RepositoryCatagoryID = "";
             SpecificInfo1 = "";
             SpecificInfo2 = "";
             Quantity = 0;
             Remark = "";
-            EquipmentRepository = new IDSRepository();
+            Repository = new IDSRepository();
             SubEquipments = new IDSSubEquipmentCollection();
         }
 
@@ -143,7 +147,7 @@ namespace Flute.DataStruct.IDS
         {
             IDSEquipment equipment = MemberwiseClone() as IDSEquipment;
             equipment._subLoop = this.SubLoop;
-            equipment.EquipmentRepository = this.EquipmentRepository.Copy();
+            equipment.Repository = this.Repository.Copy();
             equipment.SubEquipments = this.SubEquipments.Copy();
 
             return equipment;

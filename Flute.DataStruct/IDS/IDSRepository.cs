@@ -511,6 +511,18 @@ namespace Flute.DataStruct.IDS
 
         #endregion // Copy
 
+        public bool ContainsByRepositoryID(string repositoryID)
+        {
+            if (this.Count > 0) {
+                for (int i = 0; i < this.Count; i++) {
+                    if (this[i].RepositoryID == repositoryID)
+                        return true;
+                }
+                return false;
+            } else
+                return false;
+        }
+
         #region .Comparer.
 
         public static int Comparer(IDSRepository x, IDSRepository y)

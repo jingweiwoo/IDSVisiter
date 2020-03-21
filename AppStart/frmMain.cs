@@ -31,9 +31,14 @@ namespace AppStart
     {
         string caption = "IDS Visiter";
 
+        private IDSFrame _idsFrame = null;
+        public IDSFrame IdsFrame { get { return _idsFrame; } set { _idsFrame = value; } }
+
         public frmMain()
         {
             InitializeComponent();
+
+            this._idsFrame = new IDSFrame();
 
             this.Width = 800;
             this.Height = 600;
@@ -263,6 +268,21 @@ namespace AppStart
             DatabaseManager.AddDatabase(new Database(ds, dbConfigInfo, dbProvider), "IDS" + "-" + fileName);
             DatabaseManager.SetCurrentKey("IDS" + "-" + fileName);
 
+            DataSet dataSet = DatabaseManager.Databases[DatabaseManager.CurrentKey].DatabaseSource;
+
+            this.IdsFrame.RepositoryCategories = IDSHelper.CreateIDSRepositoryCategories(dataSet.Tables[TblIDSHierarchy.TblName],
+                                                                                            dataSet.Tables[TblIDSRepository.TblName]);
+            this.IdsFrame.Systems = IDSHelper.CreateIDSSystems(dataSet.Tables[TblIDSLoop.TblName],
+                                                                        dataSet.Tables[TblIDSHierarchy.TblName],
+                                                                        dataSet.Tables[TblIDSEquipment.TblName],
+                                                                        dataSet.Tables[TblIDSSubEquipment.TblName],
+                                                                        dataSet.Tables[TblIDSEquipingLocation.TblName],
+                                                                        dataSet.Tables[TblIDSIOSignal.TblName],
+                                                                        dataSet.Tables[TblIDSRepository.TblName],
+                                                                        dataSet.Tables[TblIDSCable.TblName],
+                                                                        dataSet.Tables[TblIDSMountingScheme.TblName], 
+                                                                        this.IdsFrame.RepositoryCategories);
+
             this.Text = System.IO.Path.GetFileName(fileName) + " -- " + caption;
             Flute.Service.MessageBoxWinForm.Info("成功", "成功载入IDS数据库文件", "路径:\n" + fileName);
         }
@@ -349,19 +369,9 @@ namespace AppStart
                 Flute.Service.MessageBoxWinForm.Error("设备清单导出", "程序还没有载入任何IDS数据库.", "");
                 return;
             }
-
             DataSet dataSet = DatabaseManager.Databases[DatabaseManager.CurrentKey].DatabaseSource;
-            IDSSystemCollection systems = IDSHelper.CreateIDSSystems(dataSet.Tables[TblIDSLoop.TblName],
-                                                                        dataSet.Tables[TblIDSHierarchy.TblName],
-                                                                        dataSet.Tables[TblIDSEquipment.TblName],
-                                                                        dataSet.Tables[TblIDSSubEquipment.TblName],
-                                                                        dataSet.Tables[TblIDSEquipingLocation.TblName],
-                                                                        dataSet.Tables[TblIDSIOSignal.TblName],
-                                                                        dataSet.Tables[TblIDSRepository.TblName],
-                                                                        dataSet.Tables[TblIDSCable.TblName],
-                                                                        dataSet.Tables[TblIDSMountingScheme.TblName]);
 
-            IDrawing azovstalEquipmentList = new AZOVSTALEquipmentList(systems);
+            IDrawing azovstalEquipmentList = new AZOVSTALEquipmentList(this.IdsFrame.Systems);
             azovstalEquipmentList.Export("","", IDSHelper.CreateIDSDesignInfo(dataSet.Tables[TblDesignInfo.TblName]));
 
             return;

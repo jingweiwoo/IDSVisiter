@@ -18,8 +18,8 @@ namespace IDS.Data.Table
         private static string _function = "功能";
         private static string _suffix = "后缀";
         private static string _tag = "实际位号_Ori";
-        private static string _equipmentCatagory = "设备类别";
-        private static string _equipmentRepositoryID = "库序号";
+        private static string _reporitoryCatagoryID = "设备类别";
+        private static string _repositoryID = "库序号";
         private static string _specificeInfo1 = "规格1_Ori";
         private static string _specificeInfo2 = "规格2_Ori";
         private static string _quantity = "数量";
@@ -63,12 +63,12 @@ namespace IDS.Data.Table
         /// <summary>
         /// Gets 设备类型. e.g. TT, TR 等, 在库设备中定义
         /// </summary>
-        public static string EquipmentCatagory { get { return _equipmentCatagory; } }
+        public static string RepositoryCatagoryID { get { return _reporitoryCatagoryID; } }
 
         /// <summary>
         /// Gets 库序号
         /// </summary>
-        public static string EquipmentRepositoryID { get { return _equipmentRepositoryID; } }
+        public static string RepositoryID { get { return _repositoryID; } }
 
         /// <summary>
         /// Gets 规格1_Ori. 在库设备中定义

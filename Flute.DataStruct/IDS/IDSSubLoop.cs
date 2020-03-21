@@ -93,7 +93,7 @@ namespace Flute.DataStruct.IDS
                 lock (this) {
                     if (this.Equipments != null && this.Equipments.Count > 0) {
                         foreach (IDSEquipment equip in this.Equipments) {
-                            if (equip.EquipmentRepository.ExportAllowed == true)
+                            if (equip.Repository.ExportAllowed == true)
                                 exportEquipmentsCount++;
                         }
                     }
